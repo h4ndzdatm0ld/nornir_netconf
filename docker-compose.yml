@@ -1,0 +1,12 @@
+---
+version: '2.1'
+
+services:
+
+    netconf1.no_group:
+        hostname: netconf1.no_group
+        # image: sysrepo/sysrepo-netopeer2:latest
+        image: sysrepo/sysrepo-netopeer2:legacy
+        ports:
+            - "65025:830"
+
