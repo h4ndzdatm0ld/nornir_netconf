@@ -1,18 +1,17 @@
+"""NETCONF get."""
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
 
 
 def netconf_get(task: Task, path: str = "", filter_type: str = "xpath") -> Result:
-    """
-    Get information over Netconf from device
+    """Get information over Netconf from device.
 
     Arguments:
         path: Subtree or xpath to filter
         filter_type: Type of filtering to use, 'xpath' or 'subtree'
 
     Examples:
-
         Simple example::
 
             > nr.run(task=netconf_get)

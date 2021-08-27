@@ -1,18 +1,17 @@
+"""NETCONF edit config."""
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
 
 
 def netconf_edit_config(task: Task, config: str, target: str = "running") -> Result:
-    """
-    Edit configuration of device using Netconf
+    """Edit configuration of device using Netconf.
 
     Arguments:
         config: Configuration snippet to apply
         target: Target configuration store
 
     Examples:
-
         Simple example::
 
             > nr.run(task=netconf_edit_config, config=desired_config)

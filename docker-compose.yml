@@ -1,12 +1,22 @@
 ---
-version: '2.1'
-
+version: "3.8"
 services:
-
-    netconf1.no_group:
-        hostname: netconf1.no_group
-        # image: sysrepo/sysrepo-netopeer2:latest
-        image: sysrepo/sysrepo-netopeer2:legacy
-        ports:
-            - "65025:830"
-
+  netconf1.no_group:
+    container_name: "netconf1.no_group"
+    hostname: "netconf1.no_group"
+    image: "sysrepo/sysrepo-netopeer2:latest"
+    ports:
+      - "65025:830"
+  netconf3.no_group:
+    container_name: "netconf3.no_group"
+    hostname: "netconf3.no_group"
+    image: "sysrepo/sysrepo-netopeer2:latest"
+    ports:
+      - "65024:830"
+  test:
+    container_name: "test"
+    build:
+      context: "."
+      target: "test"
+    depends_on:
+      - "netconf1.no_group"

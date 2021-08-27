@@ -1,14 +1,13 @@
+"""NETCONF capabilities."""
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
 
 
 def netconf_capabilities(task: Task) -> Result:
-    """
-    Gather Netconf capabilities from device
+    """Gather Netconf capabilities from device.
 
     Examples:
-
         Simple example::
 
             > nr.run(task=netconf_capabilities)

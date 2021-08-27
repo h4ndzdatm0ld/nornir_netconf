@@ -1,3 +1,4 @@
+"""NETCONF get config."""
 from typing import Any, Dict
 
 from nornir.core.task import Result, Task
@@ -5,11 +6,8 @@ from nornir.core.task import Result, Task
 from nornir_netconf.plugins.connections import CONNECTION_NAME
 
 
-def netconf_get_config(
-    task: Task, source: str = "running", path: str = "", filter_type: str = "xpath"
-) -> Result:
-    """
-    Get configuration over Netconf from device
+def netconf_get_config(task: Task, source: str = "running", path: str = "", filter_type: str = "xpath") -> Result:
+    """Get configuration over Netconf from device.
 
     Arguments:
         source: Configuration store to collect from
@@ -17,7 +15,6 @@ def netconf_get_config(
         filter_type: Type of filtering to use, 'xpath' or 'subtree'
 
     Examples:
-
         Simple example::
 
             > nr.run(task=netconf_get_config)
@@ -29,13 +26,13 @@ def netconf_get_config(
 
         Passing options using ``xpath``::
 
-            > xpath = /devices/device"
+            > xpath = "/devices/device"
             > nr.run(task=netconf_get_config,
             >        path=xpath)
 
         Passing options using ``subtree``::
 
-            > xpath = /devices/device"
+            > subtree = "<interfaces></interface>"
             > nr.run(task=netconf_get_config,
             >        filter_type="subtree",
             >        path=subtree)
