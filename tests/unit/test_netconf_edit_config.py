@@ -21,7 +21,7 @@ CONFIG = """
 
 
 def test_netconf_edit_config(nornir):
-    nr = nornir.filter(name="netconf1.no_group")
+    nr = nornir.filter(name="netconf1")
     assert nr.inventory.hosts
 
     result = nr.run(netconf_get_config)
@@ -30,9 +30,9 @@ def test_netconf_edit_config(nornir):
         assert "nornir" not in v.result
 
     result = nr.run(netconf_edit_config, config=CONFIG.format(operation="merge"), target="candidate",)
-    print(result["netconf1.no_group"].result)
+    print(result["netconf1"].result)
     # assert not result.failed
-    # assert "<nc:ok/>" in result["netconf1.no_group"].result
+    # assert "<nc:ok/>" in result["netconf1"].result
 
     # result = nr.run(netconf_get_config, source="candidate")
 

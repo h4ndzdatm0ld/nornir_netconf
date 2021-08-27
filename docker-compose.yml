@@ -1,22 +1,22 @@
 ---
 version: "3.8"
 services:
-  netconf1.no_group:
-    container_name: "netconf1.no_group"
-    hostname: "netconf1.no_group"
+  netconf1:
+    container_name: "netconf1"
+    hostname: "netconf1"
     image: "sysrepo/sysrepo-netopeer2:latest"
     ports:
-      - "65025:830"
-  netconf3.no_group:
-    container_name: "netconf3.no_group"
-    hostname: "netconf3.no_group"
+      - "830:830"
+  netconf3:
+    container_name: "netconf3"
+    hostname: "netconf3"
     image: "sysrepo/sysrepo-netopeer2:latest"
     ports:
-      - "65024:830"
+      - "830:830"
   test:
     container_name: "test"
     build:
       context: "."
       target: "test"
     depends_on:
-      - "netconf1.no_group"
+      - "netconf1"

@@ -2,7 +2,7 @@ from nornir_netconf.plugins.tasks import netconf_capabilities
 
 
 def test_netconf_capabilities(nornir):
-    nr = nornir.filter(name="netconf1.no_group")
+    nr = nornir.filter(name="netconf1")
     assert nr.inventory.hosts
 
     result = nr.run(netconf_capabilities)

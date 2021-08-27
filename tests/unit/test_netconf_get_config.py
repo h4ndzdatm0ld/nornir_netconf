@@ -2,7 +2,7 @@ from nornir_netconf.plugins.tasks import netconf_get_config
 
 
 def test_netconf_get_config(nornir):
-    nr = nornir.filter(name="netconf3.no_group")
+    nr = nornir.filter(name="netconf3")
     assert nr.inventory.hosts
 
     result = nr.run(netconf_get_config, source="startup")
@@ -13,7 +13,7 @@ def test_netconf_get_config(nornir):
 
 
 def test_netconf_get_config_subtree(nornir):
-    nr = nornir.filter(name="netconf3.no_group")
+    nr = nornir.filter(name="netconf3")
     assert nr.inventory.hosts
 
     result = nr.run(
