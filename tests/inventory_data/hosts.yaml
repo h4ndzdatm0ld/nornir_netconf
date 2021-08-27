@@ -1,15 +1,13 @@
 ---
 netconf1:
-  hostname: "localhost"
-  port: 830
+  hostname: "netconf1"
   groups:
     - "netconf_docker"
 netconf2:
   hostname: "localhost"
   password: "netconf"
-  port: 830
   username: "netconf"
 netconf3:
-  hostname: "localhost"
+  hostname: "netconf3"
   groups:
     - "netconf_docker"

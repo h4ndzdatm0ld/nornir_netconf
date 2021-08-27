@@ -15,8 +15,10 @@ services:
       - "830:830"
   test:
     container_name: "test"
+    hostname: "test"
     build:
       context: "."
       target: "test"
     depends_on:
       - "netconf1"
+      - "netconf3"

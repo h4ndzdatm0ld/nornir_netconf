@@ -30,7 +30,6 @@ def test_netconf_edit_config(nornir):
         assert "nornir" not in v.result
 
     result = nr.run(netconf_edit_config, config=CONFIG.format(operation="merge"), target="candidate",)
-    print(result["netconf1"].result)
     # assert not result.failed
     # assert "<nc:ok/>" in result["netconf1"].result
 

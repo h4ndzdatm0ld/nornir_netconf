@@ -36,7 +36,7 @@ RUN echo 'Running Flake8' && \
     echo 'Running Bandit' && \
     bandit --recursive ./ --configfile .bandit.yml
 
-RUN pytest --cov nornir_netconf --color yes -vvv tests
+# RUN pytest --cov nornir_netconf --color yes -vvv tests
 
 # Run full test suite including integration
 ENTRYPOINT ["pytest"]

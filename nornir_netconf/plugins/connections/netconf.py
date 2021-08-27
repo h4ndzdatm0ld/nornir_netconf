@@ -92,7 +92,7 @@ class Netconf:
         username: Optional[str],
         password: Optional[str],
         port: Optional[int],
-        platform: Optional[str],
+        platform: Optional[str],  # pylint: disable=W0613
         extras: Optional[Dict[str, Any]] = None,
         configuration: Optional[Config] = None,
     ) -> None:
@@ -104,7 +104,7 @@ class Netconf:
             "username": username,
             "password": password,
             "port": port or 830,
-            "device_params": {"name": platform},
+            # "device_params": {"name": platform},
         }
 
         if "ssh_config" not in extras:
