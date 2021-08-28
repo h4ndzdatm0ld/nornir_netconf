@@ -32,7 +32,7 @@ jobs:
           echo 'Running pydocstyle' && \
           poetry run pydocstyle . && \
           echo 'Running Bandit' && \
-          poetry run bandit --recursive ./ --configfile .bandit.yml \
+          poetry run bandit --recursive ./ --configfile .bandit.yml && \
           echo 'Running MyPy' && \
           poetry run mypy .
 
@@ -60,3 +60,5 @@ jobs:
 
       - name: Run pytest
         run: poetry run pytest
+
+    needs: [ linters ]
