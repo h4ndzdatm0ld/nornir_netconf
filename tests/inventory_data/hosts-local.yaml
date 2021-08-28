@@ -1,0 +1,11 @@
+---
+netconf1:
+  hostname: "localhost"
+  port: 1830
+  groups:
+    - "netconf_docker"
+netconf2:
+  hostname: "netconf2"
+  port: 1830
+  groups:
+    - "netconf_docker"

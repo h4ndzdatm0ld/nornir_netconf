@@ -6,13 +6,9 @@ services:
     hostname: "netconf1"
     image: "sysrepo/sysrepo-netopeer2:latest"
     ports:
-      - "830:830"
-  netconf3:
-    container_name: "netconf3"
-    hostname: "netconf3"
-    image: "sysrepo/sysrepo-netopeer2:latest"
-    ports:
-      - "830:830"
+      - "1830:830"
+    environment:
+      - "NACM_RECOVERY_UID=0"
   test:
     container_name: "test"
     hostname: "test"
@@ -21,4 +17,3 @@ services:
       target: "test"
     depends_on:
       - "netconf1"
-      - "netconf3"

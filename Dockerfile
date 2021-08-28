@@ -34,7 +34,9 @@ RUN echo 'Running Flake8' && \
     echo 'Running pydocstyle' && \
     pydocstyle . && \
     echo 'Running Bandit' && \
-    bandit --recursive ./ --configfile .bandit.yml
+    bandit --recursive ./ --configfile .bandit.yml  && \
+    echo 'Running MyPy' && \
+    mypy .
 
 # RUN pytest --cov nornir_netconf --color yes -vvv tests
 
