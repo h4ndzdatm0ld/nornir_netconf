@@ -57,3 +57,6 @@ exclude = '''
   )/
 )
 '''
+
+[mypy-nornir_netconf]
+ignore_missing_imports = true
