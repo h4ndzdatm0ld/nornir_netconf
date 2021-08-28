@@ -4,6 +4,7 @@ version = "1.0.0"
 description = "Netconf plugins for nornir using ncclient"
 authors = ["Patrick Ogenstad <patrick@ogenstad.com>"]
 license = "Apache-2.0"
+readme = "README.md"
 
 [tool.poetry.plugins."nornir.plugins.connections"]
 "netconf" = "nornir_netconf.plugins.connections:Netconf"
@@ -16,7 +17,6 @@ nornir-utils = "^0.1.2"
 
 [tool.poetry.dev-dependencies]
 black = { version = "19.10b0", allow-prereleases = true }
-mypy = "*"
 pylama = "^7.7.1"
 pytest = "*"
 sphinx = "^3.0.3"
@@ -30,6 +30,7 @@ coverage = "^5.5"
 yamllint = "^1.26.3"
 nornir-utils = "^0.1.2"
 docker = "^5.0.0"
+mypy = "^0.910"
 
 
 [build-system]
@@ -57,6 +58,3 @@ exclude = '''
   )/
 )
 '''
-
-[mypy-nornir_netconf]
-ignore_missing_imports = true
