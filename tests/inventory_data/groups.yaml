@@ -1,0 +1,12 @@
+---
+netconf_docker:
+  password: "netconf"
+  username: "netconf"
+  port: 830
+  connection_options:
+    netconf:
+      extras:
+        allow_agent: false
+        hostkey_verify: false
+        look_for_keys: false
+        ssh_config: null

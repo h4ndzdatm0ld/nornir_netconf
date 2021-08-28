@@ -3,6 +3,7 @@ import os
 from nornir import InitNornir
 import pytest
 from nornir.core.state import GlobalState
+import docker
 
 global_data = GlobalState(dry_run=True)
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -12,13 +13,26 @@ nornir_logfile = os.environ.get("NORNIR_LOG", False)
 
 
 @pytest.fixture(scope="session", autouse=True)
-def nornir():
+def get_test_env():
+    """Determine if env is local or if tests are executing within a container."""
+    try:
+        client = docker.from_env()
+        # Create a list to work with.
+        container_names = [container.name for container in client.containers.list()]
+        if "netconf1" in container_names:
+            return "local"
+    except docker.errors.DockerException:
+        return "container"
+
+
+@pytest.fixture(scope="session", autouse=True)
+def nornir(get_test_env):
     """Initializes nornir"""
     nr_nr = InitNornir(
         inventory={
             "plugin": "SimpleInventory",
             "options": {
-                "host_file": f"{DIR_PATH}/inventory_data/hosts.yaml",
+                "host_file": f"{DIR_PATH}/inventory_data/hosts-{get_test_env}.yaml",
                 "group_file": f"{DIR_PATH}/inventory_data/groups.yaml",
                 "defaults_file": f"{DIR_PATH}/inventory_data/defaults.yaml",
             },

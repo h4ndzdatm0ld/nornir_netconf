@@ -1,0 +1,9 @@
+---
+netconf1:
+  hostname: "netconf1"
+  groups:
+    - "netconf_docker"
+netconf2:
+  hostname: "localhost"
+  password: "netconf"
+  username: "netconf"
