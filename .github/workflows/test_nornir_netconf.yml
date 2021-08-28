@@ -56,7 +56,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install poetry
-          poetry install --no-interaction --no-dev
+          poetry install --no-interaction
 
       - name: Run pytest
         run: poetry run pytest
