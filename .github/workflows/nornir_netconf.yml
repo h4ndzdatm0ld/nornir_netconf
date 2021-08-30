@@ -1,5 +1,5 @@
 ---
-name: test_nornir_netconf
+name: nornir_netconf
 
 on:
   push:
