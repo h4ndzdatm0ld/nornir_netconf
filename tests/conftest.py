@@ -1,9 +1,10 @@
 """Conftest for nornir_netconf UnitTests."""
 import os
-from nornir import InitNornir
-import pytest
-from nornir.core.state import GlobalState
+
 import docker
+import pytest
+from nornir import InitNornir
+from nornir.core.state import GlobalState
 
 global_data = GlobalState(dry_run=True)
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))

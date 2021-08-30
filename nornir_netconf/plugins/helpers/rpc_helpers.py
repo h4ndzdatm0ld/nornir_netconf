@@ -1,5 +1,6 @@
 """Helper to extract info from RPC reply."""
 from typing import Dict
+
 from ncclient.operations.rpc import RPCReply
 
 

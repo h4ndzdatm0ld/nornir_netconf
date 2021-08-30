@@ -3,9 +3,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 from ncclient import manager
-
 from nornir.core.configuration import Config
-
 
 CONNECTION_NAME = "netconf"
 
