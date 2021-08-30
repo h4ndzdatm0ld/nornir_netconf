@@ -58,7 +58,13 @@ jobs:
           pip install poetry
           poetry install --no-interaction
 
-      - name: Run pytest
-        run: poetry run pytest
+      - name: Test with pytest
+        run: |
+          poetry run pytest --cov=nornir_netconf --cov-report=xml -vv
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
     needs: [ linters ]
