@@ -26,14 +26,16 @@ def netconf_lock(task: Task, datastore: str) -> Result:
         Result object with the following attributes set:
           * unpack_rpc (``dict``):
     """
-    failed = False
-    result = {}
+    result = {"failed": False, "result": {}}
+
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
 
+    # Wrapping in try/block as it's possible the lock doesn't work at times.
+    # However, the keys stay true to match "get_result" helper function.
     try:
-        result = unpack_rpc(manager.lock(target=datastore))
+        result["result"] = unpack_rpc(manager.lock(target=datastore))
     except RPCError as err_ex:
-        failed = True
-        result["error"] = err_ex
+        result["failed"] = True
+        result["result"]["error"] = err_ex
 
-    return Result(host=task.host, failed=failed, result=result)
+    return Result(host=task.host, **result)

@@ -16,6 +16,7 @@ python = ">=3.6.1,<4.0"
 ncclient = "^0.6.12"
 nornir = "^3.1.1"
 nornir-utils = "^0.1.2"
+xmltodict = "^0.12.0"
 
 [tool.poetry.dev-dependencies]
 black = { version = "19.10b0", allow-prereleases = true }
