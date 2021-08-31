@@ -20,23 +20,35 @@ def xml_to_dict(rpc: RPCReply) -> Dict:
         return {"error": f"Unable to parse XML to Dict. {err_ex}."}
 
 
-def unpack_rpc(rpc: RPCReply) -> Dict:
+def unpack_rpc(rpc: RPCReply, xmldict: bool = False) -> Dict:
     """Extract RPC attrs of interest.
 
     Args:
         rpc (RPCReply): RPC Reply from Netconf Server
+        xmldict (boolean): convert xml to dict
 
     Return:
         Dict: "RPC Attributes"
     """
-    return {"error": rpc.error, "errors": rpc.errors, "ok": rpc.ok, "rpc": rpc, "xml_dict": xml_to_dict(rpc)}
+    result = {
+        "error": rpc.error,
+        "errors": rpc.errors,
+        "ok": rpc.ok,
+        "rpc": rpc,
+    }
+
+    if xmldict:
+        result["xml_dict"] = xml_to_dict(rpc)
+
+    return result
 
 
-def get_result(rpc: Union[RPCReply, Dict]) -> Dict:
+def get_result(rpc: Union[RPCReply, Dict], xmldict: bool = False) -> Dict:
     """Check if RPC reply is valid and unpack.
 
     Args:
         rpc (RPCReply): RPC Reply from Netconf Server
+        xmldict (boolean): convert xml to dict
 
     Returns:
         Dict: Results dict to expand in Result object
@@ -48,14 +60,16 @@ def get_result(rpc: Union[RPCReply, Dict]) -> Dict:
 
     try:
         if rpc.ok:
-            return {"failed": False, "result": unpack_rpc(rpc)}
+            return {"failed": False, "result": unpack_rpc(rpc, xmldict)}
     except AttributeError:
         pass
 
     try:
         if rpc.data_xml:
-            result["xml_dict"] = xml_to_dict(rpc)
+            result["rpc"] = rpc
             result["ok"] = True
+            if xmldict:
+                result["xml_dict"] = xml_to_dict(rpc)
             return {"failed": False, "result": result}
     except AttributeError:
         pass
