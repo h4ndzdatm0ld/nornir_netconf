@@ -41,6 +41,14 @@ def get_result(rpc: RPCReply) -> Dict:
     Returns:
         Dict: Results dict to expand in Result object
     """
-    if rpc.ok:
-        return {"failed": False, "result": unpack_rpc(rpc)}
+    try:
+        if rpc.ok:
+            return {"failed": False, "result": unpack_rpc(rpc)}
+    except AttributeError:
+        try:
+            if rpc.data_xml:
+                result = {"error": {}, "errors": {}, "ok": {}, "rpc": rpc, "xml_dict": xml_to_dict(rpc)}
+                return {"failed": False, "result": result}
+        except AttributeError:
+            return {"failed": True, "result": {}}
     return {"failed": True, "result": {}}

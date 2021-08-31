@@ -9,16 +9,17 @@ netconf_docker:
         allow_agent: false
         hostkey_verify: false
         look_for_keys: false
-        ssh_config: null
-
-bad_group:
-  password: "netconf"
+sros:
   username: "netconf"
+  password: "NCadmin123"
   port: 830
+  platform: "sros"
   connection_options:
     netconf:
       extras:
-        allow_agent: false
         hostkey_verify: false
+        timeout: 300
+        allow_agent: false
         look_for_keys: false
-        ssh_config: null
+        # device_params:
+        #   name: 'sros'

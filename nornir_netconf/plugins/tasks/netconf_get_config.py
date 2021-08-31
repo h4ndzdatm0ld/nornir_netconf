@@ -50,5 +50,4 @@ def netconf_get_config(task: Task, source: str = "running", path: str = "", filt
         parameters["filter"] = (filter_type, path)
 
     result = manager.get_config(**parameters)
-
     return Result(host=task.host, **get_result(result))

@@ -9,8 +9,8 @@ netconf2:
   port: 1830
   groups:
     - "netconf_docker"
-netconf3:
-  hostname: "netconf2"
-  port: 1830
+nokia_rtr:
+  hostname: "192.168.1.205"
+  port: 830
   groups:
-    - "bad_group"
+    - "sros"

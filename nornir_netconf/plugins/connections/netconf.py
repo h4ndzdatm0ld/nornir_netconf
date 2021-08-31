@@ -1,9 +1,10 @@
 """Netconf Connection Plugin."""
-from pathlib import Path
 from typing import Any, Dict, Optional
 
 from ncclient import manager
 from nornir.core.configuration import Config
+
+from nornir_netconf.plugins.helpers import check_file
 
 CONNECTION_NAME = "netconf"
 
@@ -90,7 +91,7 @@ class Netconf:
         username: Optional[str],
         password: Optional[str],
         port: Optional[int],
-        platform: Optional[str],  # pylint: disable=W0613
+        platform: Optional[str],
         extras: Optional[Dict[str, Any]] = None,
         configuration: Optional[Config] = None,
     ) -> None:
@@ -102,13 +103,14 @@ class Netconf:
             "username": username,
             "password": password,
             "port": port or 830,
-            # "device_params": {"name": platform},
         }
 
-        if not extras.get("ssh_config"):
-            ssh_config_file = Path(configuration.ssh.config_file)
-            if ssh_config_file.exists():
-                parameters["ssh_config"] = ssh_config_file
+        if platform:
+            parameters["device_params"] = {"name": platform}
+
+        ssh_config_file = extras.get("ssh_config", configuration.ssh.config_file)
+        if check_file(ssh_config_file):
+            parameters["ssh_config"] = ssh_config_file
 
         parameters.update(extras)
         self.connection = manager.connect_ssh(**parameters)  # pylint: disable=W0201

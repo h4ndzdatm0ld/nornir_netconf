@@ -1,12 +1,26 @@
 """Test Helper functions."""
-from nornir_netconf.plugins.helpers import get_result
 from unittest import mock
+
 import ncclient
 
+from nornir_netconf.plugins.helpers import get_result
 
-@mock.patch.object(ncclient.operations.rpc, "RPCReply")
-def test_get_result(rpc_reply):
+
+@mock.patch.object(ncclient.xml_, "NCElement")
+def test_get_result_rpc_ok(nce_element):
     """Test get result failed."""
-    rpc_reply.ok = False
-    result = get_result(rpc_reply)
-    assert result == {"failed": True, "result": {}}
+    nce_element.ok = True
+
+    result = get_result(nce_element)
+    assert not result["failed"]
+    assert result["result"]["ok"]
+
+
+@mock.patch.object(ncclient.xml_, "NCElement")
+def test_get_result(nce_element):
+    """Test get result failed."""
+    nce_element.ok = False
+    nce_element.data_xml = False
+    result = get_result(nce_element)
+    assert result["failed"]
+    assert not result["result"]
