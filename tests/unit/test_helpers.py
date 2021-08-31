@@ -8,9 +8,9 @@ from nornir_netconf.plugins.helpers import get_result
 
 
 def test_get_result_attr_error():
-    """Test get rresult - attr error."""
+    """Test get result - attr error."""
 
-    result = get_result("Prometheus")
+    result = get_result({"name": "prometheus"})
     assert result["failed"]
 
 
@@ -32,7 +32,7 @@ def test_get_result_failed(nce_element):
     result = get_result(nce_element)
     assert result["failed"]
     assert not result["result"]["ok"]
-    assert result["result"]["errors"] == "Unable to find 'ok' or data_xml in response object."
+    assert not result["result"]["errors"]
 
 
 @mock.patch.object(ncclient.xml_, "NCElement")

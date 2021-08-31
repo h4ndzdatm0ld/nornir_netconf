@@ -1,5 +1,5 @@
 """Helper to extract info from RPC reply."""
-from typing import Dict
+from typing import Dict, Union
 
 import xmltodict
 from ncclient.operations.rpc import RPCReply
@@ -32,7 +32,7 @@ def unpack_rpc(rpc: RPCReply) -> Dict:
     return {"error": rpc.error, "errors": rpc.errors, "ok": rpc.ok, "rpc": rpc, "xml_dict": xml_to_dict(rpc)}
 
 
-def get_result(rpc: RPCReply) -> Dict:
+def get_result(rpc: Union[RPCReply, Dict]) -> Dict:
     """Check if RPC reply is valid and unpack.
 
     Args:
@@ -44,14 +44,7 @@ def get_result(rpc: RPCReply) -> Dict:
     # These try blocks are to handle RPCReply that vary. Sometimes, the 'ok' response
     # could be missing as well as the 'data_xml'. All conform to the standard 'get_result'
     # dictionary expected by the user.
-
-    result = {
-        "error": {},
-        "errors": {},
-        "ok": {},
-        "rpc": {},
-        "xml_dict": {},
-    }
+    result = {"ok": {}, "error": {}, "errors": {}}
 
     try:
         if rpc.ok:
@@ -67,6 +60,13 @@ def get_result(rpc: RPCReply) -> Dict:
     except AttributeError:
         pass
 
-    result["errors"] = "Unable to find 'ok' or data_xml in response object."
-    result["ok"] = False
+    # Safe to say, at this point the replies are not RPC or NCElements.
+    # So we can take advantage of passing dictionaries in and safe gets.
+    if isinstance(rpc, Dict):
+        result["error"] = rpc.get("error", {})
+        result["errors"] = rpc.get("errors", "Unable to find 'ok' or data_xml in response object.")
+        result["ok"] = rpc.get("ok", False)
+        result["rpc"] = rpc.get("rpc", {})
+        result["xml_dict"] = rpc.get("xml_dict", {})
+
     return {"failed": True, "result": result}

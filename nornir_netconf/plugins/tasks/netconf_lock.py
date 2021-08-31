@@ -3,7 +3,7 @@ from ncclient.operations.rpc import RPCError
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
-from nornir_netconf.plugins.helpers import unpack_rpc
+from nornir_netconf.plugins.helpers import get_result
 
 
 def netconf_lock(task: Task, datastore: str) -> Result:
@@ -32,11 +32,18 @@ def netconf_lock(task: Task, datastore: str) -> Result:
 
     # Wrapping in try/block as it's possible the lock doesn't work at times.
     # However, the keys stay true to match "get_result" helper function.
-    try:
-        result["result"] = unpack_rpc(manager.lock(target=datastore))
-        result["manager"] = manager
-    except RPCError as err_ex:
-        result["failed"] = True
-        result["result"]["error"] = err_ex
 
-    return Result(host=task.host, **result)
+    try:
+        result = manager.lock(target=datastore)
+    except RPCError as err_ex:
+        result["error"] = err_ex
+        result["failed"] = True
+
+    # Return the manager as part of the result. This can be used to pass into
+    # other functions, if a global lock is in place. Typically, you can extract
+    # session, session_id and use it.
+
+    result_dict = get_result(result)
+    result_dict["result"]["manager"] = manager
+
+    return Result(host=task.host, **result_dict)

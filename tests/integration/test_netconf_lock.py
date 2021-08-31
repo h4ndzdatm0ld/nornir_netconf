@@ -5,9 +5,9 @@ def test_netconf_lock(nornir):
     """Test Netconf Lock."""
     nr = nornir.filter(name="netconf1")
     result = nr.run(netconf_lock, datastore="candidate")
-
     assert result["netconf1"].result["ok"]
     assert not result["netconf1"].result["errors"]
+    assert result["netconf1"].result["manager"]
 
 
 def test_netconf_lock_failed(nornir):
