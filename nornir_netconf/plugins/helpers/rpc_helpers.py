@@ -41,14 +41,32 @@ def get_result(rpc: RPCReply) -> Dict:
     Returns:
         Dict: Results dict to expand in Result object
     """
+    # These try blocks are to handle RPCReply that vary. Sometimes, the 'ok' response
+    # could be missing as well as the 'data_xml'. All conform to the standard 'get_result'
+    # dictionary expected by the user.
+
+    result = {
+        "error": {},
+        "errors": {},
+        "ok": {},
+        "rpc": {},
+        "xml_dict": {},
+    }
+
     try:
         if rpc.ok:
             return {"failed": False, "result": unpack_rpc(rpc)}
     except AttributeError:
-        try:
-            if rpc.data_xml:
-                result = {"error": {}, "errors": {}, "ok": {}, "rpc": rpc, "xml_dict": xml_to_dict(rpc)}
-                return {"failed": False, "result": result}
-        except AttributeError:
-            return {"failed": True, "result": {}}
-    return {"failed": True, "result": {}}
+        pass
+
+    try:
+        if rpc.data_xml:
+            result["xml_dict"] = xml_to_dict(rpc)
+            result["ok"] = True
+            return {"failed": False, "result": result}
+    except AttributeError:
+        pass
+
+    result["errors"] = "Unable to find 'ok' or data_xml in response object."
+    result["ok"] = False
+    return {"failed": True, "result": result}

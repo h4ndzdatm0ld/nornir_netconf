@@ -2,6 +2,7 @@
 netconf_docker:
   password: "netconf"
   username: "netconf"
+  platform: "default"
   port: 830
   connection_options:
     netconf:
@@ -9,6 +10,32 @@ netconf_docker:
         allow_agent: false
         hostkey_verify: false
         look_for_keys: false
+
+netconf_docker_ssh:
+  password: "netconf"
+  username: "netconf"
+  port: 830
+  connection_options:
+    netconf:
+      extras:
+        allow_agent: false
+        hostkey_verify: false
+        look_for_keys: false
+        ssh_config: "tests/inventory_data/ssh_config"
+
+netconf_docker_nossh:
+  password: "netconf"
+  username: "netconf"
+  platform: "default"
+  port: 830
+  connection_options:
+    netconf:
+      extras:
+        allow_agent: false
+        hostkey_verify: false
+        look_for_keys: false
+        ssh_config: null
+
 sros:
   username: "netconf"
   password: "NCadmin123"

@@ -33,3 +33,17 @@ def test_netconf_connection_ssh_config_exists(nornir):
 
     assert isinstance(result["netconf1"].result, list)
     assert "urn:ietf:params:netconf:capability:candidate:1.0" in result["netconf1"].result
+
+
+def test_netconf_connection_ssh_keyfile(nornir):
+    """Test netconf connection - with shh config file."""
+    nr = nornir.filter(name="netconf3")
+    result = nr.run(netconf_capabilities)
+    assert isinstance(result["netconf3"].result, list)
+
+
+def test_netconf_connection_ssh_keyfile_null(nornir):
+    """Test netconf connection - with null shh config file."""
+    nr = nornir.filter(name="netconf4")
+    result = nr.run(netconf_capabilities)
+    assert isinstance(result["netconf4"].result, list)

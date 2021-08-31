@@ -27,7 +27,5 @@ def netconf_edit_config(task: Task, config: str, target: str = "running", manage
     """
     if not manager:
         manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
-
     result = manager.edit_config(config, target=target)
-
     return Result(host=task.host, **get_result(result))

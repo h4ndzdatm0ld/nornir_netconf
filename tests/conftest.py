@@ -10,7 +10,7 @@ from nornir.core.state import GlobalState
 # These tests will connect to local lab environment to validate actual responses
 # from locallly hosted network devices.
 skip_integration_tests = pytest.mark.skipif(
-    os.environ.get("INTEGRATION_TESTS", True), reason="Do not run integration tests"
+    os.environ.get("SKIP_INTEGRATION_TESTS", True), reason="Do not run integration tests"
 )
 
 global_data = GlobalState(dry_run=True)
