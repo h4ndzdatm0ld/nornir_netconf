@@ -9,3 +9,8 @@ netconf2:
   port: 1830
   groups:
     - "netconf_docker"
+netconf3:
+  hostname: "netconf2"
+  port: 1830
+  groups:
+    - "bad_group"

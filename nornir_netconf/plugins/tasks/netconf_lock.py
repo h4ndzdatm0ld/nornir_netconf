@@ -34,6 +34,7 @@ def netconf_lock(task: Task, datastore: str) -> Result:
     # However, the keys stay true to match "get_result" helper function.
     try:
         result["result"] = unpack_rpc(manager.lock(target=datastore))
+        result["manager"] = manager
     except RPCError as err_ex:
         result["failed"] = True
         result["result"]["error"] = err_ex

@@ -36,7 +36,7 @@ class Netconf:
         >>>            "hosts": {
         >>>                "rtr00": {
         >>>                    "hostname": "localhost",
-        >>>                   "username": "admin",
+        >>>                    "username": "admin",
         >>>                    "password": "admin",
         >>>                    "port": 65030,
         >>>                    "platform": "whatever",
@@ -105,13 +105,12 @@ class Netconf:
             # "device_params": {"name": platform},
         }
 
-        if "ssh_config" not in extras:
+        if not extras.get("ssh_config"):
             ssh_config_file = Path(configuration.ssh.config_file)
             if ssh_config_file.exists():
                 parameters["ssh_config"] = ssh_config_file
 
         parameters.update(extras)
-
         self.connection = manager.connect_ssh(**parameters)  # pylint: disable=W0201
 
     def close(self) -> None:
