@@ -4,6 +4,7 @@ from typing import Any, Dict
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
+from nornir_netconf.plugins.helpers.rpc_helpers import get_result
 
 
 def netconf_get_config(task: Task, source: str = "running", path: str = "", filter_type: str = "xpath") -> Result:
@@ -50,4 +51,4 @@ def netconf_get_config(task: Task, source: str = "running", path: str = "", filt
 
     result = manager.get_config(**parameters)
 
-    return Result(host=task.host, result=result.data_xml)
+    return Result(host=task.host, **get_result(result))

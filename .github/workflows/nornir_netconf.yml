@@ -36,7 +36,7 @@ jobs:
           echo 'Running MyPy' && \
           poetry run mypy .
 
-  pytest:
+  test:
     name: Testing on Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
     strategy:

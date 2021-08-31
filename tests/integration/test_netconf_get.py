@@ -1,23 +1,20 @@
+"""Test NETCONF get."""
 from nornir_netconf.plugins.tasks import netconf_get
 
 
 def test_netconf_get(nornir):
+    """Test NETCONF get operation."""
     nr = nornir.filter(name="netconf1")
-    assert nr.inventory.hosts
-
     result = nr.run(netconf_get)
 
-    assert result.items()
-    for _, v in result.items():
-        assert "<?xml version=" in v.result
+    assert result["netconf1"].result["ok"]
+    assert "netconf-start-time" in result["netconf1"].result["xml_dict"]["data"]["netconf-state"]["statistics"].keys()
 
 
 def test_netconf_get_subtree(nornir):
+    """Test NETCONF get with subtree."""
     nr = nornir.filter(name="netconf1")
-    assert nr.inventory.hosts
 
     result = nr.run(netconf_get, path="<netconf-server><listen></listen></netconf-server>", filter_type="subtree",)
-
-    assert result.items()
-    for _, v in result.items():
-        assert "<listen" in v.result
+    assert result["netconf1"].result["ok"]
+    assert "netconf-server" in result["netconf1"].result["xml_dict"]["data"].keys()

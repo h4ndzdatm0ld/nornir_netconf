@@ -2,6 +2,7 @@
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
+from nornir_netconf.plugins.helpers.rpc_helpers import get_result
 
 
 def netconf_edit_config(task: Task, config: str, target: str = "running") -> Result:
@@ -24,4 +25,4 @@ def netconf_edit_config(task: Task, config: str, target: str = "running") -> Res
 
     result = manager.edit_config(config, target=target)
 
-    return Result(host=task.host, result=result.xml)
+    return Result(host=task.host, **get_result(result))
