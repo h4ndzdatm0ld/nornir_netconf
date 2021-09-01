@@ -1,5 +1,4 @@
 """Test Helper functions."""
-from typing import OrderedDict
 from unittest import mock
 
 import ncclient
@@ -52,7 +51,6 @@ def test_get_result_rpc_no_ok_but_data_xml(nce_element):
     assert not result["result"]["error"]
     assert not result["result"]["errors"]
     assert "configure" in result["result"]["xml_dict"].keys()
-    assert isinstance(result["result"]["xml_dict"], OrderedDict)
 
 
 @mock.patch.object(ncclient.xml_, "NCElement")
