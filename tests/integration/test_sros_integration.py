@@ -29,7 +29,7 @@ CONFIG = """
 
 
 @skip_integration_tests
-def test_netconf_edit_config(nornir):
+def test_sros_netconf_edit_config(nornir):
     """Test NETCONF edit-config."""
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_edit_config, config=CONFIG, target="candidate")
@@ -37,7 +37,7 @@ def test_netconf_edit_config(nornir):
 
 
 @skip_integration_tests
-def test_netconf_capabilities(nornir):
+def test_sros_netconf_capabilities(nornir):
     """Test NETCONF Capabilities."""
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_capabilities)
@@ -45,7 +45,7 @@ def test_netconf_capabilities(nornir):
 
 
 @skip_integration_tests
-def test_netconf_get_config_sros(nornir):
+def test_sros_netconf_get_config(nornir):
     """Test get config."""
     nr = nornir.filter(name=DEVICE_NAME)
 
@@ -68,7 +68,7 @@ def test_netconf_get_config_sros(nornir):
 
 
 @skip_integration_tests
-def test_netconf_get(nornir):
+def test_sros_netconf_get(nornir):
     """Test NETCONF get operation."""
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_get)
@@ -77,7 +77,7 @@ def test_netconf_get(nornir):
 
 
 @skip_integration_tests
-def test_netconf_lock(nornir):
+def test_sros_netconf_lock(nornir):
     """Test Netconf Lock."""
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_lock, datastore="candidate")

@@ -4,6 +4,7 @@ from unittest import mock
 import ncclient
 
 from nornir_netconf.plugins.helpers import get_result, xml_to_dict
+from nornir_utils.plugins.functions import print_result
 
 
 def test_xml_to_dict_exception():
@@ -45,12 +46,12 @@ def test_get_result_rpc_no_ok_but_data_xml(nce_element):
     """Test get result failed."""
     nce_element.ok = False
     nce_element.data_xml = "<configure></configure>"
-
     result = get_result(nce_element, xmldict=True)
     assert not result["failed"]
     assert not result["result"]["error"]
     assert not result["result"]["errors"]
     assert "configure" in result["result"]["xml_dict"].keys()
+    print_result(result)
 
 
 @mock.patch.object(ncclient.xml_, "NCElement")
@@ -63,3 +64,20 @@ def test_get_result_rpc_no_xml_dict(nce_element):
     assert not result["failed"]
     assert not result["result"]["error"]
     assert not result["result"]["errors"]
+
+
+class FakeRpcObject:
+    """Test Class."""
+
+    def __init__(self):
+        self.ok = False
+        self.error = ""
+        self.errors = ""
+
+
+def test_get_result_rpc_no_xml_dict_exception():
+    """Test get result failed, hit exception and return false."""
+
+    test_object = FakeRpcObject()
+    result = get_result(test_object)
+    assert result["failed"]

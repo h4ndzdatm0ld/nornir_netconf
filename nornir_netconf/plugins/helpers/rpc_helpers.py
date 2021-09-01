@@ -47,32 +47,29 @@ def get_result(rpc: Union[RPCReply, Dict], xmldict: bool = False) -> Dict:
     """Check if RPC reply is valid and unpack.
 
     Args:
-        rpc (RPCReply): RPC Reply from Netconf Server
+        rpc (Union[RPCReply, Dict]): RPC Reply from Netconf Server or Dict
         xmldict (boolean): convert xml to dict
 
     Returns:
         Dict: Results dict to expand in Result object
     """
-    # These try blocks are to handle RPCReply that vary. Sometimes, the 'ok' response
+    # The RPCReply may vary in attributes it contains within the object. Sometimes, the 'ok' response
     # could be missing as well as the 'data_xml'. All conform to the standard 'get_result'
     # dictionary expected by the user.
     result = {"ok": {}, "error": {}, "errors": {}}
 
-    try:
+    if any(i for i in dir(rpc) if i == "ok"):
         if rpc.ok:
             return {"failed": False, "result": unpack_rpc(rpc, xmldict)}
-    except AttributeError:
-        pass
-
-    try:
-        if rpc.data_xml:
-            result["rpc"] = rpc
-            result["ok"] = True
-            if xmldict:
-                result["xml_dict"] = xml_to_dict(rpc)
-            return {"failed": False, "result": result}
-    except AttributeError:
-        pass
+        try:
+            if rpc.data_xml:
+                result["rpc"] = rpc
+                result["ok"] = True
+                if xmldict:
+                    result["xml_dict"] = xml_to_dict(rpc)
+                return {"failed": False, "result": result}
+        except AttributeError:
+            pass
 
     # Safe to say, at this point the replies are not RPC or NCElements.
     # So we can take advantage of passing dictionaries in and safe gets.

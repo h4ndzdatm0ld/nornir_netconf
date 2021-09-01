@@ -45,5 +45,4 @@ def netconf_lock(task: Task, datastore: str) -> Result:
 
     result_dict = get_result(result)
     result_dict["result"]["manager"] = manager
-
     return Result(host=task.host, **result_dict)

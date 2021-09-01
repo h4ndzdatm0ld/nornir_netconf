@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nornir_netconf"
-version = "1.0.0"
+version = "0.1.0"
 description = "Netconf plugin for nornir using ncclient"
 authors = ["Hugo Tinoco <hugotinoco@icloud.com>", "Patrick Ogenstad <patrick@ogenstad.com>"]
 license = "Apache-2.0"
@@ -20,9 +20,6 @@ xmltodict = "^0.12.0"
 [tool.poetry.dev-dependencies]
 black = { version = "19.10b0", allow-prereleases = true }
 pytest = "*"
-sphinx = "^3.0.3"
-sphinxcontrib-napoleon = "^0.7"
-sphinx_rtd_theme = "^0.4.3"
 pytest-cov = "^2.10.1"
 bandit = "^1.7.0"
 pylint = "^2.10.2"
