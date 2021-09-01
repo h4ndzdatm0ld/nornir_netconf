@@ -158,7 +158,7 @@ importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
 name = "colorama"
 version = "0.4.4"
 description = "Cross-platform colored terminal text."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
@@ -429,7 +429,7 @@ docs = ["jupyter (>=1,<2)", "nbsphinx (>=0.5,<0.6)", "pygments (>=2,<3)", "sphin
 name = "nornir-utils"
 version = "0.1.2"
 description = "Collection of plugins and functions for nornir that don't require external dependencies"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6,<4.0"
 
@@ -979,7 +979,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.6.1,<4.0"
-content-hash = "db509825b87b8baf00a1e79824173771639759e2cd6f88cad03c2a63171ac6e5"
+content-hash = "ef0c3539d05bc652d9694525f74ccf5110e73708641a18efd2b813f24ce3c8f6"
 
 [metadata.files]
 alabaster = [
