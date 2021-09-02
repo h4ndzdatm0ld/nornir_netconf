@@ -1,11 +1,11 @@
 """Conftest for nornir_netconf UnitTests."""
 import os
+import shutil
 
 import docker
 import pytest
 from nornir import InitNornir
 from nornir.core.state import GlobalState
-import shutil
 
 # pytest mark decorator to skip integration tests if INTEGRATION_TESTS=True
 # These tests will connect to local lab environment to validate actual responses

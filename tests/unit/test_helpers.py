@@ -7,7 +7,8 @@ from unittest.mock import patch
 import ncclient
 from nornir_utils.plugins.functions import print_result
 
-from nornir_netconf.plugins.helpers import create_folder, get_result, xml_to_dict, write_output
+from nornir_netconf.plugins.helpers import (create_folder, get_result,
+                                            write_output, xml_to_dict)
 
 TEST_FOLDER = "tests/test_data/test_folder_success"
 

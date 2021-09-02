@@ -1,12 +1,14 @@
 """NETCONF Schemas."""
+from typing import Dict
+
 from ncclient.operations.rpc import RPCError
-from nornir.core.task import Result, Task
+from nornir.core.task import List, Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import write_output
 
 
-def netconf_get_schemas(task: Task, schemas: list, schema_path: str = None) -> Result:
+def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str = None) -> Result:
     """Fetch provided schemas and write to a file.
 
     Examples:
@@ -20,7 +22,7 @@ def netconf_get_schemas(task: Task, schemas: list, schema_path: str = None) -> R
     """
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     failed = False
-    result = {"errors": [], "log": []}
+    result: Dict[str, List[str]] = {"errors": [], "log": []}
 
     if schema_path:
         for schema in schemas:

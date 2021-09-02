@@ -1,11 +1,11 @@
 """Helper to extract info from RPC reply."""
-from typing import Dict, Union
+from typing import Any, Dict, Union
 
 import xmltodict
 from ncclient.operations.rpc import RPCReply
 
 
-def xml_to_dict(rpc: RPCReply) -> Dict:
+def xml_to_dict(rpc: RPCReply) -> Union[Any, Dict[str, str]]:
     """Convert XML from RPC reply to dict.
 
     Args:
@@ -20,7 +20,7 @@ def xml_to_dict(rpc: RPCReply) -> Dict:
         return {"error": f"Unable to parse XML to Dict. {err_ex}."}
 
 
-def unpack_rpc(rpc: RPCReply, xmldict: bool = False) -> Dict:
+def unpack_rpc(rpc: RPCReply, xmldict: bool = False) -> Dict[str, Union[RPCReply, str]]:
     """Extract RPC attrs of interest.
 
     Args:
@@ -43,7 +43,7 @@ def unpack_rpc(rpc: RPCReply, xmldict: bool = False) -> Dict:
     return result
 
 
-def get_result(rpc: Union[RPCReply, Dict], xmldict: bool = False) -> Dict:
+def get_result(rpc: Union[RPCReply, Dict[str, str]], xmldict: bool = False) -> Dict[str, Union[RPCReply, str]]:
     """Check if RPC reply is valid and unpack.
 
     Args:
@@ -56,7 +56,7 @@ def get_result(rpc: Union[RPCReply, Dict], xmldict: bool = False) -> Dict:
     # The RPCReply may vary in attributes it contains within the object. Sometimes, the 'ok' response
     # could be missing as well as the 'data_xml'. All conform to the standard 'get_result'
     # dictionary expected by the user.
-    result = {"ok": {}, "error": {}, "errors": {}}
+    result = {"ok": True, "error": {}, "errors": {}}
 
     if any(i for i in dir(rpc) if i == "ok"):
         if rpc.ok:
