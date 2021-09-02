@@ -64,7 +64,7 @@ def test_sros_netconf_get_config(nornir):
     )
     assert result
     print_result(result)
-    # with open("tests/unit/test_data/get-sros-config.xml", "w+") as file:
+    # with open("tests/test_data/get-sros-config.xml", "w+") as file:
     #     file.write(result[DEVICE_NAME].result["rpc"].data_xml)
 
 

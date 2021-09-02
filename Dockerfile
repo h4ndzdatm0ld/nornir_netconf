@@ -13,14 +13,14 @@ RUN poetry config virtualenvs.create false
 COPY poetry.lock pyproject.toml ./
 
 # Install production dependencies
-RUN poetry install
+RUN poetry install --no-root
 
 FROM base AS test
 
 COPY . .
 # --no-root declares not to install the project package since we're wanting to take advantage of caching dependency installation
 # and the project is copied in and installed after this step
-RUN poetry install --no-interaction --no-root
+RUN poetry install --no-interaction
 
 # Runs all necessary linting and code checks
 RUN echo 'Running Flake8' && \

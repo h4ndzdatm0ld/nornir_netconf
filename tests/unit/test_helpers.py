@@ -1,10 +1,15 @@
 """Test Helper functions."""
+import os
+import pathlib
 from unittest import mock
+from unittest.mock import patch
 
 import ncclient
 from nornir_utils.plugins.functions import print_result
 
-from nornir_netconf.plugins.helpers import get_result, xml_to_dict
+from nornir_netconf.plugins.helpers import create_folder, get_result, xml_to_dict, write_output
+
+TEST_FOLDER = "tests/test_data/test_folder_success"
 
 
 def test_xml_to_dict_exception():
@@ -81,3 +86,45 @@ def test_get_result_rpc_no_xml_dict_exception():
     test_object = FakeRpcObject()
     result = get_result(test_object)
     assert result["failed"]
+
+
+# Test Create Folder
+
+
+def test_create_folder(test_folder):
+    """Test create_folder success."""
+    create_folder(test_folder)
+    assert os.path.exists(test_folder)
+
+
+def test_create_folder_exists(test_folder):
+    """Test create_folder already exists success."""
+    create_folder(test_folder)
+    assert os.path.exists(test_folder)
+
+
+@patch("os.makedirs", side_effect=OSError)
+def test_create_folder_exception(os_mock, test_folder):
+    """Test create_folder failure."""
+    folder = f"{test_folder}/test"
+    create_folder(folder)
+
+    # using pathlib as we patched OS
+    path = pathlib.Path("folder")
+    assert not path.exists()
+
+
+# Test Write Output
+
+
+def test_write_output_success_new_path(test_folder):
+    """Test write output success."""
+    test_folder = f"{test_folder}/folder"
+    write_output("test-text", test_folder, "file-name")
+    assert os.path.exists(f"{test_folder}/file-name.txt")
+
+
+def test_write_output_success_already_exists(test_folder):
+    """Test write output success."""
+    write_output("test-text", test_folder, "file-name")
+    assert os.path.exists(f"{test_folder}/file-name.txt")

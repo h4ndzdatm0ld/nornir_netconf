@@ -5,6 +5,7 @@ import docker
 import pytest
 from nornir import InitNornir
 from nornir.core.state import GlobalState
+import shutil
 
 # pytest mark decorator to skip integration tests if INTEGRATION_TESTS=True
 # These tests will connect to local lab environment to validate actual responses
@@ -40,12 +41,12 @@ def nornir(get_test_env):
         inventory={
             "plugin": "SimpleInventory",
             "options": {
-                "host_file": f"{DIR_PATH}/inventory_data/hosts-{get_test_env}.yaml",
-                "group_file": f"{DIR_PATH}/inventory_data/groups.yaml",
-                "defaults_file": f"{DIR_PATH}/inventory_data/defaults.yaml",
+                "host_file": f"{DIR_PATH}/inventory_data/hosts-{get_test_env}.yml",
+                "group_file": f"{DIR_PATH}/inventory_data/groups.yml",
+                "defaults_file": f"{DIR_PATH}/inventory_data/defaults.yml",
             },
         },
-        logging={"log_file": f"{DIR_PATH}/unit/test_data/nornir_test.log", "level": "DEBUG"},
+        logging={"log_file": f"{DIR_PATH}/test_data/nornir_test.log", "level": "DEBUG"},
         dry_run=True,
     )
     nr_nr.data = global_data
@@ -53,12 +54,30 @@ def nornir(get_test_env):
 
 
 @pytest.fixture(scope="session", autouse=True)
-def teardown_class():
-    """Teardown the automatically created log file by Nornir."""
+def schema_path():
+    """Schema path, test data."""
+    return "tests/test_data/schema_path"
+
+
+@pytest.fixture(scope="session", autouse=True)
+def test_folder():
+    """Test folder."""
+    return "tests/test_data/test_folder"
+
+
+@pytest.fixture(scope="session", autouse=True)
+def teardown_class(schema_path, test_folder):
+    """Teardown the random artifacts created by pytesting."""
     if not nornir_logfile:
-        nornir_log = f"{DIR_PATH}/unit/test_data/nornir_test.log"
+        nornir_log = f"{DIR_PATH}/test_data/nornir_test.log"
         if os.path.exists(nornir_log):
             os.remove(nornir_log)
+
+    # Remove test data folders
+    folders = [test_folder, schema_path]
+    for folder in folders:
+        if os.path.exists(folder):
+            shutil.rmtree(folder)
 
 
 @pytest.fixture(scope="function", autouse=True)
