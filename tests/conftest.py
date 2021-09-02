@@ -22,7 +22,7 @@ nornir_logfile = os.environ.get("NORNIR_LOG", False)
 
 
 @pytest.fixture(scope="session", autouse=True)
-def get_test_env():
+def get_test_env() -> str:
     """Determine if env is local or if tests are executing within a container."""
     try:
         client = docker.from_env()

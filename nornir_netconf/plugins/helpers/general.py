@@ -4,7 +4,7 @@ import os.path
 from pathlib import Path
 
 
-def check_file(file_name: str):
+def check_file(file_name: str) -> bool:
     """Check file_name exists based on input.
 
     Args:
@@ -17,7 +17,7 @@ def check_file(file_name: str):
         return False
 
 
-def create_folder(directory: str):
+def create_folder(directory: str) -> None:
     """Create a directory.
 
     Args:
@@ -30,7 +30,7 @@ def create_folder(directory: str):
         logging.info("Error when creating %s, %s", directory, err_ex)
 
 
-def write_output(text: str, path: str, filename: str):
+def write_output(text: str, path: str, filename: str) -> None:
     """Take input and path and write a file.
 
     Args:

@@ -38,6 +38,10 @@ RUN echo 'Running Flake8' && \
     echo 'Running MyPy' && \
     mypy .
 
+# RUN monkeytype run -m pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
+
+# RUN monkeytype list-modules | xargs -n1 -I{} sh -c 'monkeytype stub {} > tests/stubs/{}.pyi'
+
 # RUN pytest --cov nornir_netconf --color yes -vvv tests
 
 # Run full test suite including integration
