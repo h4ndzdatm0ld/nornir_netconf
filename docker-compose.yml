@@ -8,7 +8,7 @@ services:
     ports:
       - "1830:830"
     environment:
-      - "NACM_RECOVERY_UID=0"
+      NACM_RECOVERY_UID: "0"
   test:
     container_name: "test"
     hostname: "test"

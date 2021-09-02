@@ -35,4 +35,4 @@ pip install nornir_netconf
 
 ### Documentation
 
-* **NCClient** [ReadtheDocs](https://ncclient.readthedocs.io/en/latest/)
+* [NCClient](https://ncclient.readthedocs.io/en/latest/)

@@ -1,4 +1,6 @@
 """Integration test against SROS device."""
+from nornir_utils.plugins.functions import print_result
+
 from nornir_netconf.plugins.tasks import (
     netconf_capabilities,
     netconf_edit_config,
@@ -6,7 +8,6 @@ from nornir_netconf.plugins.tasks import (
     netconf_get_config,
     netconf_lock,
 )
-from nornir_utils.plugins.functions import print_result
 from tests.conftest import skip_integration_tests
 
 DEVICE_NAME = "nokia_rtr"

@@ -2,9 +2,9 @@
 from unittest import mock
 
 import ncclient
+from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.helpers import get_result, xml_to_dict
-from nornir_utils.plugins.functions import print_result
 
 
 def test_xml_to_dict_exception():
