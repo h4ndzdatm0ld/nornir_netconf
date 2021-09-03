@@ -41,4 +41,4 @@ def write_output(text: str, path: str, filename: str) -> None:
     if not os.path.isdir(path):
         create_folder(path)
     with open(f"{path}/{filename}.txt", "w+", encoding="utf-8") as file:
-        file.write(text)
+        file.write(str(text))

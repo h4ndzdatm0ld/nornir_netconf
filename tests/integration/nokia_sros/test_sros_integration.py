@@ -1,5 +1,5 @@
 """Integration test against SROS device."""
-from nornir_utils.plugins.functions import print_result
+# from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.tasks import (
     netconf_capabilities,
@@ -33,8 +33,11 @@ CONFIG = """
 def test_sros_netconf_edit_config(nornir):
     """Test NETCONF edit-config."""
     nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_edit_config, config=CONFIG, target="candidate")
-    assert result
+    result = nr.run(netconf_edit_config, config=CONFIG, target="candidate", xmldict=True)
+    assert not result[DEVICE_NAME].result["errors"]
+    assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
+    assert not result[DEVICE_NAME].result["xml_dict"]["rpc-reply"]["ok"]
+    assert "object has no attribute 'ok'" in str(result[DEVICE_NAME].result["error"])
 
 
 @skip_integration_tests
@@ -62,8 +65,8 @@ def test_sros_netconf_get_config(nornir):
         """,
         filter_type="subtree",
     )
-    assert result
-    print_result(result)
+    assert result[DEVICE_NAME].result["rpc"]
+    assert result[DEVICE_NAME].result["rpc"].data_xml
     # with open("tests/test_data/get-sros-config.xml", "w+") as file:
     #     file.write(result[DEVICE_NAME].result["rpc"].data_xml)
 
@@ -72,9 +75,14 @@ def test_sros_netconf_get_config(nornir):
 def test_sros_netconf_get(nornir):
     """Test NETCONF get operation."""
     nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_get)
-    assert result[DEVICE_NAME].result["ok"]
+    filter = """
+    <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf">
+        <python/>
+    </configure>
+    """
+    result = nr.run(netconf_get, filter_type="subtree", path=filter)
     assert result[DEVICE_NAME].result
+    assert result[DEVICE_NAME].result["rpc"].data_xml
 
 
 @skip_integration_tests
@@ -82,5 +90,5 @@ def test_sros_netconf_lock(nornir):
     """Test Netconf Lock."""
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_lock, datastore="candidate")
-
-    assert result[DEVICE_NAME].result["ok"]
+    assert result[DEVICE_NAME].result["rpc"]
+    assert result[DEVICE_NAME].result["manager"]

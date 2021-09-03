@@ -54,6 +54,25 @@ def nornir(get_test_env):
 
 
 @pytest.fixture(scope="session", autouse=True)
+def nornir_unittest(get_test_env):
+    """Initializes nornir"""
+    nr_nr = InitNornir(
+        inventory={
+            "plugin": "SimpleInventory",
+            "options": {
+                "host_file": f"{DIR_PATH}/inventory_data/hosts-{get_test_env}.yml",
+                "group_file": f"{DIR_PATH}/inventory_data/groups.yml",
+                "defaults_file": f"{DIR_PATH}/inventory_data/defaults.yml",
+            },
+        },
+        logging={"log_file": f"{DIR_PATH}/test_data/nornir_test.log", "level": "DEBUG"},
+        dry_run=True,
+    )
+    nr_nr.data = global_data
+    return nr_nr
+
+
+@pytest.fixture(scope="session", autouse=True)
 def schema_path():
     """Schema path, test data."""
     return "tests/test_data/schema_path"

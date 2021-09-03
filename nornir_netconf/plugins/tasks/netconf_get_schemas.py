@@ -30,9 +30,10 @@ def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str = "") -
                 write_output(manager.get_schema(schema).data_xml, path=schema_path, filename=schema)
                 result["log"].append(f"{schema_path}/{schema}.txt created.")
             except RPCError as err_ex:
+                breakpoint()
                 result["errors"].append(str(err_ex).strip())
     else:
         failed = True
-        raise ValueError("Missing directory path to save Schema files.")
+        result["errors"].append("Missing 'schema_path' arg to save schema files.")
 
     return Result(host=task.host, failed=failed, result=result)

@@ -8,13 +8,16 @@ from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers.rpc_helpers import get_result
 
 
-def netconf_edit_config(task: Task, config: str, target: str = "running", manager: Optional[Manager] = None) -> Result:
+def netconf_edit_config(
+    task: Task, config: str, target: str = "running", manager: Optional[Manager] = None, xmldict: bool = False
+) -> Result:
     """Edit configuration of device using Netconf.
 
     Arguments:
         config: Configuration snippet to apply
         target: Target configuration store
         manager: class:: ncclient.manager.Manager
+        xmldict (boolean): convert xml to dict
 
     Examples:
         Simple example::
@@ -29,4 +32,4 @@ def netconf_edit_config(task: Task, config: str, target: str = "running", manage
     if not manager:
         manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     result = manager.edit_config(config, target=target)
-    return Result(host=task.host, **get_result(result))
+    return Result(host=task.host, **get_result(result, xmldict))

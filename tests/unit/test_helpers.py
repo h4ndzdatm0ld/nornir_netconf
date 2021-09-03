@@ -5,7 +5,6 @@ from unittest import mock
 from unittest.mock import patch
 
 import ncclient
-from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.helpers import create_folder, get_result, write_output, xml_to_dict
 
@@ -16,13 +15,6 @@ def test_xml_to_dict_exception():
     """Test xml_to_dict."""
     result = xml_to_dict({"test": "data"})
     assert result == {"error": "Unable to parse XML to Dict. 'dict' object has no attribute 'data_xml'."}
-
-
-def test_get_result_attr_error():
-    """Test get result - attr error."""
-
-    result = get_result({"name": "prometheus"})
-    assert result["failed"]
 
 
 # Test Create Folder
@@ -67,50 +59,6 @@ def test_write_output_success_already_exists(test_folder):
     assert os.path.exists(f"{test_folder}/file-name.txt")
 
 
-@mock.patch.object(ncclient.xml_, "NCElement")
-def test_get_result_rpc_ok(nce_element):
-    """Test get result failed."""
-    nce_element.ok = True
-
-    result = get_result(nce_element, xmldict=True)
-    assert not result["failed"]
-    assert result["result"]["ok"]
-
-
-def test_get_result_failed():
-    """Test get result failed."""
-    data = {"ok": False}
-    result = get_result(data, xmldict=True)
-    assert result["failed"]
-    assert not result["result"]["ok"]
-    assert result["result"]["errors"] == "Unable to find 'ok' or data_xml in response object."
-
-
-@mock.patch.object(ncclient.xml_, "NCElement")
-def test_get_result_rpc_no_ok_but_data_xml(nce_element):
-    """Test get result failed."""
-    nce_element.ok = False
-    nce_element.data_xml = "<configure></configure>"
-    result = get_result(nce_element, xmldict=True)
-    assert not result["failed"]
-    assert not result["result"]["error"]
-    assert not result["result"]["errors"]
-    assert "configure" in result["result"]["xml_dict"].keys()
-    print_result(result)
-
-
-@mock.patch.object(ncclient.xml_, "NCElement")
-def test_get_result_rpc_no_xml_dict(nce_element):
-    """Test get result failed."""
-    nce_element.ok = False
-    nce_element.data_xml = True
-
-    result = get_result(nce_element)
-    assert not result["failed"]
-    assert not result["result"]["error"]
-    assert not result["result"]["errors"]
-
-
 # Test Get Results
 
 
@@ -152,11 +100,38 @@ class FakeRpcObjectSlim:
         self.data_xml = ""
 
 
+class FakeRpcObjectAny:
+    """Test Class."""
+
+    def __init__(self):
+        self.error = ""
+        self.errors = ""
+
+
+class FakeRpcObjectXml:
+    """Test Class."""
+
+    def __init__(self):
+        self.error = ""
+        self.errors = ""
+        self.data_xml = "<configure><router></router></configure>"
+
+
 def test_get_result_rpc_slim():
-    """Test get result failed, not a Dict, no any 'ok'."""
+    """Test get result failed, not a Dict, no any 'ok'.
+
+    Get results will re-create the 'ok' attr.
+    """
 
     test_object = FakeRpcObjectSlim()
     result = get_result(test_object)
+    assert not result["failed"]
+
+
+def test_get_result_attr_error():
+    """Test get result - attr error."""
+
+    result = get_result({"name": "prometheus"})
     assert result["failed"]
 
 
@@ -171,12 +146,57 @@ def test_get_result_rpc_ok_no_data_xml():
     assert result["result"]["ok"]
 
 
-def test_get_result_rpc_ok_true():
+def test_get_result_ok_false():
     """Test get result ok."""
 
     test_object = FakeRpcObject()
     test_object.set_ok(set=False)
 
     result = get_result(test_object)
+    assert result["failed"]
+    assert not result["result"]["ok"]
+
+
+@mock.patch.object(ncclient.xml_, "NCElement")
+def test_get_result_rpc_ok(nce_element):
+    """Test get result failed."""
+    nce_element.ok = True
+
+    result = get_result(nce_element, xmldict=True)
     assert not result["failed"]
     assert result["result"]["ok"]
+
+
+def test_get_result_failed():
+    """Test get result failed."""
+    data = {"ok": False}
+    result = get_result(data, xmldict=True)
+    assert result["failed"]
+    assert not result["result"]["ok"]
+    assert result["result"]["errors"] == "Unable to find 'ok' or data_xml in response object."
+
+
+@mock.patch.object(ncclient.xml_, "NCElement")
+def test_get_result_rpc_no_ok_but_data_xml(nce_element):
+    """Test get result failed."""
+    nce_element.ok = False
+    nce_element.data_xml = "<configure></configure>"
+    result = get_result(nce_element, xmldict=True)
+    assert result["failed"]
+    assert "configure" in result["result"]["xml_dict"].keys()
+
+
+def test_get_result_skip_any():
+    """Test get result failed."""
+    test_object = FakeRpcObjectAny()
+
+    result = get_result(test_object)
+    assert result["failed"]
+
+
+def test_get_result_skip_ok_xml_dict():
+    """Test get result hit any, skip ok, xmldict."""
+    test_object = FakeRpcObjectXml()
+
+    result = get_result(test_object, xmldict=True)
+    assert not result["failed"]
