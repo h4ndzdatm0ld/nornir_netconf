@@ -28,11 +28,11 @@ coverage = "^5.5"
 yamllint = "^1.26.3"
 nornir-utils = "^0.1.2"
 docker = "^5.0.0"
-mypy = "^0.910"
 isort = "^5.9.3"
 pydocstyle = "^6.1.1"
 MonkeyType = "^21.5.0"
 pytype = "^2021.8.24"
+mypy = "^0.910"
 
 
 [build-system]

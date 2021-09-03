@@ -8,7 +8,7 @@ from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import write_output
 
 
-def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str = None) -> Result:
+def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str = "") -> Result:
     """Fetch provided schemas and write to a file.
 
     Examples:
