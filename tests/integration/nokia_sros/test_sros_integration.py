@@ -13,27 +13,11 @@ from tests.conftest import skip_integration_tests
 DEVICE_NAME = "nokia_rtr"
 
 
-CONFIG = """
-<config>
-    <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf">
-        <router>
-            <router-name>Base</router-name>
-            <interface>
-                <interface-name>L3-OAM-eNodeB069420-W1</interface-name>
-                <admin-state>disable</admin-state>
-                <ingress-stats>false</ingress-stats>
-            </interface>
-        </router>
-    </configure>
-</config>
-"""
-
-
 @skip_integration_tests
-def test_sros_netconf_edit_config(nornir):
+def test_sros_netconf_edit_config(nornir, sros_config_payload):
     """Test NETCONF edit-config."""
     nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_edit_config, config=CONFIG, target="candidate", xmldict=True)
+    result = nr.run(netconf_edit_config, config=sros_config_payload, target="candidate", xmldict=True)
     assert not result[DEVICE_NAME].result["errors"]
     assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
     assert not result[DEVICE_NAME].result["xml_dict"]["rpc-reply"]["ok"]
@@ -92,3 +76,21 @@ def test_sros_netconf_lock(nornir):
     result = nr.run(netconf_lock, datastore="candidate")
     assert result[DEVICE_NAME].result["rpc"]
     assert result[DEVICE_NAME].result["manager"]
+
+
+# def test_sros_netconf_edit_config(nornir, sros_config_payload):
+#     """Test NETCONF  Lock, extract manager and use it to edit-config."""
+#     nr = nornir.filter(name=DEVICE_NAME)
+#     result = nr.run(netconf_lock, datastore="candidate")
+#     # assert result[DEVICE_NAME].result["rpc"]
+#     # assert result[DEVICE_NAME].result["manager"]
+#     print_result(result)
+
+#     manager = result[DEVICE_NAME].result["manager"]
+
+#     result = nr.run(netconf_edit_config, config=sros_config_payload, target="candidate", xmldict=True, manager=manager)
+#     print_result(result)
+#     # assert not result[DEVICE_NAME].result["errors"]
+#     # assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
+#     # assert not result[DEVICE_NAME].result["xml_dict"]["rpc-reply"]["ok"]
+#     # assert "object has no attribute 'ok'" in str(result[DEVICE_NAME].result["error"])

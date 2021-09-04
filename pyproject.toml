@@ -39,6 +39,9 @@ mypy = "^0.910"
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
+[tool.isort]
+profile = "black"
+multi_line_output = 3
 
 [tool.black]
 line-length = 120
@@ -60,3 +63,4 @@ exclude = '''
   )/
 )
 '''
+

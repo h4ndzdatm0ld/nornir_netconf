@@ -6,7 +6,13 @@ from unittest.mock import patch
 
 import ncclient
 
-from nornir_netconf.plugins.helpers import create_folder, get_result, write_output, xml_to_dict
+from nornir_netconf.plugins.helpers import (
+    create_folder,
+    get_result,
+    write_output,
+    xml_to_dict,
+)
+from tests.conftest import FakeRpcObject
 
 TEST_FOLDER = "tests/test_data/test_folder_success"
 
@@ -60,26 +66,6 @@ def test_write_output_success_already_exists(test_folder):
 
 
 # Test Get Results
-
-
-class FakeRpcObject:
-    """Test Class."""
-
-    def __init__(self):
-        self.ok = False
-        self.error = ""
-        self.errors = ""
-        self.data_xml = False
-
-    def set_ok(self, set: bool):
-        """Set ok."""
-        if set:
-            self.ok = True
-
-    def set_data_xml(self, set: bool):
-        """Set data_xml."""
-        if set:
-            self.data_xml = True
 
 
 class FakeRpcObjectNoData:

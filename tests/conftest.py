@@ -25,11 +25,15 @@ nornir_logfile = os.environ.get("NORNIR_LOG", False)
 def get_test_env() -> str:
     """Determine if env is local or if tests are executing within a container."""
     try:
+        # Container of interest
+        container = "netconf1"
         client = docker.from_env()
         # Create a list to work with.
         container_names = [container.name for container in client.containers.list()]
-        if "netconf1" in container_names:
+        if container in container_names:
             return "local"
+        else:
+            raise RuntimeError(f"{container} is not running in local env.")
     except docker.errors.DockerException:
         return "container"
 
@@ -104,3 +108,44 @@ def reset_data():
     """Reset Data."""
     global_data.dry_run = True
     global_data.reset_failed_hosts()
+
+
+class FakeRpcObject:
+    """Test Class."""
+
+    def __init__(self):
+        self.ok = False
+        self.data_xml = False
+        self.error = ""
+        self.errors = ""
+
+    def set_ok(self, set: bool):
+        """Set ok."""
+        if set:
+            self.ok = True
+
+    def set_data_xml(self, set: bool):
+        """Set data_xml."""
+        if set:
+            self.data_xml = True
+
+
+# PAYLOADS
+
+
+@pytest.fixture(scope="function", autouse=True)
+def sros_config_payload():
+    return """
+        <config>
+            <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf">
+                <router>
+                    <router-name>Base</router-name>
+                    <interface>
+                        <interface-name>L3-OAM-eNodeB069420-W1</interface-name>
+                        <admin-state>disable</admin-state>
+                        <ingress-stats>false</ingress-stats>
+                    </interface>
+                </router>
+            </configure>
+        </config>
+        """

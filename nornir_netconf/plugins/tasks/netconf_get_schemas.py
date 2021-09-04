@@ -23,14 +23,12 @@ def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str = "") -
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     failed = False
     result: Dict[str, List[str]] = {"errors": [], "log": []}
-
     if schema_path:
         for schema in schemas:
             try:
                 write_output(manager.get_schema(schema).data_xml, path=schema_path, filename=schema)
                 result["log"].append(f"{schema_path}/{schema}.txt created.")
             except RPCError as err_ex:
-                breakpoint()
                 result["errors"].append(str(err_ex).strip())
     else:
         failed = True

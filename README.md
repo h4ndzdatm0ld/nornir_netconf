@@ -67,11 +67,7 @@ poetry install && poetry shell
 ```
 
 ```bash
-docker-compose build
-```
-
-```bash
-docker-compose run test
+ docker-compose build && docker-compose run test
 ```
 
 ### Integration Tests
@@ -79,7 +75,7 @@ docker-compose run test
 There are currently two different vendors that have full integration tests.
 
 * Nokia SROS
-* Cisco IOSxR
+* Cisco IOSxR (Pending)
 
 These tests are ran locally against an EVE-NG environment. At the moment, there is no solution to run these integration tests within the Github Actions CI.
 
