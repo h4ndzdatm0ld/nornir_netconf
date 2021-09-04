@@ -1,11 +1,11 @@
 """Helper to extract info from RPC reply."""
-from typing import Dict, Union
+from typing import Any, Dict, Union
 
 import xmltodict
 from ncclient.operations.rpc import RPCReply
 
 
-def xml_to_dict(rpc: RPCReply) -> Dict:
+def xml_to_dict(rpc: RPCReply) -> Union[Any, Dict[str, str]]:
     """Convert XML from RPC reply to dict.
 
     Args:
@@ -20,7 +20,7 @@ def xml_to_dict(rpc: RPCReply) -> Dict:
         return {"error": f"Unable to parse XML to Dict. {err_ex}."}
 
 
-def unpack_rpc(rpc: RPCReply, xmldict: bool = False) -> Dict:
+def unpack_rpc(rpc: RPCReply, xmldict: bool = False) -> Dict[str, Union[RPCReply, str]]:
     """Extract RPC attrs of interest.
 
     Args:
@@ -43,37 +43,36 @@ def unpack_rpc(rpc: RPCReply, xmldict: bool = False) -> Dict:
     return result
 
 
-def get_result(rpc: Union[RPCReply, Dict], xmldict: bool = False) -> Dict:
+def get_result(rpc: Union[RPCReply, Dict[str, Any]], xmldict: bool = False) -> Dict[str, Union[RPCReply, str]]:
     """Check if RPC reply is valid and unpack.
 
     Args:
-        rpc (RPCReply): RPC Reply from Netconf Server
+        rpc (Union[RPCReply, Dict]): RPC Reply from Netconf Server or Dict
         xmldict (boolean): convert xml to dict
 
     Returns:
         Dict: Results dict to expand in Result object
     """
-    # These try blocks are to handle RPCReply that vary. Sometimes, the 'ok' response
-    # could be missing as well as the 'data_xml'. All conform to the standard 'get_result'
-    # dictionary expected by the user.
-    result = {"ok": {}, "error": {}, "errors": {}}
+    # The RPCReply may vary in attributes it contains within the object. Sometimes, the 'ok' response
+    # could be missing. In order to standardize a similar result we evaluate the response and
+    # make adjustment where necessary to keep responses somewhat consistent without assumptions.
 
-    try:
-        if rpc.ok:
-            return {"failed": False, "result": unpack_rpc(rpc, xmldict)}
-    except AttributeError:
-        pass
-
-    try:
-        if rpc.data_xml:
-            result["rpc"] = rpc
-            result["ok"] = True
-            if xmldict:
-                result["xml_dict"] = xml_to_dict(rpc)
-            return {"failed": False, "result": result}
-    except AttributeError:
-        pass
-
+    result: Dict[str, Any] = {"error": "", "errors": ""}
+    if not isinstance(rpc, Dict):
+        # RPC will either have 'ok' or 'data_xml' attr:
+        if any(i for i in dir(rpc) if i in ["ok", "data_xml"]):
+            try:
+                if rpc.ok:
+                    failed = False
+                else:
+                    failed = True
+                return {"failed": failed, "result": unpack_rpc(rpc, xmldict)}
+            except AttributeError:
+                # Re-create `unpack_rpc` output keys to keep consistency.
+                result["rpc"] = rpc
+                if xmldict:
+                    result["xml_dict"] = xml_to_dict(rpc)
+                return {"failed": False, "result": result}
     # Safe to say, at this point the replies are not RPC or NCElements.
     # So we can take advantage of passing dictionaries in and safe gets.
     if isinstance(rpc, Dict):

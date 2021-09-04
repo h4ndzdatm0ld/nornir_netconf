@@ -111,3 +111,6 @@ output/
 
 pip-wheel-metadata/
 
+## Type hints
+tests/stubs/*.pyi
+*sql*

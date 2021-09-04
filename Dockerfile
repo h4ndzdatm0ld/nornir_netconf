@@ -13,7 +13,7 @@ RUN poetry config virtualenvs.create false
 COPY poetry.lock pyproject.toml ./
 
 # Install production dependencies
-RUN poetry install --no-dev
+RUN poetry install --no-root
 
 FROM base AS test
 
@@ -37,6 +37,10 @@ RUN echo 'Running Flake8' && \
     bandit --recursive ./ --configfile .bandit.yml  && \
     echo 'Running MyPy' && \
     mypy .
+
+# RUN monkeytype run -m pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
+
+# RUN monkeytype list-modules | xargs -n1 -I{} sh -c 'monkeytype stub {} > tests/stubs/{}.pyi'
 
 # RUN pytest --cov nornir_netconf --color yes -vvv tests
 

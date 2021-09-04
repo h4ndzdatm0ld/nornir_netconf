@@ -35,4 +35,54 @@ pip install nornir_netconf
 
 ### Documentation
 
-* **NCClient** [ReadtheDocs](https://ncclient.readthedocs.io/en/latest/)
+* [NCClient](https://ncclient.readthedocs.io/en/latest/)
+* [Sysrepo](https://www.sysrepo.org/)
+
+## Contributions
+
+------------
+
+No line of code shall go un tested! Any contribution will need to be accounted by the coverage report and satisfy all linting.
+
+Linters:
+
+* Fake8
+* Black
+* Yamllint
+* Pylint
+* Pydocstyle
+* Bandit
+* MyPy
+
+### Testing
+
+To test within a local docker environment
+
+```bash
+git clone https://github.com/h4ndzdatm0ld/nornir_netconf
+```
+
+```bash
+poetry install && poetry shell
+```
+
+```bash
+ docker-compose build && docker-compose run test
+```
+
+### Integration Tests
+
+There are currently two different vendors that have full integration tests.
+
+* Nokia SROS
+* Cisco IOSxR (Pending)
+
+These tests are ran locally against an EVE-NG environment. At the moment, there is no solution to run these integration tests within the Github Actions CI.
+
+### Sysrepo: netopeer2
+
+Majority of integration tests are ran against a docker instance of [netopeer2](https://hub.docker.com/r/sysrepo/sysrepo-netopeer2)
+
+From the [Sysrepo](https://www.sysrepo.org/) website:
+
+"Netopeer2 and Sysrepo provide a fully open source and standards compliant implementation of a NETCONF server and YANG configuration data stores."

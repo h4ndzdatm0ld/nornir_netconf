@@ -16,6 +16,7 @@ def netconf_capabilities(task: Task) -> Result:
         Result object with the following attributes set:
           * result (``list``): list with the capabilities of the host
     """
+    failed = False
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     capabilities = list(manager.server_capabilities)
-    return Result(host=task.host, result=capabilities)
+    return Result(host=task.host, failed=failed, result=capabilities)

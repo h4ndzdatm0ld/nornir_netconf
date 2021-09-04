@@ -108,7 +108,7 @@ class Netconf:
         if platform:
             parameters["device_params"] = {"name": platform}
 
-        ssh_config_file = extras.get("ssh_config", configuration.ssh.config_file)
+        ssh_config_file = extras.get("ssh_config", configuration.ssh.config_file)  # type: ignore[union-attr]
         if check_file(ssh_config_file):
             parameters["ssh_config"] = ssh_config_file
 

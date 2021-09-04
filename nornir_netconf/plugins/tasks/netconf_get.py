@@ -43,5 +43,4 @@ def netconf_get(task: Task, path: str = "", filter_type: str = "xpath", xmldict:
     if path:
         params["filter"] = (filter_type, path)
     result = manager.get(**params)
-
     return Result(host=task.host, **get_result(result, xmldict))
