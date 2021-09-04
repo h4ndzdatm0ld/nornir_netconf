@@ -134,16 +134,16 @@ class FakeRpcObject:
 @pytest.fixture(scope="function", autouse=True)
 def sros_config_payload():
     return """
-        <config>
-            <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf">
-                <router>
-                    <router-name>Base</router-name>
-                    <interface>
-                        <interface-name>L3-OAM-eNodeB069420-W1</interface-name>
-                        <admin-state>disable</admin-state>
-                        <ingress-stats>false</ingress-stats>
-                    </interface>
-                </router>
-            </configure>
-        </config>
+<config>
+    <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf">
+        <router>
+            <router-name>Base</router-name>
+            <interface>
+                <interface-name>L3-OAM-eNodeB069420-W1</interface-name>
+                <admin-state>disable</admin-state>
+                <ingress-stats>false</ingress-stats>
+            </interface>
+        </router>
+    </configure>
+</config>
         """
