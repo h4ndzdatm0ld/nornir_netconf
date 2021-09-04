@@ -32,8 +32,6 @@ def get_test_env() -> str:
         container_names = [container.name for container in client.containers.list()]
         if container in container_names:
             return "local"
-        else:
-            raise RuntimeError(f"{container} is not running in local env.")
     except docker.errors.DockerException:
         return "container"
 
