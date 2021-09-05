@@ -31,7 +31,7 @@ pip install nornir_netconf
 * **netconf_get** - Returns state data based on the supplied xpath
 * **netconf_get_config** - Returns configuration from specified configuration store (default="running")
 * **netconf_edit_config** - Edits configuration on specified datastore (default="running")
-* **netconf_lock** - Locks a datastore
+* **netconf_locking** - Locks a datastore
 
 ### Documentation
 
@@ -63,11 +63,17 @@ git clone https://github.com/h4ndzdatm0ld/nornir_netconf
 ```
 
 ```bash
+docker-compose build && docker-compose run test
+```
+
+To test locally with pytest
+
+```bash
 poetry install && poetry shell
 ```
 
 ```bash
- docker-compose build && docker-compose run test
+pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
 ```
 
 ### Integration Tests

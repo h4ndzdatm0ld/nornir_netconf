@@ -1,10 +1,10 @@
-from nornir_netconf.plugins.tasks import netconf_lock
+from nornir_netconf.plugins.tasks import netconf_locking
 
 
-def test_netconf_lock(nornir):
+def test_netconf_locking(nornir):
     """Test Netconf Lock."""
     nr = nornir.filter(name="netconf1")
-    result = nr.run(netconf_lock, datastore="candidate")
+    result = nr.run(netconf_locking, datastore="candidate", operation="lock")
     assert result["netconf1"].result["ok"]
     assert not result["netconf1"].result["errors"]
     assert not result["netconf1"].result["error"]
@@ -12,10 +12,10 @@ def test_netconf_lock(nornir):
     assert result["netconf1"].result["rpc"]
 
 
-def test_netconf_lock_failed(nornir):
+def test_netconf_locking_failed(nornir):
     """Test Netconf Lock - failed."""
     nr = nornir.filter(name="netconf1")
-    result = nr.run(netconf_lock, datastore="candidate")
+    result = nr.run(netconf_locking, datastore="candidate", operation="lock")
     assert result["netconf1"].failed
     assert "already locked by this session" in str(result["netconf1"].result["error"])
     assert "Unable to find 'ok' or data_xml in response object." in result["netconf1"].result["errors"]

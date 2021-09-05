@@ -6,22 +6,11 @@ from nornir_netconf.plugins.tasks import (
     netconf_edit_config,
     netconf_get,
     netconf_get_config,
-    netconf_lock,
+    netconf_locking,
 )
 from tests.conftest import skip_integration_tests
 
 DEVICE_NAME = "nokia_rtr"
-
-
-@skip_integration_tests
-def test_sros_netconf_edit_config(nornir, sros_config_payload):
-    """Test NETCONF edit-config."""
-    nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_edit_config, config=sros_config_payload, target="candidate", xmldict=True)
-    assert not result[DEVICE_NAME].result["errors"]
-    assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
-    assert not result[DEVICE_NAME].result["xml_dict"]["rpc-reply"]["ok"]
-    assert "object has no attribute 'ok'" in str(result[DEVICE_NAME].result["error"])
 
 
 @skip_integration_tests
@@ -70,27 +59,52 @@ def test_sros_netconf_get(nornir):
 
 
 @skip_integration_tests
-def test_sros_netconf_lock(nornir):
-    """Test Netconf Lock."""
+def test_sros_netconf_locking_operations(nornir, sros_config_payload):
+    """Test NETCONF Lock, extract manager and use it to edit-config.
+
+    Afterwards, use netconf_locking with unlock operations to unlock.
+    """
     nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_lock, datastore="candidate")
+    result = nr.run(netconf_locking, datastore="candidate", operation="lock")
+    manager = result[DEVICE_NAME].result["manager"]
     assert result[DEVICE_NAME].result["rpc"]
     assert result[DEVICE_NAME].result["manager"]
+    assert result[DEVICE_NAME].result["data_xml"]
+    # Extract manager from lock operation.
+    manager = result[DEVICE_NAME].result["manager"]
+    # print_result(result)
+
+    # Edit Config
+    result = nr.run(netconf_edit_config, config=sros_config_payload, target="candidate", xmldict=True, manager=manager)
+    # print_result(result)
+    assert not result[DEVICE_NAME].result["error"]
+    assert not result[DEVICE_NAME].result["errors"]
+    assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
+    assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
+
+    # Unlock candidate datastore.
+    result = nr.run(netconf_locking, datastore="candidate", operation="unlock", manager=manager)
+    assert result[DEVICE_NAME].result["rpc"]
+    assert result[DEVICE_NAME].result["manager"]
+    assert result[DEVICE_NAME].result["data_xml"]
+    # print_result(result)
 
 
-# def test_sros_netconf_edit_config(nornir, sros_config_payload):
-#     """Test NETCONF  Lock, extract manager and use it to edit-config."""
-#     nr = nornir.filter(name=DEVICE_NAME)
-#     result = nr.run(netconf_lock, datastore="candidate")
-#     # assert result[DEVICE_NAME].result["rpc"]
-#     # assert result[DEVICE_NAME].result["manager"]
-#     print_result(result)
+## Need to add a discard operation
 
-#     manager = result[DEVICE_NAME].result["manager"]
 
-#     result = nr.run(netconf_edit_config, config=sros_config_payload, target="candidate", xmldict=True, manager=manager)
-#     print_result(result)
-#     # assert not result[DEVICE_NAME].result["errors"]
-#     # assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
-#     # assert not result[DEVICE_NAME].result["xml_dict"]["rpc-reply"]["ok"]
-#     # assert "object has no attribute 'ok'" in str(result[DEVICE_NAME].result["error"])
+@skip_integration_tests
+def test_sros_netconf_edit_config(nornir, sros_config_payload):
+    """Test NETCONF edit-config - Post Lock / Unlock operations."""
+    nr = nornir.filter(name=DEVICE_NAME)
+    result = nr.run(netconf_edit_config, config=sros_config_payload, target="candidate", xmldict=True)
+    assert not result[DEVICE_NAME].result["errors"]
+    assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
+    assert not result[DEVICE_NAME].result["xml_dict"]["rpc-reply"]["ok"]
+
+    # Unlock candidate datastore.
+    result = nr.run(netconf_locking, datastore="candidate", operation="unlock")
+    assert result[DEVICE_NAME].result["rpc"]
+    assert result[DEVICE_NAME].result["manager"]
+    assert result[DEVICE_NAME].result["data_xml"]
+    # print_result(result)
