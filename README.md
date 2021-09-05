@@ -63,11 +63,17 @@ git clone https://github.com/h4ndzdatm0ld/nornir_netconf
 ```
 
 ```bash
+docker-compose build && docker-compose run test
+```
+
+To test locally with pytest
+
+```bash
 poetry install && poetry shell
 ```
 
 ```bash
- docker-compose build && docker-compose run test
+pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
 ```
 
 ### Integration Tests

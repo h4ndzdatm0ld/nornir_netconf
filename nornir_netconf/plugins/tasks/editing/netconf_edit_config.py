@@ -28,7 +28,7 @@ def netconf_edit_config(
         Result object with the following attributes set:
           * result (``str``): The rpc-reply as an XML string
     """
-    # Manager can come from locking a datastore, using 'netconf_lock'.
+    # Manager can come from lock a datastore, using 'netconf_lock'.
     if not manager:
         manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     result = manager.edit_config(config, target=target)
