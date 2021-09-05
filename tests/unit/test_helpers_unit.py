@@ -11,6 +11,7 @@ from nornir_netconf.plugins.helpers import (
     get_result,
     write_output,
     xml_to_dict,
+    check_capability,
 )
 from tests.conftest import FakeRpcObject
 
@@ -186,3 +187,38 @@ def test_get_result_skip_ok_xml_dict():
 
     result = get_result(test_object, xmldict=True)
     assert not result["failed"]
+
+
+capabilities = [
+    "urn:ietf:params:netconf:base:1.0",
+    "urn:ietf:params:netconf:base:1.1",
+    "urn:ietf:params:netconf:capability:candidate:1.0",
+    "urn:ietf:params:netconf:capability:confirmed-commit:1.1",
+    "urn:ietf:params:netconf:capability:rollback-on-error:1.0",
+    "urn:ietf:params:netconf:capability:notification:1.0",
+    "urn:ietf:params:netconf:capability:interleave:1.0",
+    "urn:ietf:params:netconf:capability:validate:1.0",
+    "urn:ietf:params:netconf:capability:validate:1.1",
+    "urn:ietf:params:netconf:capability:startup:1.0",
+    "urn:ietf:params:netconf:capability:url:1.0?scheme=ftp,tftp,file",
+    "urn:ietf:params:netconf:capability:with-defaults:1.0?basic-mode=explicit&also-supported=report-all",
+    "urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring",
+    "urn:ietf:params:netconf:capability:yang-library:1.0?revision=2016-06-21&module-set-id=20.5.R2",
+    "urn:nokia.com:sros:ns:yang:sr:major-release-20",
+    "urn:ietf:params:xml:ns:yang:iana-if-type?module=iana-if-type&revision=2014-05-08",
+    "urn:ietf:params:xml:ns:yang:ietf-inet-types?module=ietf-inet-types&revision=2013-07-15",
+]
+
+
+def test_check_capability_true():
+    """Test check_capability success."""
+    assert check_capability(capabilities, "candidate")
+
+
+def test_check_capability_true():
+    """Test check_capability failure.
+
+    Remove candidate from list.
+    """
+    capabilities.pop(2)
+    assert not check_capability(capabilities, "candidate")

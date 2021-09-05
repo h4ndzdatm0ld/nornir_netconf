@@ -1,5 +1,5 @@
 """Integration test against SROS device."""
-# from nornir_utils.plugins.functions import print_result
+from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.tasks import (
     netconf_capabilities,
@@ -7,6 +7,7 @@ from nornir_netconf.plugins.tasks import (
     netconf_get,
     netconf_get_config,
     netconf_lock,
+    netconf_commit,
 )
 from tests.conftest import skip_integration_tests
 
@@ -18,6 +19,7 @@ def test_sros_netconf_capabilities(nornir):
     """Test NETCONF Capabilities."""
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_capabilities)
+    # print_result(result)
     assert "urn:ietf:params:netconf:base:1.0" in result[DEVICE_NAME].result
 
 
@@ -82,15 +84,20 @@ def test_sros_netconf_lock_operations(nornir, sros_config_payload):
     assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
     assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
 
+    # Commit Config
+    result = nr.run(netconf_commit, manager=manager, xmldict=True)
+    # print_result(result)
+    assert not result[DEVICE_NAME].result["error"]
+    assert not result[DEVICE_NAME].result["errors"]
+    assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
+    assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
+
     # Unlock candidate datastore.
     result = nr.run(netconf_lock, datastore="candidate", operation="unlock", manager=manager)
     assert result[DEVICE_NAME].result["rpc"]
     assert result[DEVICE_NAME].result["manager"]
     assert result[DEVICE_NAME].result["data_xml"]
     # print_result(result)
-
-
-# Need to add a discard operation
 
 
 @skip_integration_tests
@@ -101,10 +108,8 @@ def test_sros_netconf_edit_config(nornir, sros_config_payload):
     assert not result[DEVICE_NAME].result["errors"]
     assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
     assert not result[DEVICE_NAME].result["xml_dict"]["rpc-reply"]["ok"]
+    print_result(result)
 
-    # Unlock candidate datastore.
-    result = nr.run(netconf_lock, datastore="candidate", operation="unlock")
-    assert result[DEVICE_NAME].result["rpc"]
-    assert result[DEVICE_NAME].result["manager"]
-    assert result[DEVICE_NAME].result["data_xml"]
-    # print_result(result)
+    # Commit Config
+    result = nr.run(netconf_commit, xmldict=True)
+    assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
