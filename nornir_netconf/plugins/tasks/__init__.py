@@ -7,13 +7,13 @@ from .editing.netconf_edit_config import netconf_edit_config
 from .retrieval.netconf_get import netconf_get
 from .retrieval.netconf_get_config import netconf_get_config
 from .retrieval.netconf_get_schemas import netconf_get_schemas
-from .locking.netconf_locking import netconf_locking
+from .locking.netconf_lock import netconf_lock
 
 __all__ = (
     "netconf_capabilities",
     "netconf_edit_config",
     "netconf_get",
     "netconf_get_config",
-    "netconf_locking",
+    "netconf_lock",
     "netconf_get_schemas",
 )

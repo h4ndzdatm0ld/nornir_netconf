@@ -31,7 +31,7 @@ pip install nornir_netconf
 * **netconf_get** - Returns state data based on the supplied xpath
 * **netconf_get_config** - Returns configuration from specified configuration store (default="running")
 * **netconf_edit_config** - Edits configuration on specified datastore (default="running")
-* **netconf_locking** - Locks a datastore
+* **netconf_lock** - Locks a datastore
 
 ### Documentation
 

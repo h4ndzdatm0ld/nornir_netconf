@@ -7,8 +7,8 @@ from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import get_result
 
 
-def netconf_locking(task: Task, datastore: str, manager: Manager = None, operation: str = "lock") -> Result:
-    """NETCONF Locking Operations for a specified datastore.
+def netconf_lock(task: Task, datastore: str, manager: Manager = None, operation: str = "lock") -> Result:
+    """NETCONF locking operations for a specified datastore.
 
     By default, netconf_lock operations will display the 'data_xml'
     extracted from the RPCReply of the server, as it should be mininal
@@ -20,15 +20,14 @@ def netconf_locking(task: Task, datastore: str, manager: Manager = None, operati
         datastore (str): Datastore to lock
         manager (Manager): Manager to use if operation=='unlock'
         operation (str): Unlock or Lock
-
     Examples:
         Simple example::
 
-            > nr.run(task=netconf_locking)
+            > nr.run(task=netconf_lock)
 
-        Locking candidate datestore::
+        lock candidate datestore::
 
-            > nr.run(task=netconf_locking,
+            > nr.run(task=netconf_lock,
             >        operation="lock",
             >        datastore="candidate")
 
@@ -42,14 +41,11 @@ def netconf_locking(task: Task, datastore: str, manager: Manager = None, operati
     if operation not in ["lock", "unlock"]:
         result["failed"] = True
         raise ValueError("Supported operations are: 'lock' or 'unlock'.")
-
     if not manager:
         manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
-
     try:
         if operation == "lock":
             result = manager.lock(target=datastore)
-            task.name = "netconf_lock"
         else:
             result = manager.unlock(target=datastore)
             task.name = "netconf_unlock"
