@@ -1,6 +1,7 @@
 """Test NETCONF Lock - unit-tests."""
-from nornir_netconf.plugins.tasks import netconf_lock
 from unittest.mock import patch
+
+from nornir_netconf.plugins.tasks import netconf_lock
 from tests.conftest import FakeRpcObject
 
 # from nornir_utils.plugins.functions import print_result

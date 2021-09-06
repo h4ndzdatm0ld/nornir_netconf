@@ -1,0 +1,1 @@
+<MagicMock name='connect_ssh().get_schema().data_xml' id='140575627203680'>

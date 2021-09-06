@@ -81,5 +81,4 @@ def get_result(rpc: Union[RPCReply, Dict[str, Any]], xmldict: bool = False) -> D
         result["ok"] = rpc.get("ok", False)
         result["rpc"] = rpc.get("rpc", {})
         result["xml_dict"] = rpc.get("xml_dict", {})
-
     return {"failed": True, "result": result}
