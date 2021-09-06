@@ -50,3 +50,16 @@ sros:
         look_for_keys: false
         # device_params:
         #   name: 'sros'
+
+iosxr:
+  username: "netconf"
+  password: "NCadmin123"
+  port: 830
+  platform: "iosxr"
+  connection_options:
+    netconf:
+      extras:
+        hostkey_verify: false
+        timeout: 300
+        allow_agent: false
+        look_for_keys: false

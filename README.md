@@ -81,8 +81,8 @@ pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
 
 There are currently two different vendors that have full integration tests.
 
-* Nokia SROS
-* Cisco IOSxR (Pending)
+* Nokia SROS - TiMOS-C -20.5.R2
+* Cisco IOSxR - 6.3.1
 
 These tests are ran locally against an EVE-NG environment. At the moment, there is no solution to run these integration tests within the Github Actions CI.
 
