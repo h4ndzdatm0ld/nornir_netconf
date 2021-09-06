@@ -21,7 +21,26 @@ TEST_FOLDER = "tests/test_data/test_folder_success"
 def test_xml_to_dict_exception():
     """Test xml_to_dict."""
     result = xml_to_dict({"test": "data"})
-    assert result == {"error": "Unable to parse XML to Dict. 'dict' object has no attribute 'data_xml'."}
+
+    assert result == {"error": "Unable to parse XML to Dict. '.xml' or 'data_xml' not found."}
+
+
+def test_xml_to_dict_exception_data_xml():
+    """Test xml_to_dict. hit data_xml exception on boolean."""
+    test_object = FakeRpcObject()
+    test_object.set_data_xml = True
+    result = xml_to_dict(test_object)
+    assert result == {"error": "Unable to parse XML to Dict. a bytes-like object is required, not 'bool'."}
+
+
+def test_xml_to_dict_exception_xml():
+    """Test xml_to_dict. hit _xml exception on boolean."""
+    test_object = FakeRpcObject()
+    test_object.set_xml = True
+    # Delete the data_xml attr to hit exception.
+    delattr(test_object, "data_xml")
+    result = xml_to_dict(test_object)
+    assert result == {"error": "Unable to parse XML to Dict. a bytes-like object is required, not 'bool'."}
 
 
 # Test Create Folder

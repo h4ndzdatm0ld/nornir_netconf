@@ -116,6 +116,7 @@ class FakeRpcObject:
         self.data_xml = False
         self.error = ""
         self.errors = ""
+        self.xml = False
 
     def set_ok(self, set: bool):
         """Set ok."""
@@ -126,6 +127,11 @@ class FakeRpcObject:
         """Set data_xml."""
         if set:
             self.data_xml = True
+
+    def set_xml(self, set: bool):
+        """Set xml."""
+        if set:
+            self.xml = True
 
 
 # PAYLOADS
@@ -145,5 +151,20 @@ def sros_config_payload():
             </interface>
         </router>
     </configure>
+</config>
+        """
+
+
+@pytest.fixture(scope="function", autouse=True)
+def iosxr_config_payload():
+    return """
+<config xmlns:xc="urn:ietf:params:xml:n:netconf:base:1.0">
+    <cdp xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-cdp-cfg">
+        <timer>80</timer>
+        <enable>true</enable>
+        <log-adjacency></log-adjacency>
+        <hold-time>200</hold-time>
+        <advertise-v1-only></advertise-v1-only>
+    </cdp>
 </config>
         """
