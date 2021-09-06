@@ -14,8 +14,8 @@ def netconf_commit(
     xmldict: bool = False,
     confirmed: bool = False,
     timeout: int = 60,
-    persist: bool = None,
-    persist_id: bool = None,
+    persist: int = None,  # type: ignore
+    persist_id: int = None,  # type: ignore
 ) -> Result:
     """Commit operation.
 
@@ -24,8 +24,8 @@ def netconf_commit(
         xmldict (boolean): convert xml to dict
         confirmed (boolean): Commit confirm
         timeout (int): commit confirm timeout
-        persist (boolean): survive a session termination
-        persist_id (boolean): must equal given value of persist in original commit operation
+        persist (int): survive a session termination
+        persist_id (int): must equal given value of persist in original commit operation
     Examples:
         Simple example::
 

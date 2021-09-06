@@ -3,11 +3,11 @@ from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.tasks import (
     netconf_capabilities,
+    netconf_commit,
     netconf_edit_config,
     netconf_get,
     netconf_get_config,
     netconf_lock,
-    netconf_commit,
 )
 from tests.conftest import skip_integration_tests
 

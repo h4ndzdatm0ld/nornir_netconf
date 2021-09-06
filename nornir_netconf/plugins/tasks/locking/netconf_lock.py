@@ -1,6 +1,6 @@
 """NETCONF lock."""
-from ncclient.operations.rpc import RPCError
 from ncclient.manager import Manager
+from ncclient.operations.rpc import RPCError
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME

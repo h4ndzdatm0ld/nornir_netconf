@@ -45,6 +45,6 @@ def write_output(text: str, path: str, filename: str) -> None:
         file.write(str(text))
 
 
-def check_capability(capabilities: List[str], capability: str):
+def check_capability(capabilities: List[str], capability: str) -> bool:
     """Evaluate capabilities and return True if capability is available."""
     return any(True for cap in capabilities if capability in cap)

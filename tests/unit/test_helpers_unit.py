@@ -7,11 +7,11 @@ from unittest.mock import patch
 import ncclient
 
 from nornir_netconf.plugins.helpers import (
+    check_capability,
     create_folder,
     get_result,
     write_output,
     xml_to_dict,
-    check_capability,
 )
 from tests.conftest import FakeRpcObject
 
@@ -215,7 +215,7 @@ def test_check_capability_true():
     assert check_capability(capabilities, "candidate")
 
 
-def test_check_capability_true():
+def test_check_capability_false():
     """Test check_capability failure.
 
     Remove candidate from list.
