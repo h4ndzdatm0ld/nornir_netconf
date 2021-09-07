@@ -48,8 +48,6 @@ sros:
         timeout: 300
         allow_agent: false
         look_for_keys: false
-        # device_params:
-        #   name: 'sros'
 
 iosxr:
   username: "netconf"

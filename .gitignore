@@ -8,6 +8,7 @@ __pycache__/
 # Testing
 *.log
 *.xml
+tests/test_data/schema_path/
 
 # C extensions
 *.so

@@ -1,3 +1,4 @@
+# type: ignore
 """Nornir NETCONF Example Task: 'get-config'."""
 from nornir import InitNornir
 from nornir_utils.plugins.functions import print_result
@@ -15,7 +16,6 @@ west_region = nr.filter(region="west-region")
 
 def example_netconf_get_config(task):
     """Test get config."""
-
     task.run(
         netconf_get_config,
         source="running",

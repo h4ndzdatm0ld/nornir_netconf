@@ -48,7 +48,7 @@ sros:
         allow_agent: false
         look_for_keys: false
         device_params:
-          name: 'sros'
+          name: "sros"
 
 iosxr:
   username: "netconf"
