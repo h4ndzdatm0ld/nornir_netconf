@@ -24,3 +24,8 @@ nokia_rtr:
   port: 830
   groups:
     - "sros"
+iosxr_rtr:
+  hostname: "192.168.1.187"
+  port: 830
+  groups:
+    - "iosxr"

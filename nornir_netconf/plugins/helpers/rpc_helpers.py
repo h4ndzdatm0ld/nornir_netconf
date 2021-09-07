@@ -14,10 +14,19 @@ def xml_to_dict(rpc: RPCReply) -> Union[Any, Dict[str, str]]:
     Returns:
         Dict: xml response -> Dict
     """
-    try:
-        return xmltodict.parse(rpc.data_xml)
-    except Exception as err_ex:
-        return {"error": f"Unable to parse XML to Dict. {err_ex}."}
+    options = list(dir(rpc))
+    if "data_xml" in options:
+        try:
+            return xmltodict.parse(rpc.data_xml)
+        except Exception as err_ex:
+            return {"error": f"Unable to parse XML to Dict. {err_ex}."}
+    elif "xml" in options:
+        try:
+            return xmltodict.parse(rpc.xml)
+        except Exception as err_ex:
+            return {"error": f"Unable to parse XML to Dict. {err_ex}."}
+    else:
+        return {"error": "Unable to parse XML to Dict. '.xml' or 'data_xml' not found."}
 
 
 def unpack_rpc(rpc: RPCReply, xmldict: bool = False) -> Dict[str, Union[RPCReply, str]]:
