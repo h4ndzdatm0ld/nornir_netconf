@@ -2,7 +2,6 @@
 import logging
 import os.path
 from pathlib import Path
-from typing import List
 
 
 def check_file(file_name: str) -> bool:
@@ -43,8 +42,3 @@ def write_output(text: str, path: str, filename: str) -> None:
         create_folder(path)
     with open(f"{path}/{filename}.txt", "w+", encoding="utf-8") as file:
         file.write(str(text))
-
-
-def check_capability(capabilities: List[str], capability: str) -> bool:
-    """Evaluate capabilities and return True if capability is available."""
-    return any(True for cap in capabilities if capability in cap)
