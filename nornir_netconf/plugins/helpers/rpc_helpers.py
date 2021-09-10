@@ -1,8 +1,13 @@
 """Helper to extract info from RPC reply."""
-from typing import Any, Dict, Union
+from typing import Any, Dict, Union, List
 
 import xmltodict
 from ncclient.operations.rpc import RPCReply
+
+
+def check_capability(capabilities: List[str], capability: str) -> bool:
+    """Evaluate capabilities and return True if capability is available."""
+    return any(True for cap in capabilities if capability in cap)
 
 
 def xml_to_dict(rpc: RPCReply) -> Union[Any, Dict[str, str]]:
