@@ -29,3 +29,7 @@ iosxr_rtr:
   port: 830
   groups:
     - "iosxr"
+iosxe_rtr:
+  hostname: "ios-xe-mgmt-latest.cisco.com"
+  groups:
+    - "csr"
