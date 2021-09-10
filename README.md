@@ -90,7 +90,7 @@ sros:
   platform: "sros"
   connection_options:
     netconf:
-      extras:****
+      extras:
         hostkey_verify: false
         timeout: 300
         allow_agent: false
