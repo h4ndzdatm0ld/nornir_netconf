@@ -35,14 +35,12 @@ def netconf_edit_config(
     """
     if default_operation not in ["merge", "replace", None]:
         raise ValueError(f"{default_operation} not supported.")
-
     if not manager:
         manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
-
     if target in ["candidate", "startup"]:
         capabilities = list(manager.server_capabilities)
-        if not check_capability(capabilities, "candidate"):
+        print(capabilities)
+        if not check_capability(capabilities, target):
             raise ValueError(f"{target} datastore is not supported.")
-
     result = manager.edit_config(config, target=target, default_operation=default_operation)
     return Result(host=task.host, **get_result(result, xmldict))
