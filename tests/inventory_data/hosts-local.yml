@@ -1,0 +1,35 @@
+---
+netconf1:
+  hostname: "localhost"
+  port: 1830
+  groups:
+    - "netconf_docker"
+netconf2:
+  hostname: "netconf2"
+  port: 1830
+  groups:
+    - "netconf_docker"
+netconf3:
+  hostname: "localhost"
+  port: 1830
+  groups:
+    - "netconf_docker_ssh"
+netconf4:
+  hostname: "localhost"
+  port: 1830
+  groups:
+    - "netconf_docker_nossh"
+nokia_rtr:
+  hostname: "192.168.1.205"
+  port: 830
+  groups:
+    - "sros"
+iosxr_rtr:
+  hostname: "192.168.1.187"
+  port: 830
+  groups:
+    - "iosxr"
+iosxe_rtr:
+  hostname: "ios-xe-mgmt-latest.cisco.com"
+  groups:
+    - "csr"
