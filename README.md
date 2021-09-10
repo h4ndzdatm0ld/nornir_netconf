@@ -305,10 +305,15 @@ pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
 
 ### Integration Tests
 
-There are currently two different vendors that have full integration tests.
+Devices with full integration tests (Eve-NG)
 
 * Nokia SROS - TiMOS-C -20.5.R2
 * Cisco IOSxR - 6.3.1
+
+Devices testing against Always-ON Sandboxes (Cisco DevNet)
+
+* ios-xe - Cisco IOS XE Software, Version 17.03.01a
+* ios-xr - ( Pending )
 
 These tests are ran locally against an EVE-NG environment. At the moment, there is no solution to run these integration tests within the Github Actions CI.
 
