@@ -5,5 +5,8 @@ repo_url: "https://github.com/h4ndzdatm0ld/nornir_netconf"
 theme:
   name: "readthedocs"
   navigation_depth: 3
+plugins:
+- search
+- mkdocstrings
 nav:
-  - Introduction: "index.md"
+  - Introduction: "README.md"
