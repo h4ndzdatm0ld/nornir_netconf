@@ -15,3 +15,10 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
     docs/
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
+
+
+## Reference
+
+::: nornir_netconf.plugins.connections.netconf.Netconf
+::: nornir_netconf.plugins.tasks.capabilities.netconf_capabilities.netconf_capabilities
+::: nornir_netconf.plugins.tasks.editing.netconf_edit_config
