@@ -7,6 +7,8 @@ license = "Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/h4ndzdatm0ld/nornir_netconf"
 keywords = ["nornir", "netconf", "ncclient"]
+documentation = "https://nornir-netconf.readthedocs.io"
+
 
 [tool.poetry.plugins."nornir.plugins.connections"]
 "netconf" = "nornir_netconf.plugins.connections:Netconf"
