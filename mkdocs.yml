@@ -7,6 +7,3 @@ theme:
   navigation_depth: 3
 nav:
   - Introduction: "index.md"
-  - Inventory Plugin: "inventory/inventory.md"
-  - Processor Plugin: "processor/processor.md"
-  - Task Plugin: "task/task.md"
