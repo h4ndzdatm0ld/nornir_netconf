@@ -1,6 +1,6 @@
 ---
 site_name: "Nornir NETCONF Documentation"
-site_url: "https://nornir-netconf.readthedocs.io"
+site_url: "https://h4ndzdatm0ld.github.io/nornir_netconf/"
 repo_url: "https://github.com/h4ndzdatm0ld/nornir_netconf"
 theme:
   name: "readthedocs"
