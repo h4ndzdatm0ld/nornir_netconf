@@ -9,4 +9,4 @@ plugins:
   - "search"
   - "mkdocstrings"
 nav:
-  - Introduction: "README.md"
+  - Introduction: "index.md"
