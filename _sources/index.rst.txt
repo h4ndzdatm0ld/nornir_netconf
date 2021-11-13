@@ -16,17 +16,22 @@ Contents
 ========
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 4
 
+   Home <self>
+   Readme <README>
+
+API Reference
+=============
+.. toctree::
+   :maxdepth: 4
 
 Changelog
 =========
 .. toctree::
    :maxdepth: 1
 
-   Changelog <changelog> # the changelog.md needs to be in the docs directory
-
+   Changelog <changelog>
 
 Indices and tables
 ==================
