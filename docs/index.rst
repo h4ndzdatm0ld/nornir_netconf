@@ -6,7 +6,6 @@
 Welcome to Nornir NETCONF's documentation!
 ==========================================
 
-
 Overview
 ========
 
@@ -21,17 +20,17 @@ Contents
    Home <self>
    Readme <README>
 
-API Reference
-=============
-.. toctree::
-   :maxdepth: 4
-
 Changelog
 =========
 .. toctree::
    :maxdepth: 1
 
    Changelog <changelog>
+
+API Reference
+=============
+.. toctree::
+   :maxdepth: 4
 
 Indices and tables
 ==================
