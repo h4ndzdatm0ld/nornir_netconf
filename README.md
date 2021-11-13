@@ -5,6 +5,10 @@
 
 Collection of NETCONF tasks and connection plugin for [Nornir](https://github.com/nornir-automation/nornir)
 
+## Documentation
+
+Documentation is generated with Sphinx and hosted with Github Pages. [Documentation](https://h4ndzdatm0ld.github.io/nornir_netconf/)
+
 ## Installation
 
 ------------

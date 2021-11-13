@@ -31,7 +31,9 @@ release = "0.1.0"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["autoapi.extension", "myst_parser"]
+extensions = ["autoapi.extension", "myst_parser"]  # Document Python Code
+autoapi_type = "python"
+autoapi_dirs = ["../nornir_netconf/"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -52,10 +54,6 @@ html_theme = "sphinx_rtd_theme"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
-
-# Document Python Code
-autoapi_type = "python"
-autoapi_dirs = ["../nornir_netconf/"]
 
 # The suffix of source filenames.
 # source_suffix = [".rst", ".md"]
