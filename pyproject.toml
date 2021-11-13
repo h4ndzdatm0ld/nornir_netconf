@@ -7,6 +7,8 @@ license = "Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/h4ndzdatm0ld/nornir_netconf"
 keywords = ["nornir", "netconf", "ncclient"]
+documentation = "https://nornir-netconf.readthedocs.io"
+
 
 [tool.poetry.plugins."nornir.plugins.connections"]
 "netconf" = "nornir_netconf.plugins.connections:Netconf"
@@ -33,6 +35,10 @@ pydocstyle = "^6.1.1"
 MonkeyType = "^21.5.0"
 pytype = "^2021.8.24"
 mypy = "^0.910"
+Sphinx = "^4.2.0"
+myst-parser = "^0.15.2"
+sphinx-autoapi = "^1.8.4"
+sphinx-rtd-theme = "^1.0.0"
 
 
 [build-system]

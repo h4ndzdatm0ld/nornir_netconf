@@ -1,0 +1,14 @@
+---
+site_name: "Nornir NETCONF Documentation"
+site_url: "https://h4ndzdatm0ld.github.io/nornir_netconf/"
+repo_url: "https://github.com/h4ndzdatm0ld/nornir_netconf"
+theme:
+  name: "readthedocs"
+  navigation_depth: 3
+  hljs_languages:
+    - "yaml"
+plugins:
+  - "search"
+  - "mkdocstrings"
+nav:
+  - Home: "index.md"

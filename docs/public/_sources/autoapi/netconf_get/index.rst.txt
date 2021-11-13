@@ -1,0 +1,57 @@
+:py:mod:`netconf_get`
+=====================
+
+.. py:module:: netconf_get
+
+.. autoapi-nested-parse::
+
+   NETCONF get.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   netconf_get.netconf_get
+
+
+
+.. py:function:: netconf_get(task: nornir.core.task.Task, path: str = '', filter_type: str = 'xpath', xmldict: bool = False) -> nornir.core.task.Result
+
+   Get information over Netconf from device.
+
+   Arguments:
+       path: Subtree or xpath to filter
+       filter_type: Type of filtering to use, 'xpath' or 'subtree'
+       xmldict (boolean): convert xml to dict
+
+   Examples:
+       Simple example::
+
+           > nr.run(task=netconf_get)
+
+       Passing options using ``xpath``::
+
+           > query = "/devices/device"
+           > nr.run(task=netconf_get,
+           >        path=query)
+
+      Passing options using ``subtree``::
+
+           > query = "<interfaces></interfaces>"
+           > nr.run(task=netconf_get,
+           >        filter_type="subtree",
+           >        path=query)
+
+
+   Returns:
+       Result object with the following attributes set:
+         * result (``str``): The collected data as an XML string
+
+

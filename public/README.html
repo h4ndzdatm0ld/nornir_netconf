@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nornir NETCONF &mdash; Nornir NETCONF 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="Welcome to Nornir NETCONF’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Nornir NETCONF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Readme</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#additional-documentation">Additional Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#contributions">Contributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integration-tests">Integration Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sysrepo-netopeer2">Sysrepo: netopeer2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Nornir NETCONF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Nornir NETCONF</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/README.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="nornir-netconf">
+<h1>Nornir NETCONF<a class="headerlink" href="#nornir-netconf" title="Permalink to this headline"></a></h1>
+<p><a class="reference external" href="https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf"><img alt="codecov" src="https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf/branch/develop/graph/badge.svg?token=MRI39YHOOR" /></a>
+<a class="reference external" href="https://github.com/nornir-automation/nornir_netconf/actions?query=workflow%3Atest_nornir_netconf"><img alt="Build Status" src="https://github.com/nornir-automation/nornir_netconf/workflows/test_nornir_netconf/badge.svg" /></a></p>
+<p>Collection of NETCONF tasks and connection plugin for <a class="reference external" href="https://github.com/nornir-automation/nornir">Nornir</a></p>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h2>
+<p>Documentation is generated with Sphinx and hosted with Github Pages. <a class="reference external" href="https://h4ndzdatm0ld.github.io/nornir_netconf/">Documentation</a></p>
+<p>To generate the latest documentation locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sphinx-build -vvv -b html ./docs public
+<span class="nb">cd</span> docs/public
+python -m http.server
+</pre></div>
+</div>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<hr class="docutils" />
+<p><strong>```bash</strong>
+pip install nornir_netconf</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+## Plugins
+
+------------
+
+### Connections
+
+------------
+
+* **netconf** - Connect to network devices using [ncclient](https://github.com/ncclient/ncclient)
+
+### Tasks
+
+------------
+
+* **netconf_capabilities** - Return server capabilities from target
+* **netconf_get** - Returns state data based on the supplied xpath
+* **netconf_get_config** - Returns configuration from specified configuration store (default=&quot;running&quot;)
+* **netconf_edit_config** - Edits configuration on specified datastore (default=&quot;running&quot;)
+* **netconf_lock** - Locks or Unlocks a specified datastore (default=&quot;lock&quot;)
+* **netconf_commit** - Commits a change
+
+## Response Result
+
+The goal of the task results is to put the NETCONF RPC-reply back in your hands. An &#39;rpc&#39; key will be available which can then be used to access &#39;data_xml&#39; or &#39;xml&#39; depending on the type of response or any other attributes available, such as &#39;error&#39;, &#39;errors&#39;. Some of the RPC is unpacked and provided back as part of the Result by default, including the &#39;error&#39;, &#39;errors&#39; and &#39;ok&#39; if available. Anything else can be accessed directly from the rpc.
+
+Furthermore, some tasks allow the &#39;xml_dict&#39; boolean argument. This will take the response RPC XML and convert it into a python dictionary. Keep in mind, this may not be perfect as XML does&#39;t quite translate 100% into a python dictionary.
+
+For example, an xml response can include a collapsed response with open/close as so:  ```&lt;ok/&gt;```
+If parsed into python dictionary using xml_dict argument, the key of &#39;ok&#39; will have a value of none.  However, if we were to be parsing ```&lt;enabled&gt;True&lt;/enabled&gt;``` this would show a key of &#39;enabled&#39; and a value of &#39;True&#39;.
+
+This is a simple built-in solution available, but not the only one. You have the RPC as part of the response and you are able to parse it anyway or method which works better for you.
+
+## Global Lock
+
+The `netconf_lock` task will always return the Manager object, which is the established (and locked) agent used to send RPC&#39;s back and forth. The idea of retrieving the Manager is to carry this established locked session from task to task and only lock and unlock once during a run of tasks.  Please review the examples below to see how to extract the manager and store it under the `task.host` dictionary as a variable which can be used across multiple tasks. The Manager is passed into other tasks and re-used to send RPCs to the remote server.
+
+### Examples
+
+Head over to the [Examples directory](https://github.com/h4ndzdatm0ld/nornir_netconf/tree/develop/examples) if you&#39;d like to review the files.
+
+&lt;details&gt;&lt;summary&gt;Directory Structure&lt;/summary&gt;
+
+```bash
+├── example-project
+│   ├── config.yml
+│   ├── inventory
+│   │   ├── groups.yml
+│   │   ├── hosts-local.yml
+│   │   └── ssh_config
+│   ├── logs
+│   │   └── nornir.log
+│   └── nr-get-config.py
+└── README.md
+</pre></div>
+</div>
+</details>
+<details><summary>Netconf Connection Plugin</summary>
+<p>Below is the snippet of a host inside the host-local.yml file and it’s associated group, ‘sros’.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nokia_rtr</span><span class="p">:</span>
+  <span class="nt">hostname</span><span class="p">:</span> <span class="s">&quot;192.168.1.205&quot;</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">830</span>
+  <span class="nt">groups</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="s">&quot;sros&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sros</span><span class="p">:</span>
+  <span class="nt">username</span><span class="p">:</span> <span class="s">&quot;netconf&quot;</span>
+  <span class="nt">password</span><span class="p">:</span> <span class="s">&quot;NCadmin123&quot;</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">830</span>
+  <span class="nt">platform</span><span class="p">:</span> <span class="s">&quot;sros&quot;</span>
+  <span class="nt">connection_options</span><span class="p">:</span>
+    <span class="nt">netconf</span><span class="p">:</span>
+      <span class="nt">extras</span><span class="p">:</span>
+        <span class="nt">hostkey_verify</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+        <span class="nt">timeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">300</span>
+        <span class="nt">allow_agent</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+        <span class="nt">look_for_keys</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+</details>
+<details><summary>Task: Get Config</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Nornir NETCONF Example Task: &#39;get-config&#39;.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">nornir</span> <span class="kn">import</span> <span class="n">InitNornir</span>
+<span class="kn">from</span> <span class="nn">nornir_utils.plugins.functions</span> <span class="kn">import</span> <span class="n">print_result</span>
+<span class="kn">from</span> <span class="nn">nornir_netconf.plugins.tasks</span> <span class="kn">import</span> <span class="n">netconf_get_config</span>
+
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Hugo Tinoco&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;hugotinoco@icloud.com&quot;</span>
+
+<span class="n">nr</span> <span class="o">=</span> <span class="n">InitNornir</span><span class="p">(</span><span class="s2">&quot;config.yml&quot;</span><span class="p">)</span>
+
+<span class="c1"># Filter the hosts by &#39;west-region&#39; assignment</span>
+<span class="n">west_region</span> <span class="o">=</span> <span class="n">nr</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;west-region&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">example_netconf_get_config</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test get config.&quot;&quot;&quot;</span>
+
+    <span class="n">task</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="n">netconf_get_config</span><span class="p">,</span>
+        <span class="n">source</span><span class="o">=</span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+        <span class="n">path</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        &lt;configure xmlns=&quot;urn:nokia.com:sros:ns:yang:sr:conf&quot;&gt;</span>
+<span class="s2">            &lt;router&gt;</span>
+<span class="s2">                &lt;router-name&gt;Base&lt;/router-name&gt;</span>
+<span class="s2">            &lt;/router&gt;</span>
+<span class="s2">        &lt;/configure&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">filter_type</span><span class="o">=</span><span class="s2">&quot;subtree&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Execute Nornir Script.&quot;&quot;&quot;</span>
+    <span class="n">print_result</span><span class="p">(</span><span class="n">west_region</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">example_netconf_get_config</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</details>
+<details><summary>Task: Get Capabilities</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Nornir NETCONF Example Task: &#39;get-config&#39;.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">nornir</span> <span class="kn">import</span> <span class="n">InitNornir</span>
+<span class="kn">from</span> <span class="nn">nornir_utils.plugins.functions</span> <span class="kn">import</span> <span class="n">print_result</span>
+<span class="kn">from</span> <span class="nn">nornir_netconf.plugins.tasks</span> <span class="kn">import</span> <span class="n">netconf_capabilities</span>
+
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Hugo Tinoco&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;hugotinoco@icloud.com&quot;</span>
+
+<span class="n">nr</span> <span class="o">=</span> <span class="n">InitNornir</span><span class="p">(</span><span class="s2">&quot;config.yml&quot;</span><span class="p">)</span>
+
+<span class="c1"># Filter the hosts by &#39;west-region&#39; assignment</span>
+<span class="n">west_region</span> <span class="o">=</span> <span class="n">nr</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;west-region&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">example_netconf_get_capabilities</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test get capabilities.&quot;&quot;&quot;</span>
+    <span class="n">task</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netconf_capabilities</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Execute Nornir Script.&quot;&quot;&quot;</span>
+    <span class="n">print_result</span><span class="p">(</span><span class="n">west_region</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">example_netconf_get_capabilities</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</details>
+<details><summary>Task: Edit-Config with Global Lock</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Nornir NETCONF Example Task: &#39;edit-config&#39;, &#39;netconf_lock&#39;.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">nornir</span> <span class="kn">import</span> <span class="n">InitNornir</span>
+<span class="kn">from</span> <span class="nn">nornir_utils.plugins.functions</span> <span class="kn">import</span> <span class="n">print_result</span>
+<span class="kn">from</span> <span class="nn">nornir_netconf.plugins.tasks</span> <span class="kn">import</span> <span class="n">netconf_edit_config</span><span class="p">,</span> <span class="n">netconf_lock</span><span class="p">,</span> <span class="n">netconf_commit</span>
+
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Hugo Tinoco&quot;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s2">&quot;hugotinoco@icloud.com&quot;</span>
+
+<span class="n">nr</span> <span class="o">=</span> <span class="n">InitNornir</span><span class="p">(</span><span class="s2">&quot;config.yml&quot;</span><span class="p">)</span>
+
+<span class="c1"># Filter the hosts by &#39;west-region&#39; assignment</span>
+<span class="n">west_region</span> <span class="o">=</span> <span class="n">nr</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;west-region&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">example_global_lock</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test global lock operation of &#39;candidate&#39; datastore.&quot;&quot;&quot;</span>
+    <span class="n">lock</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netconf_lock</span><span class="p">,</span> <span class="n">datastore</span><span class="o">=</span><span class="s2">&quot;candidate&quot;</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;lock&quot;</span><span class="p">)</span>
+    <span class="c1"># Retrieve the Manager(agent) from lock operation and store for further</span>
+    <span class="c1"># operations.</span>
+    <span class="n">task</span><span class="o">.</span><span class="n">host</span><span class="p">[</span><span class="s2">&quot;manager&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lock</span><span class="o">.</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;manager&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">example_edit_config</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Test edit-config with global lock using manager agent.&quot;&quot;&quot;</span>
+
+    <span class="n">config_payload</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    &lt;config&gt;</span>
+<span class="s2">        &lt;configure xmlns=&quot;urn:nokia.com:sros:ns:yang:sr:conf&quot;&gt;</span>
+<span class="s2">            &lt;router&gt;</span>
+<span class="s2">                &lt;router-name&gt;Base&lt;/router-name&gt;</span>
+<span class="s2">                &lt;interface&gt;</span>
+<span class="s2">                    &lt;interface-name&gt;L3-OAM-eNodeB069420-X1&lt;/interface-name&gt;</span>
+<span class="s2">                    &lt;admin-state&gt;disable&lt;/admin-state&gt;</span>
+<span class="s2">                    &lt;ingress-stats&gt;false&lt;/ingress-stats&gt;</span>
+<span class="s2">                &lt;/interface&gt;</span>
+<span class="s2">            &lt;/router&gt;</span>
+<span class="s2">        &lt;/configure&gt;</span>
+<span class="s2">    &lt;/config&gt;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="n">netconf_edit_config</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config_payload</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;candidate&quot;</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">host</span><span class="p">[</span><span class="s2">&quot;manager&quot;</span><span class="p">],</span> <span class="n">xmldict</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Access the RPC response object directly.</span>
+    <span class="c1"># Or you can check the &#39;ok&#39; attr from an rpc response as well, if it exists.</span>
+    <span class="k">if</span> <span class="s2">&quot;ok&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;rpc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">data_xml</span><span class="p">:</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netconf_commit</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">host</span><span class="p">[</span><span class="s2">&quot;manager&quot;</span><span class="p">],</span> <span class="n">xmldict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Check OK key exists, as we passed in &#39;xmldict=True&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;xml_dict&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">example_unlock</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Unlock candidate datastore.&quot;&quot;&quot;</span>
+    <span class="n">task</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netconf_lock</span><span class="p">,</span> <span class="n">datastore</span><span class="o">=</span><span class="s2">&quot;candidate&quot;</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;unlock&quot;</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">host</span><span class="p">[</span><span class="s2">&quot;manager&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Execute Nornir Script.&quot;&quot;&quot;</span>
+    <span class="n">print_result</span><span class="p">(</span><span class="n">west_region</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">example_global_lock</span><span class="p">))</span>
+    <span class="n">print_result</span><span class="p">(</span><span class="n">west_region</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">example_edit_config</span><span class="p">))</span>
+    <span class="n">print_result</span><span class="p">(</span><span class="n">west_region</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">example_unlock</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+</pre></div>
+</div>
+</details>
+<section id="additional-documentation">
+<h3>Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ncclient.readthedocs.io/en/latest/">NCClient</a></p></li>
+<li><p><a class="reference external" href="https://www.sysrepo.org/">Sysrepo</a></p></li>
+</ul>
+</section>
+</section>
+<section id="contributions">
+<h2>Contributions<a class="headerlink" href="#contributions" title="Permalink to this headline"></a></h2>
+<hr class="docutils" />
+<p>No line of code shall go un tested! Any contribution will need to be accounted by the coverage report and satisfy all linting.</p>
+<p>Linters:</p>
+<ul class="simple">
+<li><p>Fake8</p></li>
+<li><p>Black</p></li>
+<li><p>Yamllint</p></li>
+<li><p>Pylint</p></li>
+<li><p>Pydocstyle</p></li>
+<li><p>Bandit</p></li>
+<li><p>MyPy</p></li>
+</ul>
+<section id="testing">
+<h3>Testing<a class="headerlink" href="#testing" title="Permalink to this headline"></a></h3>
+<p>To test within a local docker environment</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/h4ndzdatm0ld/nornir_netconf
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose build <span class="o">&amp;&amp;</span> docker-compose run <span class="nb">test</span>
+</pre></div>
+</div>
+<p>To test locally with pytest</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose up netconf1
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry install <span class="o">&amp;&amp;</span> poetry shell
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest --cov<span class="o">=</span>nornir_netconf --color<span class="o">=</span>yes --disable-pytest-warnings -vvv
+</pre></div>
+</div>
+</section>
+<section id="integration-tests">
+<h3>Integration Tests<a class="headerlink" href="#integration-tests" title="Permalink to this headline"></a></h3>
+<p>Devices with full integration tests (Eve-NG)</p>
+<ul class="simple">
+<li><p>Nokia SROS - TiMOS-C -20.5.R2</p></li>
+<li><p>Cisco IOSxR - 6.3.1</p></li>
+</ul>
+<p>Devices testing against Always-ON Sandboxes (Cisco DevNet)</p>
+<ul class="simple">
+<li><p>ios-xe - Cisco IOS XE Software, Version 17.03.01a</p></li>
+<li><p>ios-xr - ( Pending )</p></li>
+</ul>
+<p>These tests are ran locally against an EVE-NG environment. At the moment, there is no solution to run these integration tests within the Github Actions CI.</p>
+</section>
+<section id="sysrepo-netopeer2">
+<h3>Sysrepo: netopeer2<a class="headerlink" href="#sysrepo-netopeer2" title="Permalink to this headline"></a></h3>
+<p>Majority of integration tests are ran against a docker instance of <a class="reference external" href="https://hub.docker.com/r/sysrepo/sysrepo-netopeer2">netopeer2</a></p>
+<p>From the <a class="reference external" href="https://www.sysrepo.org/">Sysrepo</a> website:</p>
+<p>“Netopeer2 and Sysrepo provide a fully open source and standards compliant implementation of a NETCONF server and YANG configuration data stores.”</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Nornir NETCONF’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Hugo Tinoco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
