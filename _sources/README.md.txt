@@ -9,11 +9,19 @@ Collection of NETCONF tasks and connection plugin for [Nornir](https://github.co
 
 Documentation is generated with Sphinx and hosted with Github Pages. [Documentation](https://h4ndzdatm0ld.github.io/nornir_netconf/)
 
+To generate the latest documentation locally:
+
+```bash
+sphinx-build -vvv -b html ./docs public
+cd docs/public
+python -m http.server
+```
+
 ## Installation
 
 ------------
 
-```bash
+**```bash**
 pip install nornir_netconf
 ```
 
