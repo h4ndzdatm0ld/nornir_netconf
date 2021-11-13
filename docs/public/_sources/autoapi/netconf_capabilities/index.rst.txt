@@ -1,0 +1,38 @@
+:py:mod:`netconf_capabilities`
+==============================
+
+.. py:module:: netconf_capabilities
+
+.. autoapi-nested-parse::
+
+   NETCONF capabilities.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   netconf_capabilities.netconf_capabilities
+
+
+
+.. py:function:: netconf_capabilities(task: nornir.core.task.Task) -> nornir.core.task.Result
+
+   Gather Netconf capabilities from device.
+
+   Examples:
+       Simple example::
+
+           > nr.run(task=netconf_capabilities)
+
+   Returns:
+       Result object with the following attributes set:
+         * result (``list``): list with the capabilities of the host
+
+
