@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to Nornir NETCONF’s documentation! &mdash; Nornir NETCONF 0.1.0 documentation</title>
+  <title>Changelog &mdash; Nornir NETCONF 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
@@ -26,7 +26,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> Nornir NETCONF
+            <a href="index.html" class="icon icon-home"> Nornir NETCONF
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -46,17 +46,17 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">Nornir NETCONF</a>
+          <a href="index.html">Nornir NETCONF</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>Welcome to Nornir NETCONF’s documentation!</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Changelog</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/changelog.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -64,33 +64,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="welcome-to-nornir-netconf-s-documentation">
-<h1>Welcome to Nornir NETCONF’s documentation!<a class="headerlink" href="#welcome-to-nornir-netconf-s-documentation" title="Permalink to this headline"></a></h1>
-</section>
-<section id="overview">
-<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h1>
-<p>Nornir NETCONF is a Nornir plugin to handle NETCONF operations using the ncclient library.</p>
-</section>
-<section id="contents">
-<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline"></a></h1>
-<div class="toctree-wrapper compound">
-</div>
-</section>
-<section id="changelog">
+  <section class="tex2jax_ignore mathjax_ignore" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
-</ul>
-</div>
+<p>All notable changes to this project will be documented in this file.</p>
+<p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
+and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<section id="unreleased">
+<h2>[Unreleased]<a class="headerlink" href="#unreleased" title="Permalink to this headline"></a></h2>
 </section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<section id="id1">
+<h2>[0.1.0] - 2020-09-10<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<section id="added">
+<h3>Added<a class="headerlink" href="#added" title="Permalink to this headline"></a></h3>
 <ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<li><p>netconf_capabilities - Return server capabilities from target</p></li>
+<li><p>netconf_get - Returns state data based on the supplied xpath</p></li>
+<li><p>netconf_get_config - Returns configuration from specified configuration store (default=”running”)</p></li>
+<li><p>netconf_edit_config - Edits configuration on specified datastore (default=”running”)</p></li>
+<li><p>netconf_lock - Locks or Unlocks a specified datastore (default=”lock”)</p></li>
+<li><p>netconf_commit - Commits a change</p></li>
+<li><p>readme</p></li>
+<li><p>Integration tests</p></li>
 </ul>
+</section>
+</section>
 </section>
 
 
