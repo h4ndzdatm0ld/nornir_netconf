@@ -12,7 +12,7 @@ Documentation is generated with Sphinx and hosted with Github Pages. [Documentat
 To generate the latest documentation locally:
 
 ```bash
-sphinx-build -vvv -b html ./docs public
+sphinx-build -vvv -b html ./docs ./docs/public
 cd docs/public
 python -m http.server
 ```
@@ -21,7 +21,7 @@ python -m http.server
 
 ------------
 
-**```bash**
+```bash
 pip install nornir_netconf
 ```
 
