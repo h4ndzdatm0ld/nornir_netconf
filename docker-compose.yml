@@ -17,3 +17,5 @@ services:
       target: "test"
     depends_on:
       - "netconf1"
+    # volumes:
+    #   - "./:/usr/src/app"
