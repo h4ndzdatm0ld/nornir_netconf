@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nornir_netconf"
-version = "0.1.1"
+version = "0.1.0"
 description = "Netconf plugin for nornir using ncclient"
 authors = ["Hugo Tinoco <hugotinoco@icloud.com>", "Patrick Ogenstad <patrick@ogenstad.com>"]
 license = "Apache-2.0"
@@ -8,7 +8,9 @@ readme = "README.md"
 repository = "https://github.com/h4ndzdatm0ld/nornir_netconf"
 keywords = ["nornir", "netconf", "ncclient"]
 documentation = "https://nornir-netconf.readthedocs.io"
-
+packages = [
+    { include = "nornir_netconf" },
+]
 
 [tool.poetry.plugins."nornir.plugins.connections"]
 "netconf" = "nornir_netconf.plugins.connections:Netconf"
