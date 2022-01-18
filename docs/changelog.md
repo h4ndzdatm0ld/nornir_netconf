@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Removed dependencies locking python version between a range.
-- Dev env dependencies removed and all can install latest as available.
+- Removed unused dev env dependencies
+- Removed version pinning on dev dependencies
+- Dropped support for python3.6
 
 ## [0.1.0] - 2020-09-10
 
