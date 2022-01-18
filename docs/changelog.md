@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Removed dependencies locking python version between a range.
-- Dev env dependencies removed and all can install latest as available.
+- Unused dev dependencies removed, removed version pinning.
 
 ## [0.1.0] - 2020-09-10
 
