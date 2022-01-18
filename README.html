@@ -169,25 +169,25 @@ If parsed into python dictionary using xml_dict argument, the key of ‘ok’ wi
 </details>
 <details><summary>Netconf Connection Plugin</summary>
 <p>Below is the snippet of a host inside the host-local.yml file and it’s associated group, ‘sros’.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nokia_rtr</span><span class="p">:</span>
-  <span class="nt">hostname</span><span class="p">:</span> <span class="s">&quot;192.168.1.205&quot;</span>
-  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">830</span>
-  <span class="nt">groups</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="s">&quot;sros&quot;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nokia_rtr</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.1.205&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">830</span><span class="w"></span>
+<span class="w">  </span><span class="nt">groups</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;sros&quot;</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sros</span><span class="p">:</span>
-  <span class="nt">username</span><span class="p">:</span> <span class="s">&quot;netconf&quot;</span>
-  <span class="nt">password</span><span class="p">:</span> <span class="s">&quot;NCadmin123&quot;</span>
-  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">830</span>
-  <span class="nt">platform</span><span class="p">:</span> <span class="s">&quot;sros&quot;</span>
-  <span class="nt">connection_options</span><span class="p">:</span>
-    <span class="nt">netconf</span><span class="p">:</span>
-      <span class="nt">extras</span><span class="p">:</span>
-        <span class="nt">hostkey_verify</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-        <span class="nt">timeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">300</span>
-        <span class="nt">allow_agent</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-        <span class="nt">look_for_keys</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sros</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;netconf&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;NCadmin123&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">830</span><span class="w"></span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sros&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">connection_options</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">netconf</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">extras</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">hostkey_verify</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">        </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span><span class="w"></span>
+<span class="w">        </span><span class="nt">allow_agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">        </span><span class="nt">look_for_keys</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 </pre></div>
 </div>
 </details>
