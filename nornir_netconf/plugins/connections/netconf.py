@@ -13,20 +13,20 @@ class Netconf:
     """This plugin connects to the device via NETCONF using ncclient library.
 
     Inventory:
-        extras: See
-        `here <https://ncclient.readthedocs.io/en/latest/transport.html#ncclient.transport.SSHSession.connect>`_
+        <https://ncclient.readthedocs.io/en/latest/transport.html#ncclient.transport.SSHSession.connect>`_
     Example on how to configure a device to use netconfig without using an ssh agent and without verifying the keys::
-        ---
-        nc_device:
-            hostname: 192.168.16.20
-            username: admin
-            password: admin
-            port: 2022
-            connection_options:
-                netconf:
-                    extras:
-                        allow_agent: False
-                        hostkey_verify: False
+    ---
+    nc_device:
+        hostname: 192.168.16.20
+        username: admin
+        password: admin
+        port: 2022
+        connection_options:
+            netconf:
+                extras:
+                    allow_agent: False
+                    hostkey_verify: False
+
     Then it can be used like::
         >>> from nornir import InitNornir
         >>> from nornir.core.task import Result, Task

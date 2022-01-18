@@ -1,5 +1,5 @@
 ---
-name: nornir_netconf
+name: "Nornir NETCONF"
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.6.14', '3.7', '3.8' ]
+        python-version: [ '3.7', '3.8', '3.9', '3.10' ]
     steps:
       - uses: actions/checkout@v2
       - name: Setup python
@@ -58,7 +58,7 @@ jobs:
           pip install poetry
           poetry install --no-interaction
 
-      - name: Test with pytest
+      - name: Pytest
         run: |
           poetry run pytest --cov=nornir_netconf --cov-report=xml -vv
 
@@ -66,5 +66,3 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-
-    needs: [ linters ]
