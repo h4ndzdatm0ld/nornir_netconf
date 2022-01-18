@@ -5,8 +5,12 @@ FROM python:${PYTHON_VER} AS base
 WORKDIR /usr/src/app
 
 # Install poetry for dep management
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 ENV PATH="$PATH:/root/.poetry/bin"
+
+# Enable this for testing with ^3.10.1
+# RUN pip install cleo tomlkit poetry.core requests cachecontrol cachy html5lib pkginfo virtualenv lockfile
+
 RUN poetry config virtualenvs.create false
 
 # Install project manifest
@@ -38,14 +42,8 @@ RUN echo 'Running Flake8' && \
     echo 'Running MyPy' && \
     mypy .
 
-# RUN monkeytype run -m pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
-
-# RUN monkeytype list-modules | xargs -n1 -I{} sh -c 'monkeytype stub {} > tests/stubs/{}.pyi'
-
-# RUN pytest --cov nornir_netconf --color yes -vvv tests
-
 # Run full test suite including integration
 ENTRYPOINT ["pytest"]
 
-CMD ["--cov=nornir_netconf", "--color=yes", "--disable-pytest-warnings", "-vvv"]
+CMD ["--cov=nornir_netconf", "--color=yes", "--disable-pytest-warnings", "--cov-report=xml", "-vvv"]
 
