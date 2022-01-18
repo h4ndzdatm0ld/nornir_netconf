@@ -1,9 +1,10 @@
+# type: ignore
 """Nornir NETCONF Plugin."""
 try:
-    from importlib import metadata  # type: ignore
+    from importlib import metadata
 except ImportError:
     # Python version < 3.8
-    import importlib_metadata as metadata  # type: ignore
+    import importlib_metadata as metadata
 
 # This will read version from pyproject.toml
 __version__ = metadata.version("nornir_netconf")
