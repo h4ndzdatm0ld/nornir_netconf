@@ -37,8 +37,8 @@ netconf_docker_nossh:
         ssh_config: null
 
 sros:
-  username: "netconf"
-  password: "NCadmin123"
+  username: "admin"
+  password: "admin"
   port: 830
   platform: "sros"
   connection_options:
@@ -50,8 +50,8 @@ sros:
         look_for_keys: false
 
 iosxr:
-  username: "netconf"
-  password: "NCadmin123"
+  username: "clab"
+  password: "clab@123"
   port: 830
   platform: "iosxr"
   connection_options:
