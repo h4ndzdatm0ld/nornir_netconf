@@ -55,6 +55,9 @@ jobs:
       - name: Start containers
         run: docker-compose up -d
 
+      - name: Start CLAB
+        run: docker-compose run clab
+
       - name: Show Containers
         run: docker ps
 
