@@ -304,7 +304,7 @@ docker-compose build && docker-compose run test
 To test locally with pytest
 
 ```bash
-docker-compose up netconf1
+docker-compose up netconf_sysrepo
 ```
 
 ```bash
