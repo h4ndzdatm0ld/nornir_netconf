@@ -15,7 +15,7 @@
 
 
 # def test_netconf_edit_config(nornir):
-#     nr = nornir.filter(name="netconf1")
+#     nr = nornir.filter(name="netconf_sysrepo")
 #     assert nr.inventory.hosts
 
 #     result = nr.run(netconf_get_config)
@@ -26,7 +26,7 @@
 #     result = nr.run(netconf_edit_config, config=CONFIG, target="running")
 #     print_result(result)
 #     assert not result.failed
-#     assert "<nc:ok/>" in result["netconf1"].result
+#     assert "<nc:ok/>" in result["netconf_sysrepo"].result
 
 # result = nr.run(netconf_get_config, source="candidate")
 

@@ -26,7 +26,7 @@ def get_test_env() -> str:
     """Determine if env is local or if tests are executing within a container."""
     try:
         # Container of interest
-        container = "netconf1"
+        container = "netconf_sysrepo"
         client = docker.from_env()
         # Create a list to work with.
         container_names = [container.name for container in client.containers.list()]

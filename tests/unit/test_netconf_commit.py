@@ -1,6 +1,6 @@
 """Test NETCONF Commit.
 
-Testing against netconf1, fully patched but there is a small bug with patching
+Testing against netconf_sysrepo, fully patched but there is a small bug with patching
 that conflicts with patching SSH on the next set of tests for edit_config.
 Context manager doesn't help, but using a different host does.
 """
@@ -23,12 +23,12 @@ def test_netconf_commit_success(ssh, nornir):
     # performing edit-config call.
     ssh.return_value = response
     # Run Nornir
-    nr = nornir.filter(name="netconf1")
+    nr = nornir.filter(name="netconf_sysrepo")
     result = nr.run(netconf_commit)
-    assert not result["netconf1"].failed
-    assert not result["netconf1"].result["error"]
-    assert not result["netconf1"].result["errors"]
-    assert result["netconf1"].result["rpc"]
+    assert not result["netconf_sysrepo"].failed
+    assert not result["netconf_sysrepo"].result["error"]
+    assert not result["netconf_sysrepo"].result["errors"]
+    assert result["netconf_sysrepo"].result["rpc"]
 
 
 @patch("ncclient.manager.connect_ssh")

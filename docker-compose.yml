@@ -1,9 +1,9 @@
 ---
 version: "3.8"
 services:
-  netconf1:
-    container_name: "netconf1"
-    hostname: "netconf1"
+  netconf_sysrepo:
+    container_name: "netconf_sysrepo"
+    hostname: "netconf_sysrepo"
     image: "sysrepo/sysrepo-netopeer2:latest"
     ports:
       - "1830:830"
@@ -16,7 +16,7 @@ services:
       context: "."
       target: "test"
     depends_on:
-      - "netconf1"
+      - "netconf_sysrepo"
       # volumes:
       #   - "./:/usr/src/app"
   clab:

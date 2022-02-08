@@ -41,13 +41,13 @@ def test_netconf_edit_config_manager_set(ssh, nornir, sros_config_payload):
     manager.server_capabilities = ["netconf:capability:candidate"]
     manager.edit_config.return_value = response_rpc
 
-    nr = nornir.filter(name="netconf1")
+    nr = nornir.filter(name="netconf_sysrepo")
     result = nr.run(netconf_edit_config, target="candidate", config=sros_config_payload, manager=manager)
-    assert not result["netconf1"].failed
-    assert result["netconf1"].result["ok"]
-    assert not result["netconf1"].result["error"]
-    assert not result["netconf1"].result["errors"]
-    assert result["netconf1"].result["rpc"]
+    assert not result["netconf_sysrepo"].failed
+    assert result["netconf_sysrepo"].result["ok"]
+    assert not result["netconf_sysrepo"].result["error"]
+    assert not result["netconf_sysrepo"].result["errors"]
+    assert result["netconf_sysrepo"].result["rpc"]
 
 
 @patch("ncclient.manager.connect_ssh")
