@@ -121,4 +121,4 @@ docs/README.md
 
 # containerlab
 *.clab-topo-netconf.yaml
-*clab-topo-netconf.yml/ansible-inventory.yml
+*clab-topo-netconf.yml/*
