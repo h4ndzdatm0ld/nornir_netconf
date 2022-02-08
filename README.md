@@ -317,17 +317,16 @@ pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
 
 ### Integration Tests
 
-Devices with full integration tests (Eve-NG)
+Devices with full integration tests (ContainerLab)
 
-* Nokia SROS - TiMOS-C -20.5.R2
-* Cisco IOSxR - 6.3.1
+* Nokia SROS - TiMOS-B-21.2.R1
+* Cisco IOSxR - Cisco IOS XR Software, Version 6.1.3
 
 Devices testing against Always-ON Sandboxes (Cisco DevNet)
 
-* ios-xe - Cisco IOS XE Software, Version 17.03.01a
-* ios-xr - ( Pending )
+* Cisco IOS-XE - Cisco IOS XE Software, Version 17.03.01a
 
-These tests are ran locally against an EVE-NG environment. At the moment, there is no solution to run these integration tests within the Github Actions CI.
+These tests are ran locally, and will soon be integrated into Github CI.
 
 ### Sysrepo: netopeer2
 

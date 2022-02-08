@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nornir_netconf"
-version = "1.0.0"
+version = "1.0.1"
 description = "Netconf plugin for nornir using ncclient"
 authors = ["Hugo Tinoco <hugotinoco@icloud.com>", "Patrick Ogenstad <patrick@ogenstad.com>"]
 license = "Apache-2.0"
@@ -17,7 +17,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.7.0"
-ncclient = "^0.6.12"
+ncclient = "^0.6.9"
 xmltodict = "^0.12.0"
 nornir = {version = "^3.0.0", allow-prereleases = true}
 

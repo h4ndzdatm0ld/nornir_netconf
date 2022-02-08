@@ -39,7 +39,6 @@ def netconf_edit_config(
         manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     if target in ["candidate", "startup"]:
         capabilities = list(manager.server_capabilities)
-        print(capabilities)
         if not check_capability(capabilities, target):
             raise ValueError(f"{target} datastore is not supported.")
     result = manager.edit_config(config, target=target, default_operation=default_operation)

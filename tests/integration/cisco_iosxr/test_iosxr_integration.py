@@ -57,7 +57,7 @@ def test_iosxr_netconf_get(nornir):
     result = nr.run(netconf_get, filter_type="subtree", path=filter, xmldict=True)
     assert result[DEVICE_NAME].result
     assert result[DEVICE_NAME].result["rpc"].data_xml
-    assert result[DEVICE_NAME].result["xml_dict"]["data"]["interfaces"]["interface"][0]["state"]["enabled"]
+    assert result[DEVICE_NAME].result["xml_dict"]["data"]["interfaces"]["interface"]["config"]["enabled"]
 
 
 @skip_integration_tests
