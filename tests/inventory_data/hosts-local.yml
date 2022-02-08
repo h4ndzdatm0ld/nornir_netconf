@@ -1,5 +1,5 @@
 ---
-netconf1:
+netconf_sysrepo:
   hostname: "localhost"
   port: 1830
   groups:
