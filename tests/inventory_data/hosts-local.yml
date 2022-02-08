@@ -20,12 +20,12 @@ netconf4:
   groups:
     - "netconf_docker_nossh"
 nokia_rtr:
-  hostname: "192.168.1.205"
+  hostname: "172.100.100.12"
   port: 830
   groups:
     - "sros"
 iosxr_rtr:
-  hostname: "192.168.1.187"
+  hostname: "172.100.100.11"
   port: 830
   groups:
     - "iosxr"
