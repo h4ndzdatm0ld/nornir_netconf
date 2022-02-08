@@ -61,7 +61,7 @@ jobs:
           poetry install --no-interaction
 
       - name: Sleep for 4 minutes for CLAB
-        run: sleep 120s
+        run: sleep 190s
         shell: bash
 
       - name: Pytest
