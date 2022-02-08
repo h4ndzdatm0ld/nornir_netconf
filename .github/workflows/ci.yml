@@ -55,6 +55,9 @@ jobs:
       - name: Start containers
         run: docker-compose up -d
 
+      - name: Show Containers
+        run: docker ps
+
       - name: Install dependencies
         run: |
           pip install poetry
