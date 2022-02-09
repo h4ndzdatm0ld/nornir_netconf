@@ -303,8 +303,14 @@ docker-compose build && docker-compose run test
 
 To test locally with pytest
 
+If you'd like to run integration tests with containerlab
+
 ```bash
-docker-compose up netconf_sysrepo
+export SKIP_INTEGRATION_TESTS=False
+```
+
+```bash
+docker-compose up -d
 ```
 
 ```bash
