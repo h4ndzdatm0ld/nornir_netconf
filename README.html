@@ -371,11 +371,15 @@ If parsed into python dictionary using xml_dict argument, the key of ‘ok’ wi
 </pre></div>
 </div>
 <p>To test locally with pytest</p>
-<p>If you’d like to run integration tests with containerlab</p>
+<p>If you’d like to run integration tests with ContainerLab</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">SKIP_INTEGRATION_TESTS</span><span class="o">=</span>False
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose up -d
+</pre></div>
+</div>
+<p>If you do not want to run integration tests, only bring up the <code class="docutils literal notranslate"><span class="pre">netconf_sysrepo</span></code> docker service and continue</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose up netconf_sysrepo -d
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry install <span class="o">&amp;&amp;</span> poetry shell
