@@ -10,15 +10,18 @@ services:
     environment:
       NACM_RECOVERY_UID: "0"
   test:
+    network_mode: "host"
     container_name: "test"
     hostname: "test"
+    environment:
+      SKIP_INTEGRATION_TESTS: "${SKIP_INTEGRATION_TESTS:-True}"
     build:
       context: "."
       target: "test"
     depends_on:
       - "netconf_sysrepo"
-      # volumes:
-      #   - "./:/usr/src/app"
+    volumes:
+      - "./:/usr/src/app"
   clab:
     image: "ghcr.io/srl-labs/clab"
     network_mode: "host"

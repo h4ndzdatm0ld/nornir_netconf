@@ -1,10 +1,10 @@
 """Test NETCONF edit-config unit test."""
 from unittest.mock import MagicMock, patch
 
+from nornir_utils.plugins.functions import print_result
+
 from nornir_netconf.plugins.tasks import netconf_edit_config
 from tests.conftest import FakeRpcObject
-
-from nornir_utils.plugins.functions import print_result
 
 
 @patch("ncclient.manager.connect_ssh")

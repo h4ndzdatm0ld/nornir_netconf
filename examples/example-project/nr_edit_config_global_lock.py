@@ -2,8 +2,12 @@
 """Nornir NETCONF Example Task: 'edit-config', 'netconf_lock'."""
 from nornir import InitNornir
 from nornir_utils.plugins.functions import print_result
-from nornir_netconf.plugins.tasks import netconf_edit_config, netconf_lock, netconf_commit
 
+from nornir_netconf.plugins.tasks import (
+    netconf_commit,
+    netconf_edit_config,
+    netconf_lock,
+)
 
 __author__ = "Hugo Tinoco"
 __email__ = "hugotinoco@icloud.com"

@@ -4,8 +4,9 @@ Testing against netconf_sysrepo, fully patched but there is a small bug with pat
 that conflicts with patching SSH on the next set of tests for edit_config.
 Context manager doesn't help, but using a different host does.
 """
+from unittest.mock import MagicMock, patch
+
 from nornir_netconf.plugins.tasks import netconf_commit
-from unittest.mock import patch, MagicMock
 from tests.conftest import FakeRpcObject
 
 

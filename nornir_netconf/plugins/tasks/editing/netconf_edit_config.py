@@ -5,7 +5,7 @@ from ncclient.manager import Manager
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
-from nornir_netconf.plugins.helpers.rpc_helpers import get_result, check_capability
+from nornir_netconf.plugins.helpers.rpc_helpers import check_capability, get_result
 
 
 def netconf_edit_config(

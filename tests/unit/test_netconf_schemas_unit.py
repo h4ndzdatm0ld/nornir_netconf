@@ -49,14 +49,14 @@ def test_netconf_get_schema_schema_path(manager, ssh, nornir_unittest):
 
 
 @patch("ncclient.manager.connect_ssh")
-def test_netconf_get_schema_exception(ssh, nornir_unittest):
+def test_netconf_get_schema_exception(ssh, nornir):
     """Test NETCONF Capabilities + Get Schemas failure, exception."""
     response = MagicMock()
     response.get_schema.side_effect = RPCError(to_ele(xml_resp))
     # Assign the side_effect to trigger on get_schema call and hit exception.
     ssh.side_effect = [response]
 
-    nr = nornir_unittest.filter(name="netconf4")
+    nr = nornir.filter(name="netconf4")
     result = nr.run(
         netconf_get_schemas, schemas=["nokia-conf-aaa", "some-other"], schema_path="tests/test_data/schema_path"
     )
