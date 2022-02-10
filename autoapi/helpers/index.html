@@ -102,17 +102,17 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#helpers.write_output" title="helpers.write_output"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_output</span></code></a>(text: str, path: str, filename: str) → None</p></td>
 <td><p>Take input and path and write a file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#helpers.get_result" title="helpers.get_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_result</span></code></a>(rpc: Union[ncclient.operations.rpc.RPCReply, Dict[str, Any]], xmldict: bool = False) → Dict[str, Union[ncclient.operations.rpc.RPCReply, str]]</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#helpers.check_capability" title="helpers.check_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_capability</span></code></a>(capabilities: List[str], capability: str) → bool</p></td>
+<td><p>Evaluate capabilities and return True if capability is available.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#helpers.get_result" title="helpers.get_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_result</span></code></a>(rpc: Union[ncclient.operations.rpc.RPCReply, Dict[str, Any]], xmldict: bool = False) → Dict[str, Union[ncclient.operations.rpc.RPCReply, str]]</p></td>
 <td><p>Check if RPC reply is valid and unpack.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#helpers.unpack_rpc" title="helpers.unpack_rpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unpack_rpc</span></code></a>(rpc: ncclient.operations.rpc.RPCReply, xmldict: bool = False) → Dict[str, Union[ncclient.operations.rpc.RPCReply, str]]</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#helpers.unpack_rpc" title="helpers.unpack_rpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unpack_rpc</span></code></a>(rpc: ncclient.operations.rpc.RPCReply, xmldict: bool = False) → Dict[str, Union[ncclient.operations.rpc.RPCReply, str]]</p></td>
 <td><p>Extract RPC attrs of interest.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#helpers.xml_to_dict" title="helpers.xml_to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xml_to_dict</span></code></a>(rpc: ncclient.operations.rpc.RPCReply) → Union[Any, Dict[str, str]]</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#helpers.xml_to_dict" title="helpers.xml_to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xml_to_dict</span></code></a>(rpc: ncclient.operations.rpc.RPCReply) → Union[Any, Dict[str, str]]</p></td>
 <td><p>Convert XML from RPC reply to dict.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#helpers.check_capability" title="helpers.check_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_capability</span></code></a>(capabilities: List[str], capability: str) → bool</p></td>
-<td><p>Evaluate capabilities and return True if capability is available.</p></td>
 </tr>
 </tbody>
 </table>
@@ -146,6 +146,12 @@ path (str): directory path
 filename (str): filename</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="helpers.check_capability">
+<span class="sig-prename descclassname"><span class="pre">helpers.</span></span><span class="sig-name descname"><span class="pre">check_capability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capabilities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capability</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#helpers.check_capability" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate capabilities and return True if capability is available.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -184,12 +190,6 @@ xmldict (boolean): convert xml to dict</p>
 <dt>Returns:</dt><dd><p>Dict: xml response -&gt; Dict</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="helpers.check_capability">
-<span class="sig-prename descclassname"><span class="pre">helpers.</span></span><span class="sig-name descname"><span class="pre">check_capability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capabilities</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capability</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#helpers.check_capability" title="Permalink to this definition"></a></dt>
-<dd><p>Evaluate capabilities and return True if capability is available.</p>
 </dd></dl>
 
 </section>

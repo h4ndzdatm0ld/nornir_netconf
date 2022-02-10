@@ -31,10 +31,10 @@ Functions
    helpers.check_file
    helpers.create_folder
    helpers.write_output
+   helpers.check_capability
    helpers.get_result
    helpers.unpack_rpc
    helpers.xml_to_dict
-   helpers.check_capability
 
 
 
@@ -62,6 +62,11 @@ Functions
        text (str): text to write
        path (str): directory path
        filename (str): filename
+
+
+.. py:function:: check_capability(capabilities: List[str], capability: str) -> bool
+
+   Evaluate capabilities and return True if capability is available.
 
 
 .. py:function:: get_result(rpc: Union[ncclient.operations.rpc.RPCReply, Dict[str, Any]], xmldict: bool = False) -> Dict[str, Union[ncclient.operations.rpc.RPCReply, str]]
@@ -97,10 +102,5 @@ Functions
 
    Returns:
        Dict: xml response -> Dict
-
-
-.. py:function:: check_capability(capabilities: List[str], capability: str) -> bool
-
-   Evaluate capabilities and return True if capability is available.
 
 
