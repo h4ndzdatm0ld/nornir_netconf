@@ -38,17 +38,14 @@ def test_netconf_get_schema(manager, ssh, nornir):
     assert result["netconf_sysrepo"].result["errors"][0] == "Missing 'schema_path' arg to save schema files."
 
 
-@patch("nornir.core.task.Task")
-def test_netconf_get_schema_schema_path(task, nornir):
+@patch("ncclient.manager.connect_ssh")
+@patch("ncclient.manager.Manager")
+def test_netconf_get_schema_schema_path(manager, ssh, nornir_unittest):
     """Test NETCONF Capabilities + Get Schemas success."""
-    task.host.get_connection = MagicMock()
-    task.host.return_value = "netconf_sysrepo"
-
-    nr = nornir.filter(name="netconf_sysrepo")
-    nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="tests/test_data/schema_path")
-    # TODO: Patch this, investigate the error. Fails in docker, not locally.
-    # assert not result["netconf_sysrepo"].failed
-    # assert result["netconf_sysrepo"].result["log"][0] == "tests/test_data/schema_path/nokia-conf-aaa.txt created."
+    nr = nornir_unittest.filter(name="netconf_sysrepo")
+    result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="tests/test_data/schema_path")
+    assert not result["netconf_sysrepo"].failed
+    assert result["netconf_sysrepo"].result["log"][0] == "tests/test_data/schema_path/nokia-conf-aaa.txt created."
 
 
 @patch("ncclient.manager.connect_ssh")
