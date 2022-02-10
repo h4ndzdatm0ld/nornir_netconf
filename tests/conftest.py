@@ -22,47 +22,13 @@ nornir_logfile = os.environ.get("NORNIR_LOG", False)
 
 
 @pytest.fixture(scope="session", autouse=True)
-def get_test_env() -> str:
-    """Determine if env is local or if tests are executing within a container."""
-    try:
-        # Container of interest
-        container = "netconf_sysrepo"
-        client = docker.from_env()
-        # Create a list to work with.
-        container_names = [container.name for container in client.containers.list()]
-        if container in container_names:
-            return "local"
-    except docker.errors.DockerException:
-        return "container"
-
-
-@pytest.fixture(scope="session", autouse=True)
-def nornir(get_test_env):
+def nornir():
     """Initializes nornir"""
     nr_nr = InitNornir(
         inventory={
             "plugin": "SimpleInventory",
             "options": {
-                "host_file": f"{DIR_PATH}/inventory_data/hosts-{get_test_env}.yml",
-                "group_file": f"{DIR_PATH}/inventory_data/groups.yml",
-                "defaults_file": f"{DIR_PATH}/inventory_data/defaults.yml",
-            },
-        },
-        logging={"log_file": f"{DIR_PATH}/test_data/nornir_test.log", "level": "DEBUG"},
-        dry_run=True,
-    )
-    nr_nr.data = global_data
-    return nr_nr
-
-
-@pytest.fixture(scope="session", autouse=True)
-def nornir_unittest(get_test_env):
-    """Initializes nornir"""
-    nr_nr = InitNornir(
-        inventory={
-            "plugin": "SimpleInventory",
-            "options": {
-                "host_file": f"{DIR_PATH}/inventory_data/hosts-{get_test_env}.yml",
+                "host_file": f"{DIR_PATH}/inventory_data/hosts-local.yml",
                 "group_file": f"{DIR_PATH}/inventory_data/groups.yml",
                 "defaults_file": f"{DIR_PATH}/inventory_data/defaults.yml",
             },

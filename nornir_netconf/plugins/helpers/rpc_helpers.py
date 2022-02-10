@@ -19,13 +19,12 @@ def xml_to_dict(rpc: RPCReply) -> Union[Any, Dict[str, str]]:
     Returns:
         Dict: xml response -> Dict
     """
-    options = list(dir(rpc))
-    if "data_xml" in options:
+    if hasattr(rpc, "data_xml"):
         try:
             return xmltodict.parse(rpc.data_xml)
         except Exception as err_ex:
             return {"error": f"Unable to parse XML to Dict. {err_ex}."}
-    elif "xml" in options:
+    elif hasattr(rpc, "xml"):
         try:
             return xmltodict.parse(rpc.xml)
         except Exception as err_ex:
