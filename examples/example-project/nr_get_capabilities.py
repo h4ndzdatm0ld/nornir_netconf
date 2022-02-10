@@ -2,8 +2,8 @@
 """Nornir NETCONF Example Task: 'capabilities'."""
 from nornir import InitNornir
 from nornir_utils.plugins.functions import print_result
-from nornir_netconf.plugins.tasks import netconf_capabilities
 
+from nornir_netconf.plugins.tasks import netconf_capabilities
 
 __author__ = "Hugo Tinoco"
 __email__ = "hugotinoco@icloud.com"

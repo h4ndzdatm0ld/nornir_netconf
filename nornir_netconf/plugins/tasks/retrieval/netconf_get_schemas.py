@@ -14,11 +14,10 @@ def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str = "") -
     Examples:
         Simple example::
 
-            > nr.run(task=netconf_schemas)
+            > nr.run(task=netconf_schemas, schemas=["schema1", "schema2"], schema_path="/some/path")
 
     Returns:
-        Result object with the following attributes set:
-            #TODO:
+        Result: Result
     """
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     failed = False
