@@ -45,7 +45,7 @@ def test_netconf_get_schema_schema_path(task, nornir):
     task.host.return_value = "netconf_sysrepo"
 
     nr = nornir.filter(name="netconf_sysrepo")
-    result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="tests/test_data/schema_path")
+    nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="tests/test_data/schema_path")
     # TODO: Patch this, investigate the error. Fails in docker, not locally.
     # assert not result["netconf_sysrepo"].failed
     # assert result["netconf_sysrepo"].result["log"][0] == "tests/test_data/schema_path/nokia-conf-aaa.txt created."
