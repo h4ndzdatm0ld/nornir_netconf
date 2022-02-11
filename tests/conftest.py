@@ -1,8 +1,6 @@
 """Conftest for nornir_netconf UnitTests."""
 import os
 import shutil
-
-import docker
 import pytest
 from nornir import InitNornir
 from nornir.core.state import GlobalState
@@ -21,14 +19,14 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 nornir_logfile = os.environ.get("NORNIR_LOG", False)
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="module", autouse=True)
 def nornir():
     """Initializes nornir"""
     nr_nr = InitNornir(
         inventory={
             "plugin": "SimpleInventory",
             "options": {
-                "host_file": f"{DIR_PATH}/inventory_data/hosts-local.yml",
+                "host_file": f"{DIR_PATH}/inventory_data/hosts.yml",
                 "group_file": f"{DIR_PATH}/inventory_data/groups.yml",
                 "defaults_file": f"{DIR_PATH}/inventory_data/defaults.yml",
             },
@@ -52,7 +50,7 @@ def test_folder():
     return "tests/test_data/test_folder"
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="module", autouse=True)
 def teardown_class(schema_path, test_folder):
     """Teardown the random artifacts created by pytesting."""
     if not nornir_logfile:
