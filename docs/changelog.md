@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Github CI Integration tests with ContainerLab
 
+### Changed
+
+- Added env variable to docker-compose to run integration tests in containers
+- Ability to run all tests from pytest or container
+
 ## [1.0.1] - 2022-02-08
 
 ### Added

@@ -29,6 +29,16 @@ xml_resp = """
 
 @patch("ncclient.manager.connect_ssh")
 @patch("ncclient.manager.Manager")
+def test_netconf_get_schema_schema_path(manager, ssh, nornir):
+    """Test NETCONF Capabilities + Get Schemas success."""
+    nr = nornir.filter(name="netconf_sysrepo")
+    result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="tests/test_data/schema_path")
+    assert not result["netconf_sysrepo"].failed
+    assert result["netconf_sysrepo"].result["log"][0] == "tests/test_data/schema_path/nokia-conf-aaa.txt created."
+
+
+@patch("ncclient.manager.connect_ssh")
+@patch("ncclient.manager.Manager")
 def test_netconf_get_schema(manager, ssh, nornir):
     """Test NETCONF get_schema, missing path"""
     manager.get_schema.return_value = str("SCHEMA")
@@ -36,16 +46,6 @@ def test_netconf_get_schema(manager, ssh, nornir):
     result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"])
     assert result["netconf_sysrepo"].failed
     assert result["netconf_sysrepo"].result["errors"][0] == "Missing 'schema_path' arg to save schema files."
-
-
-@patch("ncclient.manager.connect_ssh")
-@patch("ncclient.manager.Manager")
-def test_netconf_get_schema_schema_path(manager, ssh, nornir_unittest):
-    """Test NETCONF Capabilities + Get Schemas success."""
-    nr = nornir_unittest.filter(name="netconf_sysrepo")
-    result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="tests/test_data/schema_path")
-    assert not result["netconf_sysrepo"].failed
-    assert result["netconf_sysrepo"].result["log"][0] == "tests/test_data/schema_path/nokia-conf-aaa.txt created."
 
 
 @patch("ncclient.manager.connect_ssh")

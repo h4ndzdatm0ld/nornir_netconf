@@ -46,4 +46,3 @@ RUN echo 'Running Flake8' && \
 ENTRYPOINT ["pytest"]
 
 CMD ["--cov=nornir_netconf", "--color=yes", "--disable-pytest-warnings", "--cov-report=xml", "-vvv"]
-
