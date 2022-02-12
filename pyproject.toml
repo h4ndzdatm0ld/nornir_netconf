@@ -32,7 +32,6 @@ flake8 = "*"
 coverage = "*"
 yamllint = "*"
 nornir-utils = "*"
-docker = "*"
 isort = "*"
 pydocstyle = "*"
 mypy = "*"
@@ -70,4 +69,3 @@ exclude = '''
   )/
 )
 '''
-

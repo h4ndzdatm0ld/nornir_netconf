@@ -61,10 +61,9 @@ def netconf_lock(task: Task, datastore: str, manager: Manager = None, operation:
     result_dict["result"]["manager"] = manager
 
     # Handle different responses & Update results
-    options = dir(result)
-    if "data_xml" in options:
+    if hasattr(result, "data_xml"):
         result_dict["result"]["data_xml"] = result.data_xml  # type: ignore
-    elif "xml" in options:
+    elif hasattr(result, "xml"):
         result_dict["result"]["data_xml"] = result.xml  # type: ignore
     else:
         result_dict["result"]["data_xml"] = None
