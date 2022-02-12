@@ -2,7 +2,6 @@
 import os
 import shutil
 
-import docker
 import pytest
 from nornir import InitNornir
 from nornir.core.state import GlobalState
@@ -21,7 +20,7 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 nornir_logfile = os.environ.get("NORNIR_LOG", False)
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="module", autouse=True)
 def nornir():
     """Initializes nornir"""
     nr_nr = InitNornir(
@@ -52,7 +51,7 @@ def test_folder():
     return "tests/test_data/test_folder"
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="function", autouse=True)
 def teardown_class(schema_path, test_folder):
     """Teardown the random artifacts created by pytesting."""
     if not nornir_logfile:
