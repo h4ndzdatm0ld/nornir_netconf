@@ -51,7 +51,7 @@ def test_folder():
     return "tests/test_data/test_folder"
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(scope="session", autouse=True)
 def teardown_class(schema_path, test_folder):
     """Teardown the random artifacts created by pytesting."""
     if not nornir_logfile:

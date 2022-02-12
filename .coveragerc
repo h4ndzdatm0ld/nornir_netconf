@@ -1,3 +1,4 @@
+# .coveragerc to control coverage.py
 [run]
 branch = True
 source = nornir_netconf
@@ -6,10 +7,15 @@ source = nornir_netconf
 show_missing = true
 
 exclude_lines =
+    __init__.py
     if self.debug:
     self.connection.close_session()
     parameters["ssh_config"] = ssh_config_file
     pragma: no cover
     raise NotImplementedError
     if __name__ == .__main__.:
+
+omit =
+    nornir_netconf/__init__.py
+
 ignore_errors = True
