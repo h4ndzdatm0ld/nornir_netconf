@@ -65,7 +65,7 @@ def test_create_folder_exception(os_mock, test_folder):
     create_folder(folder)
 
     # using pathlib as we patched OS
-    path = pathlib.Path("folder")
+    path = pathlib.Path(folder)
     assert not path.exists()
 
 
