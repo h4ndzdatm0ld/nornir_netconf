@@ -2,8 +2,8 @@
 
 Different vendor implementations return back different attributes in the RPC response. This has become somewhat of an issue, but this plugin attempts at normalizing the Nornir `Result` object to include the following keys, always:
 
-- Error
-- Errors
+- error
+- errors
 - ok
 - rpc
 

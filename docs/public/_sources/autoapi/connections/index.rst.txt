@@ -1,0 +1,20 @@
+:py:mod:`connections`
+=====================
+
+.. py:module:: connections
+
+.. autoapi-nested-parse::
+
+   Netconf Connection Plugin.
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   netconf/index.rst
+
+

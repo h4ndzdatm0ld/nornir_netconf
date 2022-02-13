@@ -1,0 +1,21 @@
+API Reference
+=============
+
+This page contains auto-generated API reference documentation [#f1]_.
+
+.. toctree::
+   :titlesonly:
+
+   /autoapi/nornir_netconf/index
+   /autoapi/connections/index
+   /autoapi/helpers/index
+   /autoapi/tasks/index
+   /autoapi/netconf_capabilities/index
+   /autoapi/netconf_edit_config/index
+   /autoapi/netconf_commit/index
+   /autoapi/netconf_lock/index
+   /autoapi/netconf_get/index
+   /autoapi/netconf_get_config/index
+   /autoapi/netconf_get_schemas/index
+
+.. [#f1] Created with `sphinx-autoapi <https://github.com/readthedocs/sphinx-autoapi>`_
