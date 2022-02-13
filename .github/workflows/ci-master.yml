@@ -43,6 +43,12 @@ jobs:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
     steps:
+      - name: Down Docker!
+        run: docker-compose down
+
+      - name: Reset Permissions from Root
+        run: sudo chown -R htinoco .
+
       - name: Clean in case
         run: docker-compose run clab containerlab destroy -t clab-topo-netconf.yml
 
