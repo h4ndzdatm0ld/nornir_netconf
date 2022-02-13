@@ -69,7 +69,7 @@ jobs:
         run: docker-compose build
 
       - name: Start Containerlab + Sysrepo
-        run: docker-compose run clab
+        run: docker-compose run clab containerlab deploy -t clab-topo-netconf.yml --reconfigure
 
       - name: Sleep for 180 seconds
         run: sleep 180s

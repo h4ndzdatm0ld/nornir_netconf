@@ -26,12 +26,12 @@ services:
   clab:
     image: "ghcr.io/srl-labs/clab"
     network_mode: "host"
-    working_dir: "/src"
+    working_dir: "/usr/src/app"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/var/run/netns:/var/run/netns"
       - "/etc/hosts:/etc/hosts"
-      - "./:/src"
+      - "./:/usr/src/app"
       - "./clab-topo-netconf.yml:/src/clab-topo-netconf.yml"
     pid: "host"
     command: "containerlab deploy -t clab-topo-netconf.yml"
