@@ -117,6 +117,7 @@ tests/stubs/*.pyi
 
 # Docs
 docs/README.md
+docs/public/*
 
 # containerlab
 *.clab-topo-netconf.yaml

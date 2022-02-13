@@ -70,7 +70,7 @@ def get_result(rpc: Union[RPCReply, Dict[str, Any]], xmldict: bool = False) -> D
     # could be missing. In order to standardize a similar result we evaluate the response and
     # make adjustment where necessary to keep responses somewhat consistent without assumptions.
 
-    result: Dict[str, Any] = {"error": "", "errors": ""}
+    result: Dict[str, Any] = {"error": {}, "errors": []}
     if not isinstance(rpc, Dict):
         # RPC will either have 'ok' or 'data_xml' attr:
         if any(i for i in dir(rpc) if i in ["ok", "data_xml"]):
@@ -83,9 +83,11 @@ def get_result(rpc: Union[RPCReply, Dict[str, Any]], xmldict: bool = False) -> D
             except AttributeError:
                 # Re-create `unpack_rpc` output keys to keep consistency.
                 result["rpc"] = rpc
+                result["ok"] = True if "<ok/>" in rpc.data_xml else None
                 if xmldict:
                     result["xml_dict"] = xml_to_dict(rpc)
                 return {"failed": False, "result": result}
+
     # Safe to say, at this point the replies are not RPC or NCElements.
     # So we can take advantage of passing dictionaries in and safe gets.
     if isinstance(rpc, Dict):

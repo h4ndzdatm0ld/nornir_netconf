@@ -20,6 +20,17 @@ Contents
    Home <self>
    Readme <README>
 
+Additional
+========
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+   :titlesonly:
+   :includehidden:
+
+   additional/*
+
 Changelog
 =========
 .. toctree::

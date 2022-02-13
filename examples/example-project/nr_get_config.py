@@ -16,7 +16,7 @@ west_region = nr.filter(region="west-region")
 
 def example_netconf_get_config(task):
     """Test get config."""
-    task.run(
+    data = task.run(
         netconf_get_config,
         source="running",
         path="""
@@ -28,6 +28,7 @@ def example_netconf_get_config(task):
         """,
         filter_type="subtree",
     )
+    return data.result["rpc"].data_xml
 
 
 def main():
