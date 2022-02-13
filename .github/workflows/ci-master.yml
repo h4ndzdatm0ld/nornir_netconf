@@ -46,6 +46,9 @@ jobs:
       - name: Down Docker!
         run: docker-compose down
 
+      - name: Be Gone!
+        run: sudo rm -rf clab-clab-topo-netconf.yml/
+
       - name: Reset Permissions from Root
         run: sudo chown -R htinoco .
 
@@ -66,7 +69,7 @@ jobs:
         run: docker-compose build
 
       - name: Start Containerlab + Sysrepo
-        run: docker-compose up -d
+        run: docker-compose run clab
 
       - name: Sleep for 180 seconds
         run: sleep 180s
