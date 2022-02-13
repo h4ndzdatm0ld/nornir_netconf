@@ -10,6 +10,7 @@ services:
     environment:
       NACM_RECOVERY_UID: "0"
   test:
+    user: ${CURRENT_UID:-1000:1000}
     network_mode: "host"
     container_name: "test"
     hostname: "test"
