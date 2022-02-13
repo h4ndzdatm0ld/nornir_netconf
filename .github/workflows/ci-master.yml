@@ -38,7 +38,7 @@ jobs:
     name: Testing on Python ${{ matrix.python-version }}
     runs-on: self-hosted
     env:
-      SKIP_INTEGRATION_TESTS: True
+      SKIP_INTEGRATION_TESTS: False
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
@@ -56,8 +56,8 @@ jobs:
       - name: Start Containerlab
         run: docker-compose run clab containerlab deploy -t clab-topo-netconf.yml  --reconfigure
 
-      - name: Sleep for 200 seconds
-        run: sleep 200s
+      - name: Sleep for 5 minutes
+        run: sleep 300s
         shell: bash
 
       - name: Pytest
