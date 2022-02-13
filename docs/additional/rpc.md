@@ -7,11 +7,11 @@ Different vendor implementations return back different attributes in the RPC res
 - ok
 - rpc
 
-The `Error/Errors` are only present in the Nokia SROS devices (as far as I am concerned).
+The `Error/Errors` are present in some payloads
 
 The `ok` response is determined based on the result from an RPC response after being evaluated.
 
-The `rpc` is the literall RPC Object. Sometimes, the __str__ implementation returns back a string output of the XML response. However, in the case of an SROS device response, the `rpc` key is an NCElement, which can be accessed directly. Same goes for other RPC objects, they may display the string output but within the `Result` object in a task, you are able to access the `rpc` attributes.
+The `rpc` is the literal RPC Object. Sometimes, the __str__ implementation returns back a string output of the XML response. However, in the case of an SROS device response, the `rpc` key is an NCElement, which can be accessed directly. Same goes for other RPC objects, they may display the string output but within the `Result` object in a task, you are able to access the `rpc` attributes.
 
 Lets compare the attributes from an SROS device and a Cisco IOSXR device. The following shows the attributes and the `Result` object.
 
@@ -39,4 +39,4 @@ Cisco IOSxR
 <class 'ncclient.operations.rpc.RPCReply'>
 ```
 
-Hopefully this helps understand the differences in some RPC responses.
+Hopefully this helps understand the differences in some RPC responses. The normalization of the responses sometimes may be beneficial to assist in some conditional logic, but there may be times where the actual RPC response will need to be inspected.
