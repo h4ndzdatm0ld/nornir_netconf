@@ -61,7 +61,7 @@ This is a simple built-in solution available, but not the only one. You have the
 
 The `netconf_lock` task will always return the Manager object, which is the established (and locked) agent used to send RPC's back and forth. The idea of retrieving the Manager is to carry this established locked session from task to task and only lock and unlock once during a run of tasks.  Please review the examples below to see how to extract the manager and store it under the `task.host` dictionary as a variable which can be used across multiple tasks. The Manager is passed into other tasks and re-used to send RPCs to the remote server.
 
-### Examples
+## Examples
 
 Head over to the [Examples directory](https://github.com/h4ndzdatm0ld/nornir_netconf/tree/develop/examples) if you'd like to review the files.
 
@@ -268,7 +268,7 @@ if __name__ == "__main__":
 
 </details>
 
-### Additional Documentation
+## Additional Documentation
 
 * [NCClient](https://ncclient.readthedocs.io/en/latest/)
 * [Sysrepo](https://www.sysrepo.org/)
@@ -289,7 +289,7 @@ Linters:
 * Bandit
 * MyPy
 
-### Testing
+## Testing
 
 To test within a local docker environment
 

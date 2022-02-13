@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Differences in RPC response objects &mdash; Nornir NETCONF 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How to use the Examples directory" href="use-examples.html" />
+    <link rel="prev" title="Nornir NETCONF" href="../README.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Nornir NETCONF
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Readme</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Key Differences in RPC response objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use-examples.html">How to use the <code class="docutils literal notranslate"><span class="pre">Examples</span></code> directory</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Nornir NETCONF</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Key Differences in RPC response objects</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/additional/rpc.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="key-differences-in-rpc-response-objects">
+<h1>Key Differences in RPC response objects<a class="headerlink" href="#key-differences-in-rpc-response-objects" title="Permalink to this headline"></a></h1>
+<p>Different vendor implementations return back different attributes in the RPC response. This has become somewhat of an issue, but this plugin attempts at normalizing the Nornir <code class="docutils literal notranslate"><span class="pre">Result</span></code> object to include the following keys, always:</p>
+<ul class="simple">
+<li><p>error</p></li>
+<li><p>errors</p></li>
+<li><p>ok</p></li>
+<li><p>rpc</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">Error/Errors</span></code> are only present in the Nokia SROS devices (as far as I am concerned).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ok</span></code> response is determined based on the result from an RPC response after being evaluated.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">rpc</span></code> is the literall RPC Object. Sometimes, the <strong>str</strong> implementation returns back a string output of the XML response. However, in the case of an SROS device response, the <code class="docutils literal notranslate"><span class="pre">rpc</span></code> key is an NCElement, which can be accessed directly. Same goes for other RPC objects, they may display the string output but within the <code class="docutils literal notranslate"><span class="pre">Result</span></code> object in a task, you are able to access the <code class="docutils literal notranslate"><span class="pre">rpc</span></code> attributes.</p>
+<p>Lets compare the attributes from an SROS device and a Cisco IOSXR device. The following shows the attributes and the <code class="docutils literal notranslate"><span class="pre">Result</span></code> object.</p>
+<p>Nokia SROS 7750</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span>[&#39;_NCElement__doc&#39;, &#39;_NCElement__huge_tree&#39;, &#39;_NCElement__result&#39;, &#39;_NCElement__transform_reply&#39;, &#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__le__&#39;, &#39;__lt__&#39;, &#39;__module__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;, &#39;data_xml&#39;, &#39;find&#39;, &#39;findall&#39;, &#39;findtext&#39;, &#39;remove_namespaces&#39;, &#39;tostring&#39;, &#39;xpath&#39;]
+
+&lt;rpc-reply xmlns=&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot; message-id=&quot;urn:uuid:c5edead4-b47f-4f5f-a82c-d8a54ebcb901&quot;&gt;
+  &lt;ok/&gt;
+&lt;/rpc-reply&gt;
+
+&lt;class &#39;ncclient.xml_.NCElement&#39;&gt;
+</pre></div>
+</div>
+<p>Cisco IOSxR</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span>[&#39;ERROR_CLS&#39;, &#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__le__&#39;, &#39;__lt__&#39;, &#39;__module__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;, &#39;_errors&#39;, &#39;_huge_tree&#39;, &#39;_parsed&#39;, &#39;_parsing_error_transform&#39;, &#39;_parsing_hook&#39;, &#39;_raw&#39;, &#39;_root&#39;, &#39;error&#39;, &#39;errors&#39;, &#39;ok&#39;, &#39;parse&#39;, &#39;set_parsing_error_transform&#39;, &#39;xml&#39;]
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;rpc-reply message-id=&quot;urn:uuid:66b9fc57-bfa8-4ace-a847-86cc9a99ea4b&quot; xmlns:nc=&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot; xmlns=&quot;urn:ietf:params:xml:ns:netconf:base:1.0&quot;&gt;
+ &lt;ok/&gt;
+&lt;/rpc-reply&gt;
+
+&lt;class &#39;ncclient.operations.rpc.RPCReply&#39;&gt;
+</pre></div>
+</div>
+<p>Hopefully this helps understand the differences in some RPC responses.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../README.html" class="btn btn-neutral float-left" title="Nornir NETCONF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="use-examples.html" class="btn btn-neutral float-right" title="How to use the Examples directory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Hugo Tinoco.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
