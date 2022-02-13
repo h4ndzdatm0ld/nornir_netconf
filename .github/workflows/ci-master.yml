@@ -43,15 +43,6 @@ jobs:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
     steps:
-      - name: Down Docker!
-        run: docker-compose down
-
-      # - name: Be Gone!
-      #   run: sudo rm -rf clab-clab-topo-netconf.yml/
-
-      # - name: Reset Permissions from Root
-      #   run: sudo chown -R htinoco .
-
       - uses: actions/checkout@v2
       - name: Setup python
         uses: actions/setup-python@v2
@@ -62,11 +53,8 @@ jobs:
       - name: Reset Permissions from Root
         run: sudo chown -R htinoco .
 
-      # - name: Rebuild
-      #   run: docker-compose build
-
       - name: Start Containerlab
-        run: docker-compose run clab containerlab deplopy -t clab-topo-netconf.yml  --reconfigure
+        run: docker-compose run clab containerlab deploy -t clab-topo-netconf.yml  --reconfigure
 
       - name: Sleep for 200 seconds
         run: sleep 200s
