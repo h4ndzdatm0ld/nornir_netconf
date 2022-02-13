@@ -46,14 +46,11 @@ jobs:
       - name: Down Docker!
         run: docker-compose down
 
-      - name: Be Gone!
-        run: sudo rm -rf clab-clab-topo-netconf.yml/
+      # - name: Be Gone!
+      #   run: sudo rm -rf clab-clab-topo-netconf.yml/
 
-      - name: Reset Permissions from Root
-        run: sudo chown -R htinoco .
-
-      - name: Clean in case
-        run: docker-compose run clab containerlab destroy -t clab-topo-netconf.yml
+      # - name: Reset Permissions from Root
+      #   run: sudo chown -R htinoco .
 
       - uses: actions/checkout@v2
       - name: Setup python
@@ -65,18 +62,21 @@ jobs:
       - name: Reset Permissions from Root
         run: sudo chown -R htinoco .
 
-      - name: Rebuild
-        run: docker-compose build
+      # - name: Rebuild
+      #   run: docker-compose build
 
-      - name: Start Containerlab + Sysrepo
-        run: docker-compose run clab containerlab deploy -t clab-topo-netconf.yml --reconfigure
+      - name: Start Containerlab
+        run: docker-compose run clab containerlab deplopy -t clab-topo-netconf.yml  --reconfigure
 
-      - name: Sleep for 180 seconds
-        run: sleep 180s
+      - name: Sleep for 200 seconds
+        run: sleep 200s
         shell: bash
 
       - name: Pytest
         run: docker-compose run test
+
+      - name: Reset Permissions from Root
+        run: sudo chown -R htinoco .
 
       - name: Destroy Container Lab
         run: docker-compose run clab containerlab destroy -t clab-topo-netconf.yml
