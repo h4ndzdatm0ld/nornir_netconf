@@ -1,6 +1,7 @@
 """Conftest for nornir_netconf UnitTests."""
 import os
 import shutil
+
 import pytest
 from nornir import InitNornir
 from nornir.core.state import GlobalState
