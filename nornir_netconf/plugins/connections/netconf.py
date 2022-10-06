@@ -17,15 +17,17 @@ class Netconf:
     Example on how to configure a device to use netconfig without using an ssh agent and without verifying the keys::
     ---
     nc_device:
-        hostname: 192.168.16.20
-        username: admin
-        password: admin
+        hostname: "192.168.16.20"
+        username: "admin"
+        password: "admin"
         port: 2022
         connection_options:
             netconf:
                 extras:
                     allow_agent: False
                     hostkey_verify: False
+                    device_params:
+                        name: "sros"
 
     Then it can be used like::
         >>> from nornir import InitNornir
@@ -104,10 +106,8 @@ class Netconf:
             "password": password,
             "port": port or 830,
         }
-
         if platform:
             parameters["device_params"] = {"name": platform}
-
         ssh_config_file = extras.get("ssh_config", configuration.ssh.config_file)  # type: ignore[union-attr]
         if check_file(ssh_config_file):
             parameters["ssh_config"] = ssh_config_file

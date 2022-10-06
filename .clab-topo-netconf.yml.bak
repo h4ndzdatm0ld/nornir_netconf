@@ -20,3 +20,4 @@ topology:
   links:
     # p1 XR port 1 is connected to p2 SROS port 1
     - endpoints: ["xrv-p1:eth1", "sros-p2:eth1"]
+

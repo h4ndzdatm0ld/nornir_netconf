@@ -2,20 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-[Unreleased] 1.1.0
+[Unreleased] 1.0.2
 
 ### Added
 
 - Github CI Integration tests with ContainerLab
-- Normalized the result output between vendoers to inclue 'ok' key
+- Normalized the result output between vendors to include 'ok' key
 
 ### Changed
 
+- CLAB IP addresses for local integration testings
 - Added env variable to docker-compose to run integration tests in containers
 - Ability to run all tests from pytest or container
+- Tests showing how to use the `extras` for defining the `platform` as the key of `name`
 
 ## [1.0.1] - 2022-02-08
 

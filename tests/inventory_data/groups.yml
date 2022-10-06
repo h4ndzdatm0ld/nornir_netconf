@@ -40,7 +40,6 @@ sros:
   username: "admin"
   password: "admin"
   port: 830
-  platform: "sros"
   connection_options:
     netconf:
       extras:
@@ -48,6 +47,8 @@ sros:
         timeout: 300
         allow_agent: false
         look_for_keys: false
+        device_params:
+          name: "sros"
 
 iosxr:
   username: "clab"
