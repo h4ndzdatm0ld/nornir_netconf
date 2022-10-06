@@ -8,12 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Github CI Integration tests with ContainerLab
 - Normalized the result output between vendors to include 'ok' key
 
 ### Changed
 
-- CLAB IP addresses for local integration testings
+- Containerlab IP addresses for local integration testings changed
 - Added env variable to docker-compose to run integration tests in containers
 - Ability to run all tests from pytest or container
 - Tests showing how to use the `extras` for defining the `platform` as the key of `name`

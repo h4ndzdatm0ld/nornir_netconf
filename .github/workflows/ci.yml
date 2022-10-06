@@ -1,5 +1,5 @@
 ---
-name: "Nornir NETCONF"
+name: "CI"
 
 on:
   push:

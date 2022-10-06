@@ -1,7 +1,6 @@
 # Nornir NETCONF
 
-[![codecov](https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf/branch/develop/graph/badge.svg?token=MRI39YHOOR)](https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf)
-[![Build Status](https://github.com/nornir-automation/nornir_netconf/workflows/test_nornir_netconf/badge.svg)](https://github.com/nornir-automation/nornir_netconf/actions?query=workflow%3Atest_nornir_netconf)
+[![codecov](https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf/branch/develop/graph/badge.svg?token=MRI39YHOOR)](https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf) [![Build Status](https://github.com/nornir-automation/nornir_netconf/workflows/test_nornir_netconf/badge.svg)](https://github.com/nornir-automation/nornir_netconf/actions?query=workflow%3Atest_nornir_netconf)
 
 Collection of NETCONF tasks and connection plugin for [Nornir](https://github.com/nornir-automation/nornir)
 
@@ -19,7 +18,7 @@ python -m http.server
 
 ## Installation
 
-------------
+---
 
 ```bash
 pip install nornir_netconf
@@ -27,24 +26,24 @@ pip install nornir_netconf
 
 ## Plugins
 
-------------
+---
 
 ### Connections
 
-------------
+---
 
-* **netconf** - Connect to network devices using [ncclient](https://github.com/ncclient/ncclient)
+- **netconf** - Connect to network devices using [ncclient](https://github.com/ncclient/ncclient)
 
 ### Tasks
 
-------------
+---
 
-* **netconf_capabilities** - Return server capabilities from target
-* **netconf_get** - Returns state data based on the supplied xpath
-* **netconf_get_config** - Returns configuration from specified configuration store (default="running")
-* **netconf_edit_config** - Edits configuration on specified datastore (default="running")
-* **netconf_lock** - Locks or Unlocks a specified datastore (default="lock")
-* **netconf_commit** - Commits a change
+- **netconf_capabilities** - Return server capabilities from target
+- **netconf_get** - Returns state data based on the supplied xpath
+- **netconf_get_config** - Returns configuration from specified configuration store (default="running")
+- **netconf_edit_config** - Edits configuration on specified datastore (default="running")
+- **netconf_lock** - Locks or Unlocks a specified datastore (default="lock")
+- **netconf_commit** - Commits a change
 
 ## Response Result
 
@@ -52,14 +51,13 @@ The goal of the task results is to put the NETCONF RPC-reply back in your hands.
 
 Furthermore, some tasks allow the 'xml_dict' boolean argument. This will take the response RPC XML and convert it into a python dictionary. Keep in mind, this may not be perfect as XML does't quite translate 100% into a python dictionary.
 
-For example, an xml response can include a collapsed response with open/close as so:  ```<ok/>```
-If parsed into python dictionary using xml_dict argument, the key of 'ok' will have a value of none.  However, if we were to be parsing ```<enabled>True</enabled>``` this would show a key of 'enabled' and a value of 'True'.
+For example, an xml response can include a collapsed response with open/close as so: `<ok/>` If parsed into python dictionary using xml_dict argument, the key of 'ok' will have a value of none. However, if we were to be parsing `<enabled>True</enabled>` this would show a key of 'enabled' and a value of 'True'.
 
 This is a simple built-in solution available, but not the only one. You have the RPC as part of the response and you are able to parse it anyway or method which works better for you.
 
 ## Global Lock
 
-The `netconf_lock` task will always return the Manager object, which is the established (and locked) agent used to send RPC's back and forth. The idea of retrieving the Manager is to carry this established locked session from task to task and only lock and unlock once during a run of tasks.  Please review the examples below to see how to extract the manager and store it under the `task.host` dictionary as a variable which can be used across multiple tasks. The Manager is passed into other tasks and re-used to send RPCs to the remote server.
+The `netconf_lock` task will always return the Manager object, which is the established (and locked) agent used to send RPC's back and forth. The idea of retrieving the Manager is to carry this established locked session from task to task and only lock and unlock once during a run of tasks. Please review the examples below to see how to extract the manager and store it under the `task.host` dictionary as a variable which can be used across multiple tasks. The Manager is passed into other tasks and re-used to send RPCs to the remote server.
 
 ## Examples
 
@@ -194,7 +192,6 @@ if __name__ == "__main__":
 
 <details><summary>Task: Edit-Config with Global Lock</summary>
 
-
 ```python
 """Nornir NETCONF Example Task: 'edit-config', 'netconf_lock'."""
 from nornir import InitNornir
@@ -270,24 +267,24 @@ if __name__ == "__main__":
 
 ## Additional Documentation
 
-* [NCClient](https://ncclient.readthedocs.io/en/latest/)
-* [Sysrepo](https://www.sysrepo.org/)
+- [NCClient](https://ncclient.readthedocs.io/en/latest/)
+- [Sysrepo](https://www.sysrepo.org/)
 
 ## Contributions
 
-------------
+---
 
 No line of code shall go un tested! Any contribution will need to be accounted by the coverage report and satisfy all linting.
 
 Linters:
 
-* Fake8
-* Black
-* Yamllint
-* Pylint
-* Pydocstyle
-* Bandit
-* MyPy
+- Fake8
+- Black
+- Yamllint
+- Pylint
+- Pydocstyle
+- Bandit
+- MyPy
 
 ## Testing
 
@@ -331,12 +328,12 @@ pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
 
 Devices with full integration tests (ContainerLab)
 
-* Nokia SROS - TiMOS-B-21.2.R1
-* Cisco IOSxR - Cisco IOS XR Software, Version 6.1.3
+- Nokia SROS - TiMOS-B-21.2.R1
+- Cisco IOSxR - Cisco IOS XR Software, Version 6.1.3
 
 Devices testing against Always-ON Sandboxes (Cisco DevNet)
 
-* Cisco IOS-XE - Cisco IOS XE Software, Version 17.03.01a
+- Cisco IOS-XE - Cisco IOS XE Software, Version 17.03.01a
 
 These tests are ran locally, and will soon be integrated into Github CI.
 
