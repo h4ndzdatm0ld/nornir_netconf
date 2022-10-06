@@ -121,4 +121,4 @@ docs/public/*
 
 # containerlab
 *.clab-topo-netconf.yaml
-*clab-topo-netconf.yml/*
+clab-topo-netconf.yml/
