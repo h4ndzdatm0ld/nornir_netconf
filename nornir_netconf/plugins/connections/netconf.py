@@ -106,8 +106,13 @@ class Netconf:
             "password": password,
             "port": port or 830,
         }
-        if platform:
-            parameters["device_params"] = {"name": platform}
+        parameters["device_params"] = {"name": platform if platform else "default"}
+
+        if extras.get("device_params"):
+            parameters["device_params"]["name"] = (
+                extras["device_params"].get("name") if extras["device_params"].get("name") else platform
+            )
+
         ssh_config_file = extras.get("ssh_config", configuration.ssh.config_file)  # type: ignore[union-attr]
         if check_file(ssh_config_file):
             parameters["ssh_config"] = ssh_config_file
