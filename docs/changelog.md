@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Ability to run all tests from pytest or container
 - Tests showing how to use the `extras` for defining the `platform` as the key of `name`
 
+### Fixed
+
+- GH Actions Badge was pointing to previous fork on the Nornir organization
+
 ## [1.0.1] - 2022-02-08
 
 ### Added
