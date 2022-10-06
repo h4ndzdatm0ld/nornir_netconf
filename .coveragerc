@@ -1,10 +1,9 @@
 # .coveragerc to control coverage.py
 [run]
 branch = True
-source = nornir_netconf
 
 [report]
-show_missing = true
+show_missing = True
 
 exclude_lines =
     __init__.py
@@ -17,5 +16,6 @@ exclude_lines =
 
 omit =
     nornir_netconf/__init__.py
+    tests/*
 
 ignore_errors = True
