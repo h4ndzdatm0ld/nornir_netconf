@@ -105,8 +105,8 @@ class Netconf:
             "username": username,
             "password": password,
             "port": port or 830,
+            "device_params": {"name": platform if platform else "default"}
         }
-        parameters["device_params"] = {"name": platform if platform else "default"}
 
         if extras.get("device_params"):
             parameters["device_params"]["name"] = (
