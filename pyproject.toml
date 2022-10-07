@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nornir_netconf"
-version = "1.1.0"
+version = "1.0.1"
 description = "Netconf plugin for nornir using ncclient"
 authors = ["Hugo Tinoco <hugotinoco@icloud.com>", "Patrick Ogenstad <patrick@ogenstad.com>"]
 license = "Apache-2.0"
