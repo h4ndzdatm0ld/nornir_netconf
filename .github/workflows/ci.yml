@@ -1,11 +1,8 @@
 ---
 name: "CI"
-
-on:
-  push:
-    branches: ["*"]
-  pull_request:
-    branches: ["develop", "master"]
+on: # yamllint disable-line rule:truthy rule:comments
+  - "push"
+  - "pull_request"
 
 jobs:
   linters:
