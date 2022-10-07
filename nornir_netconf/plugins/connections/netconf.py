@@ -93,7 +93,7 @@ class Netconf:
         username: Optional[str],
         password: Optional[str],
         port: Optional[int],
-        platform: Optional[str],
+        platform: Optional[str] = "default",
         extras: Optional[Dict[str, Any]] = None,
         configuration: Optional[Config] = None,
     ) -> None:
@@ -107,15 +107,10 @@ class Netconf:
             "port": port or 830,
             "device_params": {"name": platform if platform else "default"},
         }
-        if extras.get("device_params"):
-            parameters["device_params"]["name"] = (
-                extras["device_params"].get("name") if extras["device_params"].get("name") else platform
-            )
-
         ssh_config_file = extras.get("ssh_config", configuration.ssh.config_file)  # type: ignore[union-attr]
         if check_file(ssh_config_file):
             parameters["ssh_config"] = ssh_config_file
-
+        # If `device_params` exist in extras, the name can be overriden.
         parameters.update(extras)
         self.connection = manager.connect_ssh(**parameters)  # pylint: disable=W0201
 

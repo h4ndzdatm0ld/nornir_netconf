@@ -26,6 +26,7 @@ netconf_docker_ssh:
 netconf_docker_nossh:
   password: "netconf"
   username: "netconf"
+  platform: "I won't work!"
   port: 830
   connection_options:
     netconf:
@@ -41,6 +42,7 @@ sros:
   username: "admin"
   password: "admin"
   port: 830
+  platform: "alcatel_sros"
   connection_options:
     netconf:
       extras:
