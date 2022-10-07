@@ -49,18 +49,19 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#added">Added</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#changed">Changed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fixed">Fixed</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">[1.0.1] - 2022-02-08</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">Added</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fixed">Fixed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Fixed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">[1.0.0] - 2022-01-17</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id5">Changed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">[1.0.0] - 2022-01-17</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Changed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">[0.1.0] - 2020-09-10</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Added</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">[0.1.0] - 2020-09-10</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Added</a></li>
 </ul>
 </li>
 </ul>
@@ -97,21 +98,27 @@
   <section class="tex2jax_ignore mathjax_ignore" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline"></a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
-<p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
-and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
-<p>[Unreleased] 1.1.0</p>
+<p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>, and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<p>[Unreleased] 1.0.2</p>
 <section id="added">
 <h2>Added<a class="headerlink" href="#added" title="Permalink to this headline"></a></h2>
 <ul class="simple">
-<li><p>Github CI Integration tests with ContainerLab</p></li>
-<li><p>Normalized the result output between vendoers to inclue ‘ok’ key</p></li>
+<li><p>Normalized the result output between vendors to include ‘ok’ key</p></li>
 </ul>
 </section>
 <section id="changed">
 <h2>Changed<a class="headerlink" href="#changed" title="Permalink to this headline"></a></h2>
 <ul class="simple">
+<li><p>Containerlab IP addresses for local integration testings changed</p></li>
 <li><p>Added env variable to docker-compose to run integration tests in containers</p></li>
 <li><p>Ability to run all tests from pytest or container</p></li>
+<li><p>Tests showing how to use the <code class="docutils literal notranslate"><span class="pre">extras</span></code> for defining the <code class="docutils literal notranslate"><span class="pre">platform</span></code> as the key of <code class="docutils literal notranslate"><span class="pre">name</span></code></p></li>
+</ul>
+</section>
+<section id="fixed">
+<h2>Fixed<a class="headerlink" href="#fixed" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>GH Actions Badge was pointing to previous fork on the Nornir organization</p></li>
 </ul>
 </section>
 <section id="id1">
@@ -128,17 +135,17 @@ and this project adheres to <a class="reference external" href="https://semver.o
 <li><p>Lowered requirement version for <code class="docutils literal notranslate"><span class="pre">ncclient</span></code></p></li>
 </ul>
 </section>
-<section id="fixed">
-<h3>Fixed<a class="headerlink" href="#fixed" title="Permalink to this headline"></a></h3>
+<section id="id4">
+<h3>Fixed<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p>Several integration tests are OS versions changed from previous eve-ng lab</p></li>
 </ul>
 </section>
 </section>
-<section id="id4">
-<h2>[1.0.0] - 2022-01-17<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
 <section id="id5">
-<h3>Changed<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<h2>[1.0.0] - 2022-01-17<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
+<section id="id6">
+<h3>Changed<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p>Removed dependencies locking python version between a range.</p></li>
 <li><p>Removed unused dev env dependencies</p></li>
@@ -147,10 +154,10 @@ and this project adheres to <a class="reference external" href="https://semver.o
 </ul>
 </section>
 </section>
-<section id="id6">
-<h2>[0.1.0] - 2020-09-10<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
 <section id="id7">
-<h3>Added<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<h2>[0.1.0] - 2020-09-10<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h2>
+<section id="id8">
+<h3>Added<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p>netconf_capabilities - Return server capabilities from target</p></li>
 <li><p>netconf_get - Returns state data based on the supplied xpath</p></li>

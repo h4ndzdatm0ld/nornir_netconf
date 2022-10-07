@@ -41,7 +41,6 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Readme</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#plugins">Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#connections">Connections</a></li>
@@ -58,6 +57,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#sysrepo-netopeer2">Sysrepo: netopeer2</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -98,19 +98,8 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="nornir-netconf">
 <h1>Nornir NETCONF<a class="headerlink" href="#nornir-netconf" title="Permalink to this headline"></a></h1>
-<p><a class="reference external" href="https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf"><img alt="codecov" src="https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf/branch/develop/graph/badge.svg?token=MRI39YHOOR" /></a>
-<a class="reference external" href="https://github.com/nornir-automation/nornir_netconf/actions?query=workflow%3Atest_nornir_netconf"><img alt="Build Status" src="https://github.com/nornir-automation/nornir_netconf/workflows/test_nornir_netconf/badge.svg" /></a></p>
+<p><a class="reference external" href="https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf"><img alt="codecov" src="https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf/branch/develop/graph/badge.svg?token=MRI39YHOOR" /></a> <a class="reference external" href="https://github.com/h4ndzdatm0ld/nornir_netconf/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/h4ndzdatm0ld/nornir_netconf/actions/workflows/ci.yml/badge.svg" /></a></p>
 <p>Collection of NETCONF tasks and connection plugin for <a class="reference external" href="https://github.com/nornir-automation/nornir">Nornir</a></p>
-<section id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h2>
-<p>Documentation is generated with Sphinx and hosted with Github Pages. <a class="reference external" href="https://h4ndzdatm0ld.github.io/nornir_netconf/">Documentation</a></p>
-<p>To generate the latest documentation locally:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sphinx-build -vvv -b html ./docs ./docs/public
-<span class="nb">cd</span> docs/public
-python -m http.server
-</pre></div>
-</div>
-</section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
 <hr class="docutils" />
@@ -144,14 +133,13 @@ python -m http.server
 <section id="response-result">
 <h2>Response Result<a class="headerlink" href="#response-result" title="Permalink to this headline"></a></h2>
 <p>The goal of the task results is to put the NETCONF RPC-reply back in your hands. An ‘rpc’ key will be available which can then be used to access ‘data_xml’ or ‘xml’ depending on the type of response or any other attributes available, such as ‘error’, ‘errors’. Some of the RPC is unpacked and provided back as part of the Result by default, including the ‘error’, ‘errors’ and ‘ok’ if available. Anything else can be accessed directly from the rpc.</p>
-<p>Furthermore, some tasks allow the ‘xml_dict’ boolean argument. This will take the response RPC XML and convert it into a python dictionary. Keep in mind, this may not be perfect as XML does’t quite translate 100% into a python dictionary.</p>
-<p>For example, an xml response can include a collapsed response with open/close as so:  <code class="docutils literal notranslate"><span class="pre">&lt;ok/&gt;</span></code>
-If parsed into python dictionary using xml_dict argument, the key of ‘ok’ will have a value of none.  However, if we were to be parsing <code class="docutils literal notranslate"><span class="pre">&lt;enabled&gt;True&lt;/enabled&gt;</span></code> this would show a key of ‘enabled’ and a value of ‘True’.</p>
+<p>Furthermore, some tasks allow the ‘xml_dict’ boolean argument. This will take the response RPC XML and convert it into a python dictionary. Keep in mind, this may not be perfect as XML doesn’t quite translate 100% into a python dictionary.</p>
+<p>For example, an xml response can include a collapsed response with open/close as so: <code class="docutils literal notranslate"><span class="pre">&lt;ok/&gt;</span></code> If parsed into a python dictionary using xml_dict argument, the key of ‘ok’ will have a value of none. However, if we were to be parsing <code class="docutils literal notranslate"><span class="pre">&lt;enabled&gt;True&lt;/enabled&gt;</span></code> this would show a key of ‘enabled’ and a value of ‘True’.</p>
 <p>This is a simple built-in solution available, but not the only one. You have the RPC as part of the response and you are able to parse it anyway or method which works better for you.</p>
 </section>
 <section id="global-lock">
 <h2>Global Lock<a class="headerlink" href="#global-lock" title="Permalink to this headline"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">netconf_lock</span></code> task will always return the Manager object, which is the established (and locked) agent used to send RPC’s back and forth. The idea of retrieving the Manager is to carry this established locked session from task to task and only lock and unlock once during a run of tasks.  Please review the examples below to see how to extract the manager and store it under the <code class="docutils literal notranslate"><span class="pre">task.host</span></code> dictionary as a variable which can be used across multiple tasks. The Manager is passed into other tasks and re-used to send RPCs to the remote server.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">netconf_lock</span></code> task will always return the Manager object, which is the established (and locked) agent used to send RPC’s back and forth. The idea of retrieving the Manager is to carry this established locked session from task to task and only lock and unlock once during a run of tasks. Please review the examples below to see how to extract the manager and store it under the <code class="docutils literal notranslate"><span class="pre">task.host</span></code> dictionary as a variable that can be used across multiple tasks. The Manager is passed into other tasks and re-used to send RPCs to the remote server.</p>
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h2>
@@ -171,7 +159,7 @@ If parsed into python dictionary using xml_dict argument, the key of ‘ok’ wi
 </div>
 </details>
 <details><summary>Netconf Connection Plugin</summary>
-<p>Below is the snippet of a host inside the host-local.yml file and it’s associated group, ‘sros’.</p>
+<p>Below is the snippet of a host inside the host-local.yml file and its associated group, ‘sros’.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nokia_rtr</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.1.205&quot;</span><span class="w"></span>
 <span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">830</span><span class="w"></span>
@@ -352,7 +340,7 @@ If parsed into python dictionary using xml_dict argument, the key of ‘ok’ wi
 <section id="contributions">
 <h2>Contributions<a class="headerlink" href="#contributions" title="Permalink to this headline"></a></h2>
 <hr class="docutils" />
-<p>No line of code shall go un tested! Any contribution will need to be accounted by the coverage report and satisfy all linting.</p>
+<p>No line of code shall go untested! Any contribution will need to be accounted for by the coverage report and satisfy all linting.</p>
 <p>Linters:</p>
 <ul class="simple">
 <li><p>Fake8</p></li>
@@ -400,16 +388,25 @@ If parsed into python dictionary using xml_dict argument, the key of ‘ok’ wi
 </ul>
 <p>Devices testing against Always-ON Sandboxes (Cisco DevNet)</p>
 <ul class="simple">
-<li><p>Cisco IOS-XE - Cisco IOS XE Software, Version 17.03.01a</p></li>
+<li><p>Cisco IOS-XE - Cisco IOS XE Software, Version 17.03.01a These tests are run locally.</p></li>
 </ul>
-<p>These tests are ran locally, and will soon be integrated into Github CI.</p>
 </section>
 <section id="sysrepo-netopeer2">
 <h3>Sysrepo: netopeer2<a class="headerlink" href="#sysrepo-netopeer2" title="Permalink to this headline"></a></h3>
-<p>Majority of integration tests are ran against a docker instance of <a class="reference external" href="https://hub.docker.com/r/sysrepo/sysrepo-netopeer2">netopeer2</a></p>
+<p>The majority of integration tests are run against a docker instance of <a class="reference external" href="https://hub.docker.com/r/sysrepo/sysrepo-netopeer2">netopeer2</a></p>
 <p>From the <a class="reference external" href="https://www.sysrepo.org/">Sysrepo</a> website:</p>
 <p>“Netopeer2 and Sysrepo provide a fully open source and standards compliant implementation of a NETCONF server and YANG configuration data stores.”</p>
 </section>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h2>
+<p>Documentation is generated with Sphinx and hosted with Github Pages. <a class="reference external" href="https://h4ndzdatm0ld.github.io/nornir_netconf/">Documentation</a></p>
+<p>To generate the latest documentation locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sphinx-build -vvv -b html ./docs ./docs/public
+<span class="nb">cd</span> docs/public
+python -m http.server
+</pre></div>
+</div>
 </section>
 </section>
 

@@ -44,15 +44,17 @@ Attributes
    Example on how to configure a device to use netconfig without using an ssh agent and without verifying the keys::
    ---
    nc_device:
-       hostname: 192.168.16.20
-       username: admin
-       password: admin
+       hostname: "192.168.16.20"
+       username: "admin"
+       password: "admin"
        port: 2022
        connection_options:
            netconf:
                extras:
                    allow_agent: False
                    hostkey_verify: False
+                   device_params:
+                       name: "sros"
 
    Then it can be used like::
        >>> from nornir import InitNornir
@@ -111,7 +113,7 @@ Attributes
        >>>
        >>> nr.run(task=netconf_code)
 
-   .. py:method:: open(self, hostname: Optional[str], username: Optional[str], password: Optional[str], port: Optional[int], platform: Optional[str], extras: Optional[Dict[str, Any]] = None, configuration: Optional[nornir.core.configuration.Config] = None) -> None
+   .. py:method:: open(self, hostname: Optional[str], username: Optional[str], password: Optional[str], port: Optional[int], platform: Optional[str] = 'default', extras: Optional[Dict[str, Any]] = None, configuration: Optional[nornir.core.configuration.Config] = None) -> None
 
       Open NETCONF connection.
 
