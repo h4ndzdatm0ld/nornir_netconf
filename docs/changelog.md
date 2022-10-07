@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - Normalized the result output between vendors to include 'ok' key
+- Pipeline to publish to pypi/github
 
 ### Changed
 
