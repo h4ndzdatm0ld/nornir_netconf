@@ -8,7 +8,6 @@ __pycache__/
 # Testing
 *.log
 *.xml
-tests/test_data/schema_path/
 
 # C extensions
 *.so
@@ -118,7 +117,8 @@ tests/stubs/*.pyi
 
 # Docs
 docs/README.md
+docs/public/*
 
 # containerlab
-*.clab-topo-netconf.yaml
-*clab-topo-netconf.yml/*
+.clab-topo-netconf.yml.bak
+clab-clab-topo-netconf.yml/

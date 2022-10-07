@@ -8,31 +8,31 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 def test_netconf_connection_missing_ssh_keyfile(nornir):
     """Test netconf connection - no ssh config file."""
-    nr = nornir.filter(name="netconf1")
+    nr = nornir.filter(name="netconf_sysrepo")
     result = nr.run(netconf_capabilities)
-    assert isinstance(result["netconf1"].result, list)
+    assert isinstance(result["netconf_sysrepo"].result, list)
 
 
 def test_netconf_connection_non_existent_ssh_config(nornir):
     """Test netconf connection - bad ssh config path."""
-    nr = nornir.filter(name="netconf1")
+    nr = nornir.filter(name="netconf_sysrepo")
 
     nr.config.ssh.config_file = "i dont exist"
     result = nr.run(netconf_capabilities)
 
     assert nr.config.ssh.config_file == "i dont exist"
-    assert isinstance(result["netconf1"].result, list)
-    assert "urn:ietf:params:netconf:capability:candidate:1.0" in result["netconf1"].result
+    assert isinstance(result["netconf_sysrepo"].result, list)
+    assert "urn:ietf:params:netconf:capability:candidate:1.0" in result["netconf_sysrepo"].result
 
 
 def test_netconf_connection_ssh_config_exists(nornir):
-    nr = nornir.filter(name="netconf1")
+    nr = nornir.filter(name="netconf_sysrepo")
 
     nr.config.ssh.config_file = f"{DIR_PATH}/inventory_data/ssh_config"
     result = nr.run(netconf_capabilities)
 
-    assert isinstance(result["netconf1"].result, list)
-    assert "urn:ietf:params:netconf:capability:candidate:1.0" in result["netconf1"].result
+    assert isinstance(result["netconf_sysrepo"].result, list)
+    assert "urn:ietf:params:netconf:capability:candidate:1.0" in result["netconf_sysrepo"].result
 
 
 def test_netconf_connection_ssh_keyfile(nornir):

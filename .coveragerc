@@ -1,15 +1,21 @@
+# .coveragerc to control coverage.py
 [run]
 branch = True
-source = vip_tracker
 
 [report]
-show_missing = true
+show_missing = True
 
 exclude_lines =
+    __init__.py
     if self.debug:
     self.connection.close_session()
     parameters["ssh_config"] = ssh_config_file
     pragma: no cover
     raise NotImplementedError
     if __name__ == .__main__.:
+
+omit =
+    nornir_netconf/__init__.py
+    tests/*
+
 ignore_errors = True

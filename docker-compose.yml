@@ -1,24 +1,27 @@
 ---
 version: "3.8"
 services:
-  netconf1:
-    container_name: "netconf1"
-    hostname: "netconf1"
+  netconf_sysrepo:
+    container_name: "netconf_sysrepo"
+    hostname: "netconf_sysrepo"
     image: "sysrepo/sysrepo-netopeer2:latest"
     ports:
       - "1830:830"
     environment:
       NACM_RECOVERY_UID: "0"
   test:
+    network_mode: "host"
     container_name: "test"
     hostname: "test"
+    environment:
+      SKIP_INTEGRATION_TESTS: "${SKIP_INTEGRATION_TESTS:-True}"
     build:
       context: "."
       target: "test"
     depends_on:
-      - "netconf1"
-      # volumes:
-      #   - "./:/usr/src/app"
+      - "netconf_sysrepo"
+    volumes:
+      - "./:/usr/src/app"
   clab:
     image: "ghcr.io/srl-labs/clab"
     network_mode: "host"

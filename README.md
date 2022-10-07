@@ -1,25 +1,12 @@
 # Nornir NETCONF
 
-[![codecov](https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf/branch/develop/graph/badge.svg?token=MRI39YHOOR)](https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf)
-[![Build Status](https://github.com/nornir-automation/nornir_netconf/workflows/test_nornir_netconf/badge.svg)](https://github.com/nornir-automation/nornir_netconf/actions?query=workflow%3Atest_nornir_netconf)
+[![codecov](https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf/branch/develop/graph/badge.svg?token=MRI39YHOOR)](https://codecov.io/gh/h4ndzdatm0ld/nornir_netconf) [![CI](https://github.com/h4ndzdatm0ld/nornir_netconf/actions/workflows/ci.yml/badge.svg)](https://github.com/h4ndzdatm0ld/nornir_netconf/actions/workflows/ci.yml)
 
 Collection of NETCONF tasks and connection plugin for [Nornir](https://github.com/nornir-automation/nornir)
 
-## Documentation
-
-Documentation is generated with Sphinx and hosted with Github Pages. [Documentation](https://h4ndzdatm0ld.github.io/nornir_netconf/)
-
-To generate the latest documentation locally:
-
-```bash
-sphinx-build -vvv -b html ./docs ./docs/public
-cd docs/public
-python -m http.server
-```
-
 ## Installation
 
-------------
+---
 
 ```bash
 pip install nornir_netconf
@@ -27,41 +14,40 @@ pip install nornir_netconf
 
 ## Plugins
 
-------------
+---
 
 ### Connections
 
-------------
+---
 
-* **netconf** - Connect to network devices using [ncclient](https://github.com/ncclient/ncclient)
+- **netconf** - Connect to network devices using [ncclient](https://github.com/ncclient/ncclient)
 
 ### Tasks
 
-------------
+---
 
-* **netconf_capabilities** - Return server capabilities from target
-* **netconf_get** - Returns state data based on the supplied xpath
-* **netconf_get_config** - Returns configuration from specified configuration store (default="running")
-* **netconf_edit_config** - Edits configuration on specified datastore (default="running")
-* **netconf_lock** - Locks or Unlocks a specified datastore (default="lock")
-* **netconf_commit** - Commits a change
+- **netconf_capabilities** - Return server capabilities from target
+- **netconf_get** - Returns state data based on the supplied xpath
+- **netconf_get_config** - Returns configuration from specified configuration store (default="running")
+- **netconf_edit_config** - Edits configuration on specified datastore (default="running")
+- **netconf_lock** - Locks or Unlocks a specified datastore (default="lock")
+- **netconf_commit** - Commits a change
 
 ## Response Result
 
 The goal of the task results is to put the NETCONF RPC-reply back in your hands. An 'rpc' key will be available which can then be used to access 'data_xml' or 'xml' depending on the type of response or any other attributes available, such as 'error', 'errors'. Some of the RPC is unpacked and provided back as part of the Result by default, including the 'error', 'errors' and 'ok' if available. Anything else can be accessed directly from the rpc.
 
-Furthermore, some tasks allow the 'xml_dict' boolean argument. This will take the response RPC XML and convert it into a python dictionary. Keep in mind, this may not be perfect as XML does't quite translate 100% into a python dictionary.
+Furthermore, some tasks allow the 'xml_dict' boolean argument. This will take the response RPC XML and convert it into a python dictionary. Keep in mind, this may not be perfect as XML doesn't quite translate 100% into a python dictionary.
 
-For example, an xml response can include a collapsed response with open/close as so:  ```<ok/>```
-If parsed into python dictionary using xml_dict argument, the key of 'ok' will have a value of none.  However, if we were to be parsing ```<enabled>True</enabled>``` this would show a key of 'enabled' and a value of 'True'.
+For example, an xml response can include a collapsed response with open/close as so: `<ok/>` If parsed into a python dictionary using xml_dict argument, the key of 'ok' will have a value of none. However, if we were to be parsing `<enabled>True</enabled>` this would show a key of 'enabled' and a value of 'True'.
 
 This is a simple built-in solution available, but not the only one. You have the RPC as part of the response and you are able to parse it anyway or method which works better for you.
 
 ## Global Lock
 
-The `netconf_lock` task will always return the Manager object, which is the established (and locked) agent used to send RPC's back and forth. The idea of retrieving the Manager is to carry this established locked session from task to task and only lock and unlock once during a run of tasks.  Please review the examples below to see how to extract the manager and store it under the `task.host` dictionary as a variable which can be used across multiple tasks. The Manager is passed into other tasks and re-used to send RPCs to the remote server.
+The `netconf_lock` task will always return the Manager object, which is the established (and locked) agent used to send RPC's back and forth. The idea of retrieving the Manager is to carry this established locked session from task to task and only lock and unlock once during a run of tasks. Please review the examples below to see how to extract the manager and store it under the `task.host` dictionary as a variable that can be used across multiple tasks. The Manager is passed into other tasks and re-used to send RPCs to the remote server.
 
-### Examples
+## Examples
 
 Head over to the [Examples directory](https://github.com/h4ndzdatm0ld/nornir_netconf/tree/develop/examples) if you'd like to review the files.
 
@@ -84,7 +70,7 @@ Head over to the [Examples directory](https://github.com/h4ndzdatm0ld/nornir_net
 
 <details><summary>Netconf Connection Plugin</summary>
 
-Below is the snippet of a host inside the host-local.yml file and it's associated group, 'sros'.
+Below is the snippet of a host inside the host-local.yml file and its associated group, 'sros'.
 
 ```yaml
 nokia_rtr:
@@ -194,7 +180,6 @@ if __name__ == "__main__":
 
 <details><summary>Task: Edit-Config with Global Lock</summary>
 
-
 ```python
 """Nornir NETCONF Example Task: 'edit-config', 'netconf_lock'."""
 from nornir import InitNornir
@@ -268,28 +253,28 @@ if __name__ == "__main__":
 
 </details>
 
-### Additional Documentation
+## Additional Documentation
 
-* [NCClient](https://ncclient.readthedocs.io/en/latest/)
-* [Sysrepo](https://www.sysrepo.org/)
+- [NCClient](https://ncclient.readthedocs.io/en/latest/)
+- [Sysrepo](https://www.sysrepo.org/)
 
 ## Contributions
 
-------------
+---
 
-No line of code shall go un tested! Any contribution will need to be accounted by the coverage report and satisfy all linting.
+No line of code shall go untested! Any contribution will need to be accounted for by the coverage report and satisfy all linting.
 
 Linters:
 
-* Fake8
-* Black
-* Yamllint
-* Pylint
-* Pydocstyle
-* Bandit
-* MyPy
+- Fake8
+- Black
+- Yamllint
+- Pylint
+- Pydocstyle
+- Bandit
+- MyPy
 
-### Testing
+## Testing
 
 To test within a local docker environment
 
@@ -303,8 +288,20 @@ docker-compose build && docker-compose run test
 
 To test locally with pytest
 
+If you'd like to run integration tests with ContainerLab
+
 ```bash
-docker-compose up netconf1
+export SKIP_INTEGRATION_TESTS=False
+```
+
+```bash
+docker-compose up -d
+```
+
+If you do not want to run integration tests, only bring up the `netconf_sysrepo` docker service and continue
+
+```bash
+docker-compose up netconf_sysrepo -d
 ```
 
 ```bash
@@ -319,19 +316,29 @@ pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
 
 Devices with full integration tests (ContainerLab)
 
-* Nokia SROS - TiMOS-B-21.2.R1
-* Cisco IOSxR - Cisco IOS XR Software, Version 6.1.3
+- Nokia SROS - TiMOS-B-21.2.R1
+- Cisco IOSxR - Cisco IOS XR Software, Version 6.1.3
 
 Devices testing against Always-ON Sandboxes (Cisco DevNet)
 
-* Cisco IOS-XE - Cisco IOS XE Software, Version 17.03.01a
-
-These tests are ran locally, and will soon be integrated into Github CI.
+- Cisco IOS-XE - Cisco IOS XE Software, Version 17.03.01a These tests are run locally.
 
 ### Sysrepo: netopeer2
 
-Majority of integration tests are ran against a docker instance of [netopeer2](https://hub.docker.com/r/sysrepo/sysrepo-netopeer2)
+The majority of integration tests are run against a docker instance of [netopeer2](https://hub.docker.com/r/sysrepo/sysrepo-netopeer2)
 
 From the [Sysrepo](https://www.sysrepo.org/) website:
 
 "Netopeer2 and Sysrepo provide a fully open source and standards compliant implementation of a NETCONF server and YANG configuration data stores."
+
+## Documentation
+
+Documentation is generated with Sphinx and hosted with Github Pages. [Documentation](https://h4ndzdatm0ld.github.io/nornir_netconf/)
+
+To generate the latest documentation locally:
+
+```bash
+sphinx-build -vvv -b html ./docs ./docs/public
+cd docs/public
+python -m http.server
+```

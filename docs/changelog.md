@@ -2,14 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-[Unreleased]
+## [1.1.0] - 2022-10-06
 
 ### Added
 
-- Github CI Integration tests with ContainerLab
+- Normalized the result output between vendors to include 'ok' key
+- Pipeline to publish to pypi/github
+
+### Changed
+
+- Containerlab IP addresses for local integration testings changed
+- Added env variable to docker-compose to run integration tests in containers
+- Ability to run all tests from pytest or container
+- Tests showing how to use the `extras` for defining the `platform` as the key of `name`
+
+### Fixed
+
+- GH Actions Badge was pointing to previous fork on the Nornir organization
 
 ## [1.0.1] - 2022-02-08
 
