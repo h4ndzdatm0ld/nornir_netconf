@@ -113,12 +113,12 @@ Attributes
        >>>
        >>> nr.run(task=netconf_code)
 
-   .. py:method:: open(self, hostname: Optional[str], username: Optional[str], password: Optional[str], port: Optional[int], platform: Optional[str] = 'default', extras: Optional[Dict[str, Any]] = None, configuration: Optional[nornir.core.configuration.Config] = None) -> None
+   .. py:method:: open(hostname: Optional[str], username: Optional[str], password: Optional[str], port: Optional[int], platform: Optional[str] = 'default', extras: Optional[Dict[str, Any]] = None, configuration: Optional[nornir.core.configuration.Config] = None) -> None
 
       Open NETCONF connection.
 
 
-   .. py:method:: close(self) -> None
+   .. py:method:: close() -> None
 
       Close.
 

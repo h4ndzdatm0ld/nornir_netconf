@@ -15,7 +15,9 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -76,28 +78,28 @@
            <div itemprop="articleBody">
              
   <section id="module-helpers.rpc_helpers">
-<span id="helpers-rpc-helpers"></span><h1><a class="reference internal" href="#module-helpers.rpc_helpers" title="helpers.rpc_helpers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">helpers.rpc_helpers</span></code></a><a class="headerlink" href="#module-helpers.rpc_helpers" title="Permalink to this headline"></a></h1>
+<span id="helpers-rpc-helpers"></span><h1><a class="reference internal" href="#module-helpers.rpc_helpers" title="helpers.rpc_helpers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">helpers.rpc_helpers</span></code></a><a class="headerlink" href="#module-helpers.rpc_helpers" title="Permalink to this heading"></a></h1>
 <p>Helper to extract info from RPC reply.</p>
 <section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading"></a></h2>
 <section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h3>
-<table class="longtable docutils align-default">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#helpers.rpc_helpers.check_capability" title="helpers.rpc_helpers.check_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_capability</span></code></a>(capabilities: List[str], capability: str) → bool</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#helpers.rpc_helpers.check_capability" title="helpers.rpc_helpers.check_capability"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_capability</span></code></a>(→ bool)</p></td>
 <td><p>Evaluate capabilities and return True if capability is available.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#helpers.rpc_helpers.xml_to_dict" title="helpers.rpc_helpers.xml_to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xml_to_dict</span></code></a>(rpc: ncclient.operations.rpc.RPCReply) → Union[Any, Dict[str, str]]</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#helpers.rpc_helpers.xml_to_dict" title="helpers.rpc_helpers.xml_to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xml_to_dict</span></code></a>(→ Union[Any, Dict[str, str]])</p></td>
 <td><p>Convert XML from RPC reply to dict.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#helpers.rpc_helpers.unpack_rpc" title="helpers.rpc_helpers.unpack_rpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unpack_rpc</span></code></a>(rpc: ncclient.operations.rpc.RPCReply, xmldict: bool = False) → Dict[str, Union[ncclient.operations.rpc.RPCReply, str]]</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#helpers.rpc_helpers.unpack_rpc" title="helpers.rpc_helpers.unpack_rpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unpack_rpc</span></code></a>(→ Dict[str, ...)</p></td>
 <td><p>Extract RPC attrs of interest.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#helpers.rpc_helpers.get_result" title="helpers.rpc_helpers.get_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_result</span></code></a>(rpc: Union[ncclient.operations.rpc.RPCReply, Dict[str, Any]], xmldict: bool = False) → Dict[str, Union[ncclient.operations.rpc.RPCReply, str]]</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#helpers.rpc_helpers.get_result" title="helpers.rpc_helpers.get_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_result</span></code></a>(→ Dict[str, ...)</p></td>
 <td><p>Check if RPC reply is valid and unpack.</p></td>
 </tr>
 </tbody>
