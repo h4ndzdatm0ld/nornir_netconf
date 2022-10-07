@@ -23,8 +23,7 @@ nornir = {version = "^3.0.0", allow-prereleases = true}
 
 
 [tool.poetry.dev-dependencies]
-black = { version = "19.10b0", allow-prereleases = true }
-pytest = "*"
+black = "*"
 pytest-cov = "*"
 bandit = "*"
 pylint = "*"
@@ -39,6 +38,7 @@ Sphinx = "*"
 myst-parser = "*"
 sphinx-autoapi = "*"
 sphinx-rtd-theme = "*"
+pytest = "*"
 
 
 [build-system]
