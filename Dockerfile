@@ -39,6 +39,6 @@ RUN echo 'Running Flake8' && \
     mypy .
 
 # Run full test suite including integration
-ENTRYPOINT ["coverage"]
+ENTRYPOINT ["pytest"]
 
-CMD ["run", "--m", "pytest", "--cov-report=xml", "-vvv"]
+CMD ["--cov=nornir_netconf/", "tests/", "-vvv"]

@@ -26,7 +26,6 @@ netconf_docker_ssh:
 netconf_docker_nossh:
   password: "netconf"
   username: "netconf"
-  platform: "default"
   port: 830
   connection_options:
     netconf:
@@ -35,6 +34,8 @@ netconf_docker_nossh:
         hostkey_verify: false
         look_for_keys: false
         ssh_config: null
+        device_params:
+          name: "default"
 
 sros:
   username: "admin"
