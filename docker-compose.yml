@@ -1,27 +1,28 @@
 ---
 version: "3.8"
 services:
-  netconf_sysrepo:
-    container_name: "netconf_sysrepo"
+  test:
+    network_mode: "host"
+    container_name: "test"
+    hostname: "test"
+    environment:
+      SKIP_INTEGRATION_TESTS: "${SKIP_INTEGRATION_TESTS:-False}"
+      NORNIR_LOG: "${NORNIR_LOG:-False}"
+    build:
+      context: "."
+      target: "test"
+    depends_on:
+      - "sysrepo"
+    volumes:
+      - "./:/usr/src/app"
+  sysrepo:
+    container_name: "sysrepo"
     hostname: "netconf_sysrepo"
     image: "sysrepo/sysrepo-netopeer2:latest"
     ports:
       - "1830:830"
     environment:
       NACM_RECOVERY_UID: "0"
-  test:
-    network_mode: "host"
-    container_name: "test"
-    hostname: "test"
-    environment:
-      SKIP_INTEGRATION_TESTS: "${SKIP_INTEGRATION_TESTS:-True}"
-    build:
-      context: "."
-      target: "test"
-    depends_on:
-      - "netconf_sysrepo"
-    volumes:
-      - "./:/usr/src/app"
   clab:
     image: "ghcr.io/srl-labs/clab"
     network_mode: "host"
@@ -31,9 +32,10 @@ services:
       - "/var/run/netns:/var/run/netns"
       - "/etc/hosts:/etc/hosts"
       - "./:/src"
-      - "./clab-topo-netconf.yml:/src/clab-topo-netconf.yml"
+      - "./clab-files/clab-topo-netconf.yml:/src/clab-files/clab-topo-netconf.yml"
     pid: "host"
-    command: "containerlab deploy -t clab-topo-netconf.yml"
+    # command: "containerlab deploy -t clab-topo-netconf.yml"
+    command: "containerlab deploy -t ./clab-files/clab-arista.yml"
     # If you want to destroy the lab, ovveride the command while executing docker-compose service
     # docker-compose run clab containerlab destroy -t clab-topo-netconf.yml
     privileged: true

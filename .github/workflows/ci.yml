@@ -48,7 +48,22 @@ jobs:
           architecture: x64
 
       - name: Start NETCONF Sysrepo container
-        run: docker-compose up -d netconf_sysrepo
+        run: docker-compose up -d sysrepo
+
+      - name: "Install Clab"
+        run: |
+          sudo bash -c "$(curl -sL https://get.containerlab.dev)"
+          
+      - name: Start Arista CEOS
+        run: sudo containerlab deploy -t clab-files/clab-arista.yml
+
+      - name: "Wait for Arista CEOS to be ready"
+        uses: "jakejarvis/wait-action@master"
+        with:
+          time: "10"
+
+      - name: "CHOWN CLAB Files"
+        run: "sudo chown -R $USER clab-arista-testing.yml"
 
       - name: Install dependencies
         run: |

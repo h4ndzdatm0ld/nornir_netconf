@@ -77,3 +77,14 @@ csr:
         timeout: 300
         allow_agent: false
         look_for_keys: false
+ceos:
+  username: "admin"
+  password: "admin"
+  port: 830
+  connection_options:
+    netconf:
+      extras:
+        hostkey_verify: false
+        timeout: 300
+        allow_agent: false
+        look_for_keys: false

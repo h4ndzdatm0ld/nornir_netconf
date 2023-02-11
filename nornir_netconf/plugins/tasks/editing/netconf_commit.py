@@ -11,7 +11,6 @@ from nornir_netconf.plugins.helpers.rpc_helpers import get_result
 def netconf_commit(
     task: Task,
     manager: Optional[Manager] = None,
-    xmldict: bool = False,
     confirmed: bool = False,
     timeout: int = 60,
     persist: int = None,  # type: ignore
@@ -21,7 +20,6 @@ def netconf_commit(
 
     Arguments:
         manager: class:: ncclient.manager.Manager
-        xmldict (boolean): convert xml to dict
         confirmed (boolean): Commit confirm
         timeout (int): commit confirm timeout
         persist (int): survive a session termination
@@ -38,4 +36,4 @@ def netconf_commit(
     if not manager:
         manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     result = manager.commit(confirmed, timeout, persist, persist_id)
-    return Result(host=task.host, **get_result(result, xmldict))
+    return Result(host=task.host, **get_result(result))

@@ -35,7 +35,6 @@ def test_iosxe_netconf_get_config(nornir):
         </native>
         """,
         filter_type="subtree",
-        xmldict=True,
     )
     # assert (
     #     "Welcome to the DevNet Sandbox"
@@ -58,6 +57,6 @@ def test_iosxe_netconf_get(nornir):
         </ip>
     </native>
     """
-    result = nr.run(netconf_get, filter_type="subtree", path=filter, xmldict=True)
+    result = nr.run(netconf_get, filter_type="subtree", path=filter)
     assert result[DEVICE_NAME].result
-    assert result[DEVICE_NAME].result["xml_dict"]["data"]["native"]["ip"]["domain"]["name"] == "lab.devnetsandbox.local"
+    # assert result[DEVICE_NAME].result["xml_dict"]["data"]["native"]["ip"]["domain"]["name"] == "lab.devnetsandbox.local"

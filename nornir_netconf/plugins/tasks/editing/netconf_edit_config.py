@@ -13,7 +13,6 @@ def netconf_edit_config(
     config: str,
     target: str = "running",
     manager: Optional[Manager] = None,
-    xmldict: bool = False,
     default_operation: Optional[str] = None,
 ) -> Result:
     """Edit configuration of device using Netconf.
@@ -22,7 +21,6 @@ def netconf_edit_config(
         config: Configuration snippet to apply
         target: Target configuration store
         manager: class:: ncclient.manager.Manager
-        xmldict (boolean): convert xml to dict
         default_operation (str): merge, replace or None
 
     Examples:
@@ -42,4 +40,4 @@ def netconf_edit_config(
         if not check_capability(capabilities, target):
             raise ValueError(f"{target} datastore is not supported.")
     result = manager.edit_config(config, target=target, default_operation=default_operation)
-    return Result(host=task.host, **get_result(result, xmldict))
+    return Result(host=task.host, **get_result(result))

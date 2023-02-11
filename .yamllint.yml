@@ -11,5 +11,5 @@ rules:
 
 ignore: |
   .github/
-  clab-clab-topo-netconf.yml/
-  .clab-topo-netconf.yaml
+  clab-files
+  clab-arista-testing.yml

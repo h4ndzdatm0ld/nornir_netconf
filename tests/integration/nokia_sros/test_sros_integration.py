@@ -77,20 +77,20 @@ def test_sros_netconf_lock_operations(nornir, sros_config_payload):
     # print_result(result)
 
     # Edit Config
-    result = nr.run(netconf_edit_config, config=sros_config_payload, target="candidate", xmldict=True, manager=manager)
+    result = nr.run(netconf_edit_config, config=sros_config_payload, target="candidate", manager=manager)
     # print_result(result)
     assert not result[DEVICE_NAME].result["error"]
     assert not result[DEVICE_NAME].result["errors"]
     assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
-    assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
+    # assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
 
     # Commit Config
-    result = nr.run(netconf_commit, manager=manager, xmldict=True)
+    result = nr.run(netconf_commit, manager=manager)
     # print_result(result)
     assert not result[DEVICE_NAME].result["error"]
     assert not result[DEVICE_NAME].result["errors"]
     assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
-    assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
+    # assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
 
     # Unlock candidate datastore.
     result = nr.run(netconf_lock, datastore="candidate", operation="unlock", manager=manager)
@@ -104,12 +104,12 @@ def test_sros_netconf_lock_operations(nornir, sros_config_payload):
 def test_sros_netconf_edit_config(nornir, sros_config_payload):
     """Test NETCONF edit-config - Post Lock / Unlock operations."""
     nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_edit_config, config=sros_config_payload, target="candidate", xmldict=True)
+    result = nr.run(netconf_edit_config, config=sros_config_payload, target="candidate")
     assert not result[DEVICE_NAME].result["errors"]
     assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
-    assert not result[DEVICE_NAME].result["xml_dict"]["rpc-reply"]["ok"]
+    # assert not result[DEVICE_NAME].result["xml_dict"]["rpc-reply"]["ok"]
     print_result(result)
 
     # Commit Config
-    result = nr.run(netconf_commit, xmldict=True)
-    assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
+    result = nr.run(netconf_commit)
+    # assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()

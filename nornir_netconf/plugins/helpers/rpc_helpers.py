@@ -1,7 +1,6 @@
 """Helper to extract info from RPC reply."""
 from typing import Any, Dict, List, Union
 
-import xmltodict
 from ncclient.operations.rpc import RPCReply
 
 
@@ -10,35 +9,11 @@ def check_capability(capabilities: List[str], capability: str) -> bool:
     return any(True for cap in capabilities if capability in cap)
 
 
-def xml_to_dict(rpc: RPCReply) -> Union[Any, Dict[str, str]]:
-    """Convert XML from RPC reply to dict.
-
-    Args:
-        rpc (RPCReply): RPC Reply from Netconf Server
-
-    Returns:
-        Dict: xml response -> Dict
-    """
-    if hasattr(rpc, "data_xml"):
-        try:
-            return xmltodict.parse(rpc.data_xml)
-        except Exception as err_ex:
-            return {"error": f"Unable to parse XML to Dict. {err_ex}."}
-    elif hasattr(rpc, "xml"):
-        try:
-            return xmltodict.parse(rpc.xml)
-        except Exception as err_ex:
-            return {"error": f"Unable to parse XML to Dict. {err_ex}."}
-    else:
-        return {"error": "Unable to parse XML to Dict. '.xml' or 'data_xml' not found."}
-
-
-def unpack_rpc(rpc: RPCReply, xmldict: bool = False) -> Dict[str, Union[RPCReply, str]]:
+def unpack_rpc(rpc: RPCReply) -> Dict[str, Union[RPCReply, str]]:
     """Extract RPC attrs of interest.
 
     Args:
         rpc (RPCReply): RPC Reply from Netconf Server
-        xmldict (boolean): convert xml to dict
 
     Return:
         Dict: "RPC Attributes"
@@ -50,18 +25,14 @@ def unpack_rpc(rpc: RPCReply, xmldict: bool = False) -> Dict[str, Union[RPCReply
         "rpc": rpc,
     }
 
-    if xmldict:
-        result["xml_dict"] = xml_to_dict(rpc)
-
     return result
 
 
-def get_result(rpc: Union[RPCReply, Dict[str, Any]], xmldict: bool = False) -> Dict[str, Union[RPCReply, str]]:
+def get_result(rpc: Union[RPCReply, Dict[str, Any]]) -> Dict[str, Union[RPCReply, str]]:
     """Check if RPC reply is valid and unpack.
 
     Args:
         rpc (Union[RPCReply, Dict]): RPC Reply from Netconf Server or Dict
-        xmldict (boolean): convert xml to dict
 
     Returns:
         Dict: Results dict to expand in Result object
@@ -79,13 +50,11 @@ def get_result(rpc: Union[RPCReply, Dict[str, Any]], xmldict: bool = False) -> D
                     failed = False
                 else:
                     failed = True
-                return {"failed": failed, "result": unpack_rpc(rpc, xmldict)}
+                return {"failed": failed, "result": unpack_rpc(rpc)}
             except AttributeError:
                 # Re-create `unpack_rpc` output keys to keep consistency.
                 result["rpc"] = rpc
                 result["ok"] = True if "<ok/>" in rpc.data_xml else None
-                if xmldict:
-                    result["xml_dict"] = xml_to_dict(rpc)
                 return {"failed": False, "result": result}
 
     # Safe to say, at this point the replies are not RPC or NCElements.
@@ -95,5 +64,4 @@ def get_result(rpc: Union[RPCReply, Dict[str, Any]], xmldict: bool = False) -> D
         result["errors"] = rpc.get("errors", "Unable to find 'ok' or data_xml in response object.")
         result["ok"] = rpc.get("ok", False)
         result["rpc"] = rpc.get("rpc", {})
-        result["xml_dict"] = rpc.get("xml_dict", {})
     return {"failed": True, "result": result}

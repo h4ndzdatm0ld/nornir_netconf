@@ -7,16 +7,13 @@ from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers.rpc_helpers import get_result
 
 
-def netconf_get_config(
-    task: Task, source: str = "running", path: str = "", filter_type: str = "xpath", xmldict: bool = False
-) -> Result:
+def netconf_get_config(task: Task, source: str = "running", path: str = "", filter_type: str = "xpath") -> Result:
     """Get configuration over Netconf from device.
 
     Arguments:
         source: Configuration store to collect from
         path: Subtree or xpath to filter
         filter_type: Type of filtering to use, 'xpath' or 'subtree'
-        xmldict (boolean): convert xml to dict
 
     Examples:
         Simple example::
@@ -53,4 +50,4 @@ def netconf_get_config(
         parameters["filter"] = (filter_type, path)
 
     result = manager.get_config(**parameters)
-    return Result(host=task.host, **get_result(result, xmldict))
+    return Result(host=task.host, **get_result(result))
