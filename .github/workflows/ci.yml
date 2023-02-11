@@ -50,6 +50,10 @@ jobs:
       - name: Start NETCONF Sysrepo container
         run: docker-compose up -d sysrepo
 
+      - name: "Install Clab"
+        run: |
+          sudo bash -c "$(curl -sL https://get.containerlab.dev)"
+          
       - name: Start Arista CEOS
         run: sudo containerlab deploy -t clab-files/clab-arista.yml
 

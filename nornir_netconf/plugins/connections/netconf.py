@@ -89,22 +89,21 @@ class Netconf:
 
     def open(
         self,
-        hostname: Optional[str],
-        username: Optional[str],
+        hostname: str,
+        username: str,
         password: Optional[str],
-        port: Optional[int],
+        port: Optional[int] = 830,
         platform: Optional[str] = "default",
-        extras: Optional[Dict[str, Any]] = None,
+        extras: Optional[Dict[str, Any]] = {},
         configuration: Optional[Config] = None,
     ) -> None:
         """Open NETCONF connection."""
-        extras = extras or {}
 
         parameters: Dict[str, Any] = {
             "host": hostname,
             "username": username,
             "password": password,
-            "port": port or 830,
+            "port": port,
             "device_params": {"name": platform if platform else "default"},
         }
         ssh_config_file = extras.get("ssh_config", configuration.ssh.config_file)  # type: ignore[union-attr]
