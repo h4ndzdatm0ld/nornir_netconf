@@ -53,6 +53,11 @@ jobs:
       - name: Start Arista CEOS
         run: docker-compose run clab
 
+      - name: "Wait for Arista CEOS to be ready"
+        uses: "jakejarvis/wait-action@master"
+        with:
+          time: "30"
+
       - name: Install dependencies
         run: |
           pip install poetry
