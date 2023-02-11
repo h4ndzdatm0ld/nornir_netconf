@@ -48,7 +48,10 @@ jobs:
           architecture: x64
 
       - name: Start NETCONF Sysrepo container
-        run: docker-compose up -d netconf_sysrepo
+        run: docker-compose up -d sysrepo
+
+      - name: Start Arista CEOS
+        run: docker-compose run clab
 
       - name: Install dependencies
         run: |
