@@ -12,7 +12,6 @@ services:
       context: "."
       target: "test"
     depends_on:
-      - "clab"
       - "sysrepo"
     volumes:
       - "./:/usr/src/app"

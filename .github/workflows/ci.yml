@@ -58,6 +58,9 @@ jobs:
         with:
           time: "30"
 
+      - name: "CHOWN Arista"
+        run: "sudo chown -R $USER clab-arista-testing.yml"
+
       - name: Install dependencies
         run: |
           pip install poetry
