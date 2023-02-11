@@ -58,11 +58,8 @@ jobs:
         with:
           time: "30"
 
-      - name: "CHOWN Arista"
+      - name: "CHOWN CLAB Files"
         run: "sudo chown -R $USER clab-arista-testing.yml"
-
-      - name: "CHECK DEVICES"
-        run: "ping 172.200.101.11"
 
       - name: Install dependencies
         run: |

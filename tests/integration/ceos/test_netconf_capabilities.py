@@ -8,6 +8,7 @@ def test_netconf_capabilities(nornir):
     """Test NETCONF Capabilities."""
     nr = nornir.filter(vendor="arista")
     result = nr.run(netconf_capabilities)
+    print(result)
     for host in ["ceos_rtr_1", "ceos_rtr_2"]:
         assert CAP in result[host][0].result
         assert CAP in result[host][0].result
