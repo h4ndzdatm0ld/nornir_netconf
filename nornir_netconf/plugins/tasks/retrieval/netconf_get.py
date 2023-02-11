@@ -5,13 +5,12 @@ from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import get_result
 
 
-def netconf_get(task: Task, path: str = "", filter_type: str = "xpath", xmldict: bool = False) -> Result:
+def netconf_get(task: Task, path: str = "", filter_type: str = "xpath") -> Result:
     """Get information over Netconf from device.
 
     Arguments:
         path: Subtree or xpath to filter
         filter_type: Type of filtering to use, 'xpath' or 'subtree'
-        xmldict (boolean): convert xml to dict
 
     Examples:
         Simple example::
@@ -43,4 +42,4 @@ def netconf_get(task: Task, path: str = "", filter_type: str = "xpath", xmldict:
     if path:
         params["filter"] = (filter_type, path)
     result = manager.get(**params)
-    return Result(host=task.host, **get_result(result, xmldict))
+    return Result(host=task.host, **get_result(result))

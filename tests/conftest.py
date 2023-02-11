@@ -10,7 +10,7 @@ from nornir.core.state import GlobalState
 # These tests will connect to local lab environment to validate actual responses
 # from locallly hosted network devices.
 skip_integration_tests = pytest.mark.skipif(
-    os.environ.get("SKIP_INTEGRATION_TESTS", True), reason="Do not run integration tests"
+    bool(os.environ.get("SKIP_INTEGRATION_TESTS", True)), reason="Do not run integration tests"
 )
 
 global_data = GlobalState(dry_run=True)
@@ -20,10 +20,10 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 nornir_logfile = os.environ.get("NORNIR_LOG", False)
 
 
-@pytest.fixture(scope="module", autouse=True)
+@pytest.fixture()
 def nornir():
     """Initializes nornir"""
-    nr_nr = InitNornir(
+    nornir = InitNornir(
         inventory={
             "plugin": "SimpleInventory",
             "options": {
@@ -35,8 +35,8 @@ def nornir():
         logging={"log_file": f"{DIR_PATH}/test_data/nornir_test.log", "level": "DEBUG"},
         dry_run=True,
     )
-    nr_nr.data = global_data
-    return nr_nr
+    nornir.data = global_data
+    return nornir
 
 
 @pytest.fixture(scope="session", autouse=True)

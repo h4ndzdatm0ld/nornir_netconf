@@ -22,3 +22,4 @@ LICENSE
 **/.vscode/
 invoke*.yml
 tasks.py
+clab-files/

@@ -11,39 +11,10 @@ from nornir_netconf.plugins.helpers import (
     create_folder,
     get_result,
     write_output,
-    xml_to_dict,
 )
 from tests.conftest import FakeRpcObject
 
 TEST_FOLDER = "tests/test_data/test_folder_success"
-
-
-def test_xml_to_dict_exception():
-    """Test xml_to_dict."""
-    result = xml_to_dict({"test": "data"})
-
-    assert result == {"error": "Unable to parse XML to Dict. '.xml' or 'data_xml' not found."}
-
-
-def test_xml_to_dict_exception_data_xml():
-    """Test xml_to_dict. hit data_xml exception on boolean."""
-    test_object = FakeRpcObject()
-    test_object.set_data_xml = True
-    result = xml_to_dict(test_object)
-    assert result == {"error": "Unable to parse XML to Dict. a bytes-like object is required, not 'bool'."}
-
-
-def test_xml_to_dict_exception_xml():
-    """Test xml_to_dict. hit _xml exception on boolean."""
-    test_object = FakeRpcObject()
-    test_object.set_xml = True
-    # Delete the data_xml attr to hit exception.
-    delattr(test_object, "data_xml")
-    result = xml_to_dict(test_object)
-    assert result == {"error": "Unable to parse XML to Dict. a bytes-like object is required, not 'bool'."}
-
-
-# Test Create Folder
 
 
 def test_create_folder(test_folder):
@@ -168,7 +139,7 @@ def test_get_result_rpc_ok(nce_element):
     """Test get result failed."""
     nce_element.ok = True
 
-    result = get_result(nce_element, xmldict=True)
+    result = get_result(nce_element)
     assert not result["failed"]
     assert result["result"]["ok"]
 
@@ -176,7 +147,7 @@ def test_get_result_rpc_ok(nce_element):
 def test_get_result_failed():
     """Test get result failed."""
     data = {"ok": False}
-    result = get_result(data, xmldict=True)
+    result = get_result(data)
     assert result["failed"]
     assert not result["result"]["ok"]
     assert result["result"]["errors"] == "Unable to find 'ok' or data_xml in response object."
@@ -187,9 +158,9 @@ def test_get_result_rpc_no_ok_but_data_xml(nce_element):
     """Test get result failed."""
     nce_element.ok = False
     nce_element.data_xml = "<configure></configure>"
-    result = get_result(nce_element, xmldict=True)
+    result = get_result(nce_element)
     assert result["failed"]
-    assert "configure" in result["result"]["xml_dict"].keys()
+    # assert "configure" in result["result"]["xml_dict"].keys()
 
 
 def test_get_result_skip_any():
@@ -198,14 +169,6 @@ def test_get_result_skip_any():
 
     result = get_result(test_object)
     assert result["failed"]
-
-
-def test_get_result_skip_ok_xml_dict():
-    """Test get result hit any, skip ok, xmldict."""
-    test_object = FakeRpcObjectXml()
-
-    result = get_result(test_object, xmldict=True)
-    assert not result["failed"]
 
 
 capabilities = [
