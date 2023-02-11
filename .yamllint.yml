@@ -12,3 +12,4 @@ rules:
 ignore: |
   .github/
   clab-files
+  clab-arista-testing.yml

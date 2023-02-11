@@ -94,10 +94,11 @@ class Netconf:
         password: Optional[str],
         port: Optional[int] = 830,
         platform: Optional[str] = "default",
-        extras: Optional[Dict[str, Any]] = {},
+        extras: Optional[Dict[str, Any]] = None,
         configuration: Optional[Config] = None,
     ) -> None:
         """Open NETCONF connection."""
+        extras = extras if extras is not None else {}
         parameters: Dict[str, Any] = {
             "host": hostname,
             "username": username,
