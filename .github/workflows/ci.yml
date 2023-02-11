@@ -51,12 +51,12 @@ jobs:
         run: docker-compose up -d sysrepo
 
       - name: Start Arista CEOS
-        run: docker-compose run clab
+        run: sudo containerlab deploy -t clab-files/clab-arista.yml
 
       - name: "Wait for Arista CEOS to be ready"
         uses: "jakejarvis/wait-action@master"
         with:
-          time: "30"
+          time: "10"
 
       - name: "CHOWN CLAB Files"
         run: "sudo chown -R $USER clab-arista-testing.yml"
