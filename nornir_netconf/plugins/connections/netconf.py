@@ -98,7 +98,6 @@ class Netconf:
         configuration: Optional[Config] = None,
     ) -> None:
         """Open NETCONF connection."""
-
         parameters: Dict[str, Any] = {
             "host": hostname,
             "username": username,
