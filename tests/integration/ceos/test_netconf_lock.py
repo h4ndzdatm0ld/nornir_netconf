@@ -22,4 +22,3 @@ def test_netconf_lock_failed(nornir):
     # assert "Unable to find 'ok' or data_xml in response object." in result["netconf_sysrepo"].result["errors"]
     assert not result["netconf_sysrepo"].result["ok"]
     assert not result["netconf_sysrepo"].result["rpc"]
-
