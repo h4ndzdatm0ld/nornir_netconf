@@ -1,8 +1,11 @@
 """Conftest for nornir_netconf UnitTests."""
 import os
 import shutil
+from dataclasses import dataclass
+from typing import Any, Dict
 
 import pytest
+import xmltodict
 from nornir import InitNornir
 from nornir.core.state import GlobalState
 
@@ -72,7 +75,15 @@ def reset_data():
     global_data.dry_run = True
     global_data.reset_failed_hosts()
 
-
+@dataclass
+class RpcObject:
+    ok: bool = False
+    data_xml: bool = False
+    error: str = ""
+    errors: List = []
+    xml = False
+    data_xml: bool = False
+    
 class FakeRpcObject:
     """Test Class."""
 
@@ -133,3 +144,15 @@ def iosxr_config_payload():
     </cdp>
 </config>
         """
+
+
+def xml_dict(xml: str) -> Dict[str, Any]:
+    """Convert XML to Dict.
+
+    Args:
+        xml (str): XML string
+
+    Returns:
+        Dict: XML converted to Dict
+    """
+    return xmltodict.parse(str(xml))

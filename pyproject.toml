@@ -38,6 +38,7 @@ myst-parser = "*"
 sphinx-autoapi = "*"
 sphinx-rtd-theme = "*"
 pytest = "*"
+xmltodict = "^0.13.0"
 
 
 [build-system]

@@ -8,7 +8,6 @@ def test_netconf_capabilities(nornir):
     """Test NETCONF Capabilities."""
     nr = nornir.filter(vendor="arista")
     result = nr.run(netconf_capabilities)
-    print(result)
 
     assert not result.failed
     for host in ["ceos_rtr_1", "ceos_rtr_2"]:
