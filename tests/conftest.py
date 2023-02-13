@@ -1,7 +1,6 @@
 """Conftest for nornir_netconf UnitTests."""
 import os
 import shutil
-from dataclasses import dataclass
 from typing import Any, Dict
 
 import pytest
@@ -75,15 +74,7 @@ def reset_data():
     global_data.dry_run = True
     global_data.reset_failed_hosts()
 
-@dataclass
-class RpcObject:
-    ok: bool = False
-    data_xml: bool = False
-    error: str = ""
-    errors: List = []
-    xml = False
-    data_xml: bool = False
-    
+
 class FakeRpcObject:
     """Test Class."""
 

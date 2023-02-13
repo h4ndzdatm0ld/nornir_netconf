@@ -1,5 +1,6 @@
 """Helper to extract info from RPC reply."""
-from typing import Any, Dict, List, Union
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union
 
 from ncclient.operations.rpc import RPCReply
 
@@ -7,6 +8,17 @@ from ncclient.operations.rpc import RPCReply
 def check_capability(capabilities: List[str], capability: str) -> bool:
     """Evaluate capabilities and return True if capability is available."""
     return any(True for cap in capabilities if capability in cap)
+
+
+@dataclass
+class RpcResult:
+    """Normalize RPC and NCCelement responses."""
+
+    ok: bool = field(default=False, repr=False)
+    error: Optional[str] = field(default=None, repr=False)
+    errors: Optional[List[str]] = field(default_factory=list, repr=False)
+    xml: Optional[str] = field(default=None, repr=False)
+    rpc: Optional[RPCReply] = field(default=None, repr=False)
 
 
 def unpack_rpc(rpc: RPCReply) -> Dict[str, Union[RPCReply, str]]:
@@ -57,6 +69,7 @@ def get_result(rpc: Union[RPCReply, Dict[str, Any]]) -> Dict[str, Union[RPCReply
                 result["ok"] = True if "<ok/>" in rpc.data_xml else None
                 return {"failed": False, "result": result}
 
+    # TODO = This is failing 1 test. THis needs to go.
     # Safe to say, at this point the replies are not RPC or NCElements.
     # So we can take advantage of passing dictionaries in and safe gets.
     if isinstance(rpc, Dict):
