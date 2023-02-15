@@ -20,6 +20,7 @@ def netconf_lock(task: Task, datastore: str, manager: Manager = None, operation:
         datastore (str): Datastore to lock
         manager (Manager): Manager to use if operation=='unlock'
         operation (str): Unlock or Lock
+
     Examples:
         Simple example::
 
@@ -32,9 +33,9 @@ def netconf_lock(task: Task, datastore: str, manager: Manager = None, operation:
             >        datastore="candidate")
 
     Returns:
-        Result object with the following attributes set:
-          * unpack_rpc (``dict``):
+        Result object
     """
+    result = {}
     failed = False
     error = None
 
@@ -59,6 +60,7 @@ def netconf_lock(task: Task, datastore: str, manager: Manager = None, operation:
     # session, session_id and use it.
 
     rpc_result = RpcResult(
+        ok=result.ok if hasattr(result, "ok") and not failed else None,
         xml=result.xml if hasattr(result, "xml") else getattr(result, "data_xml", None),
         rpc=manager,
         error=error,

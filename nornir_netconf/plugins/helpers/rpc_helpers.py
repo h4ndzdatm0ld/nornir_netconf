@@ -14,7 +14,7 @@ def check_capability(capabilities: List[str], capability: str) -> bool:
 class RpcResult:
     """Normalize RPC and NCCelement responses."""
 
-    ok: bool = field(default=False, repr=False)
+    ok: bool = field(default=False, repr=False)  # pylint: disable=invalid-name
     error: Optional[str] = field(default=None, repr=False)
     errors: Optional[List[str]] = field(default_factory=list, repr=False)
     xml: Optional[str] = field(default=None, repr=False)
@@ -53,6 +53,7 @@ def get_result(rpc: Union[RPCReply, Dict[str, Any]]) -> Dict[str, Union[RPCReply
     # could be missing. In order to standardize a similar result we evaluate the response and
     # make adjustment where necessary to keep responses somewhat consistent without assumptions.
 
+    # TODO: Just make this a helper func. Grab OK if not check data_xml.
     result: Dict[str, Any] = {"error": {}, "errors": []}
     if not isinstance(rpc, Dict):
         # RPC will either have 'ok' or 'data_xml' attr:
