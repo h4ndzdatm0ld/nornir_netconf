@@ -5,7 +5,8 @@ from ncclient.manager import Manager
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
-from nornir_netconf.plugins.helpers.rpc_helpers import check_capability, get_result
+from nornir_netconf.plugins.helpers import RpcResult
+from nornir_netconf.plugins.helpers.rpc_helpers import check_capability
 
 
 def netconf_edit_config(
@@ -31,6 +32,10 @@ def netconf_edit_config(
     Returns:
         Result
     """
+    error = None
+    result = None
+    manager = None
+
     if default_operation not in ["merge", "replace", None]:
         raise ValueError(f"{default_operation} not supported.")
     if not manager:
@@ -39,5 +44,10 @@ def netconf_edit_config(
         capabilities = list(manager.server_capabilities)
         if not check_capability(capabilities, target):
             raise ValueError(f"{target} datastore is not supported.")
-    result = manager.edit_config(config, target=target, default_operation=default_operation)
-    return Result(host=task.host, **get_result(result))
+    try:
+        result = manager.edit_config(config, target=target, default_operation=default_operation)
+    except Exception as rpc_error:
+        error = rpc_error
+
+    result = RpcResult(rpc=result, manager=manager, error=error)
+    return Result(host=task.host, result=result)

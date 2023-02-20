@@ -35,35 +35,25 @@ def netconf_lock(task: Task, datastore: str, manager: Manager = None, operation:
     Returns:
         Result object
     """
-    result = {}
-    failed = False
+    result = None
     error = None
+    failed = False
 
     operation = operation.strip().lower()
     if operation not in ["lock", "unlock"]:
         failed = True
         raise ValueError("Supported operations are: 'lock' or 'unlock'.")
-    if not manager:
-        manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     try:
+        if not manager:
+            manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
         if operation == "lock":
             result = manager.lock(target=datastore)
         else:
             result = manager.unlock(target=datastore)
             task.name = "netconf_unlock"
-    except RPCError as err_ex:
-        error = err_ex
+    except RPCError as rpc_error:
+        error = rpc_error
         failed = True
 
-    # Return the manager as part of the result. This can be used to pass into
-    # other functions, if a global lock is in place. Typically, you can extract
-    # session, session_id and use it.
-
-    rpc_result = RpcResult(
-        ok=result.ok if hasattr(result, "ok") and not failed else None,
-        xml=result.xml if hasattr(result, "xml") else getattr(result, "data_xml", None),
-        rpc=manager,
-        error=error,
-        errors=result.errors if hasattr(result, "errors") else None,
-    )
-    return Result(host=task.host, failed=failed, result=rpc_result)
+    result = RpcResult(manager=manager, rpc=result, error=error)
+    return Result(host=task.host, failed=failed, result=result)
