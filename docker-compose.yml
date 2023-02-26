@@ -11,18 +11,8 @@ services:
     build:
       context: "."
       target: "test"
-    depends_on:
-      - "sysrepo"
     volumes:
       - "./:/usr/src/app"
-  sysrepo:
-    container_name: "sysrepo"
-    hostname: "netconf_sysrepo"
-    image: "sysrepo/sysrepo-netopeer2:latest"
-    ports:
-      - "1830:830"
-    environment:
-      NACM_RECOVERY_UID: "0"
   clab:
     image: "ghcr.io/srl-labs/clab"
     network_mode: "host"
