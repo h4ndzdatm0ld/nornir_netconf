@@ -16,8 +16,8 @@ packages = [
 "netconf" = "nornir_netconf.plugins.connections:Netconf"
 
 [tool.poetry.dependencies]
-python = "^3.8.0"
 ncclient = "^0.6.9"
+python = "^3.8"
 nornir = {version = "^3.0.0", allow-prereleases = true}
 
 
@@ -34,7 +34,8 @@ mypy = "*"
 Sphinx = "*"
 myst-parser = "*"
 sphinx-autoapi = "*"
-sphinx-rtd-theme = "*"
+sphinx-pdj-theme = "*"
+sphinxcontrib-napoleon = "*"
 pytest = "*"
 xmltodict = "*"
 ruff = "*"

@@ -23,7 +23,7 @@ def example_global_lock(task):
     lock = task.run(netconf_lock, datastore="candidate", operation="lock")
     # Retrieve the Manager(agent) from lock operation and store for further
     # operations.
-    task.host["manager"] = lock.result["manager"]
+    task.host["manager"] = lock.result.manager
 
 
 def example_edit_config(task):

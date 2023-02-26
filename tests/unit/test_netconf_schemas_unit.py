@@ -46,7 +46,7 @@ def test_netconf_get_schema(manager, ssh, nornir):
     """Test NETCONF get_schema, missing path"""
     manager.get_schema.return_value = str("SCHEMA")
     nr = nornir.filter(name=HOST)
-    result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"])
+    result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="/tmp")
     assert result[HOST].result.directory == "/tmp"
 
 

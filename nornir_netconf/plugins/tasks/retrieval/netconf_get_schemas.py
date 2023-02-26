@@ -1,22 +1,22 @@
 """NETCONF Schemas."""
 from ncclient.operations.rpc import RPCError
-from nornir.core.task import List, Optional, Result, Task
+from nornir.core.task import List, Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import SchemaResult, write_output
 
 
-def netconf_get_schemas(task: Task, schemas: List[str], schema_path: Optional[str] = "/tmp") -> Result:  # nosec
+def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str) -> Result:  # nosec
     """Fetch provided schemas and write to a file inside of a given directory path, `schema_path`.
 
-    If you do not provide a path, the default is `/tmp`. All schemas will be written to a file in the path
-    and named by the schema name.
+    All schemas will be written to a file in the `schema_path` directory provided and
+    named by the schema name.
 
     Any errors on extracting the schema will be logged in the result object.
 
     Args:
         schemas (List[str]): List of schemas to fetch.
-        schema_path (Optional[str], optional): Path to save schemas output. Defaults to "/tmp".
+        schema_path (str): Directory path to save schemas output.
 
     Examples::
 

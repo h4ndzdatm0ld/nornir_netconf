@@ -37,10 +37,10 @@ def test_iosxr_netconf_get_config(nornir):
         filter_type="subtree",
     )
     # assert "MgmtEth0/0/CPU0/0" == result[DEVICE_NAME].result["xml_dict"]["data"]["interfaces"]["interface"][0]["name"]
-    assert result[DEVICE_NAME].result["rpc"]
-    assert result[DEVICE_NAME].result["rpc"].data_xml
+    assert result[DEVICE_NAME].result.rpc
+    assert result[DEVICE_NAME].result.rpc.data_xml
     # with open("tests/test_data/get-iosxr-config.xml", "w+") as file:
-    # file.write(result[DEVICE_NAME].result["rpc"].data_xml)
+    # file.write(result[DEVICE_NAME].result.rpc.data_xml)
 
 
 @skip_integration_tests
@@ -56,7 +56,7 @@ def test_iosxr_netconf_get(nornir):
     """
     result = nr.run(netconf_get, filter_type="subtree", path=filter)
     assert result[DEVICE_NAME].result
-    assert result[DEVICE_NAME].result["rpc"].data_xml
+    assert result[DEVICE_NAME].result.rpc.data_xml
     # assert result[DEVICE_NAME].result["xml_dict"]["data"]["interfaces"]["interface"]["config"]["enabled"]
 
 
@@ -68,20 +68,17 @@ def test_sros_netconf_lock_operations(nornir, iosxr_config_payload):
     """
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_lock, datastore="candidate", operation="lock")
-    manager = result[DEVICE_NAME].result["manager"]
-    assert result[DEVICE_NAME].result["rpc"]
-    assert result[DEVICE_NAME].result["manager"]
-    assert result[DEVICE_NAME].result["data_xml"]
+    manager = result[DEVICE_NAME].result.manager
+    assert result[DEVICE_NAME].result.rpc
+    assert result[DEVICE_NAME].result.manager
     # Extract manager from lock operation.
-    manager = result[DEVICE_NAME].result["manager"]
+    manager = result[DEVICE_NAME].result.manager
     # print_result(result)
 
     # Edit Config
     result = nr.run(netconf_edit_config, config=iosxr_config_payload, target="candidate", manager=manager)
     # print_result(result)
-    assert not result[DEVICE_NAME].result["error"]
-    assert not result[DEVICE_NAME].result["errors"]
-    assert result[DEVICE_NAME].result["ok"]
+    assert result[DEVICE_NAME].result.rpc.ok
 
     # Commit Config
     result = nr.run(netconf_commit, manager=manager)
@@ -89,14 +86,14 @@ def test_sros_netconf_lock_operations(nornir, iosxr_config_payload):
     assert not result[DEVICE_NAME].result["error"]
     assert not result[DEVICE_NAME].result["errors"]
     # assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
-    assert result[DEVICE_NAME].result["ok"]
+    assert result[DEVICE_NAME].result.rpc.ok
 
     # Unlock candidate datastore.
     result = nr.run(netconf_lock, datastore="candidate", operation="unlock", manager=manager)
-    assert result[DEVICE_NAME].result["rpc"]
-    assert result[DEVICE_NAME].result["manager"]
+    assert result[DEVICE_NAME].result.rpc
+    assert result[DEVICE_NAME].result.manager
     assert result[DEVICE_NAME].result["data_xml"]
-    assert result[DEVICE_NAME].result["ok"]
+    assert result[DEVICE_NAME].result.rpc.ok
     # print_result(result)
 
 
@@ -106,11 +103,11 @@ def test_iosxr_netconf_edit_config(nornir, iosxr_config_payload):
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_edit_config, config=iosxr_config_payload, target="candidate")
     assert not result[DEVICE_NAME].result["errors"]
-    assert result[DEVICE_NAME].result["ok"]
+    assert result[DEVICE_NAME].result.rpc.ok
 
     # print_result(result)
 
     # Commit Config
     result = nr.run(netconf_commit)
-    assert result[DEVICE_NAME].result["ok"]
+    assert result[DEVICE_NAME].result.rpc.ok
     print_result(result)

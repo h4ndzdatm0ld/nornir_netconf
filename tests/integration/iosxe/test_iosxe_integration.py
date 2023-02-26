@@ -41,8 +41,8 @@ def test_iosxe_netconf_get_config(nornir):
     #     "Welcome to the DevNet Sandbox"
     #     in result[DEVICE_NAME].result["xml_dict"]["data"]["native"]["banner"]["motd"]["banner"]
     # )
-    assert result[DEVICE_NAME].result["rpc"]
-    assert result[DEVICE_NAME].result["rpc"].data_xml
+    assert result[DEVICE_NAME].result.rpc
+    assert result[DEVICE_NAME].result.rpc.data_xml
     # with open("tests/test_data/get-iosxe-config-filter.xml", "w+") as file:
     #     file.write(result[DEVICE_NAME].result["rpc"].data_xml)
 
