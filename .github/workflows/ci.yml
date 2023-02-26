@@ -20,14 +20,12 @@ jobs:
 
       - name: Lint & Code Format
         run: |
-          echo 'Running Flake8' && \
-          poetry run flake8 . && \
+          echo 'Rnning Ruff' && \
+          ruff . && \
           echo 'Running Black' && \
           poetry run black --check --diff . && \
           echo 'Running Yamllint' && \
           poetry run yamllint . && \
-          echo 'Running pydocstyle' && \
-          poetry run pydocstyle . && \
           echo 'Running Bandit' && \
           poetry run bandit --recursive ./ --configfile .bandit.yml && \
           echo 'Running MyPy' && \
@@ -59,7 +57,7 @@ jobs:
         with:
           time: "10"
 
-      - name: "CHOWN CLAB Files"
+      - name: "Change ownership of Containerlab files"
         run: "sudo chown -R $USER clab-arista-testing.yml"
 
       - name: Install dependencies
