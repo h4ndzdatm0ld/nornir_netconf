@@ -5,15 +5,16 @@ from ncclient.manager import Manager
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
+from nornir_netconf.plugins.helpers import RpcResult
 
 
 def netconf_commit(
     task: Task,
     manager: Optional[Manager] = None,
-    confirmed: bool = False,
-    timeout: int = 60,
-    persist: int = None,  # type: ignore
-    persist_id: int = None,  # type: ignore
+    confirmed: Optional[bool] = False,
+    timeout: Optional[int] = 60,
+    persist: Optional[int] = None,
+    persist_id: Optional[int] = None,
 ) -> Result:
     """Commit operation.
 
@@ -35,4 +36,5 @@ def netconf_commit(
     if not manager:
         manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     result = manager.commit(confirmed, timeout, persist, persist_id)
+    result = RpcResult(rpc=result, manager=manager)
     return Result(host=task.host, result=result)

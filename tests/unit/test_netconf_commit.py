@@ -6,6 +6,7 @@ Context manager doesn't help, but using a different host does.
 """
 from unittest.mock import MagicMock, patch
 
+from nornir_netconf.plugins.helpers import RpcResult
 from nornir_netconf.plugins.tasks import netconf_commit
 from tests.conftest import FakeRpcObject
 
@@ -19,7 +20,7 @@ def test_netconf_commit_success(ssh, nornir):
     # Create a Mock Object. Assign 'commit' method and response
     # as the Fake RPC Object.
     response = MagicMock()
-    response.commit.return_value = response_rpc
+    response.commit.return_value = RpcResult()
     # Set the SSH session to return the FakeRPC Object when
     # performing edit-config call.
     ssh.return_value = response
@@ -27,8 +28,6 @@ def test_netconf_commit_success(ssh, nornir):
     nr = nornir.filter(name="netconf_sysrepo")
     result = nr.run(netconf_commit)
     assert not result["netconf_sysrepo"].failed
-    assert not result["netconf_sysrepo"].result["error"]
-    assert not result["netconf_sysrepo"].result["errors"]
     assert result["netconf_sysrepo"].result["rpc"]
 
 

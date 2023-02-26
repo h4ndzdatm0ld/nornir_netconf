@@ -8,6 +8,7 @@ from nornir_netconf.plugins.tasks import (
 from tests.conftest import skip_integration_tests
 
 DEVICE_NAME = "iosxe_rtr"
+HOST = "lab.devnetsandbox.local"
 
 
 @skip_integration_tests
@@ -59,4 +60,4 @@ def test_iosxe_netconf_get(nornir):
     """
     result = nr.run(netconf_get, filter_type="subtree", path=filter)
     assert result[DEVICE_NAME].result
-    # assert result[DEVICE_NAME].result["xml_dict"]["data"]["native"]["ip"]["domain"]["name"] == "lab.devnetsandbox.local"
+    # assert result[DEVICE_NAME].result["xml_dict"]["data"]["native"]["ip"]["domain"]["name"] == HOST

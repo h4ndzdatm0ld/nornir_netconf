@@ -1,8 +1,8 @@
 """NETCONF get."""
-from ncclient.operations.rpc import RPCError
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
+from nornir_netconf.plugins.helpers import RpcResult
 
 
 def netconf_get(task: Task, path: str = "", filter_type: str = "xpath") -> Result:
@@ -36,17 +36,10 @@ def netconf_get(task: Task, path: str = "", filter_type: str = "xpath") -> Resul
           * result (``str``): The collected data as an XML string
     """
     params = {}
-    error = None
-    result = None
-
+    manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     if path:
         params["filter"] = (filter_type, path)
+    result = manager.get(**params)
 
-    try:
-        manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
-        result = manager.get(**params)
-    except RPCError as rpc_error:
-        error = rpc_error
-
-    result = RpcResult(rpc=result, manager=manager, error=error)
+    result = RpcResult(rpc=result, manager=manager)
     return Result(host=task.host, result=result)
