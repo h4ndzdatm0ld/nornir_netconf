@@ -47,35 +47,19 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: x64
 
-<<<<<<< HEAD
-      - name: Start NETCONF Sysrepo container
-        run: docker-compose up -d sysrepo
-
-      - name: "Install Clab"
-        run: |
-          sudo bash -c "$(curl -sL https://get.containerlab.dev)"
-          
-      - name: Start Arista CEOS
-        run: sudo containerlab deploy -t clab-files/clab-arista.yml
-=======
       - name: "Install Containerlab"
         run: |
           sudo bash -c "$(curl -sL https://get.containerlab.dev)"
           
       - name: "Start Arista CEOS"
         run: "sudo containerlab deploy -t clab-files/clab-arista.yml"
->>>>>>> 33b83c5 (Feature/testing fixup (#53))
 
       - name: "Wait for Arista CEOS to be ready"
         uses: "jakejarvis/wait-action@master"
         with:
           time: "10"
 
-<<<<<<< HEAD
-      - name: "CHOWN CLAB Files"
-=======
       - name: "Change ownership of Containerlab files"
->>>>>>> 33b83c5 (Feature/testing fixup (#53))
         run: "sudo chown -R $USER clab-arista-testing.yml"
 
       - name: Install dependencies
