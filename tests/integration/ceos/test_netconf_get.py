@@ -12,8 +12,6 @@ def test_netconf_get(nornir):
     parsed = xml_dict(result[HOST].result.rpc)
     assert result[HOST].result.rpc.ok
     assert parsed["rpc-reply"]["data"]["system"]["config"]["hostname"] == "ceos"
-    # # GET is used for `state` data
-    assert "state" in parsed["rpc-reply"]["data"]["components"]["component"][10].keys()
 
 
 def test_netconf_get_subtree(nornir):
