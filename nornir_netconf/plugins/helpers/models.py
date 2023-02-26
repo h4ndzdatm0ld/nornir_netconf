@@ -18,6 +18,6 @@ class RpcResult:
 class SchemaResult:
     """Get Schema Result."""
 
-    errors: Optional[List[str]] = field(default=None, repr=False)
-    files: Optional[List[str]] = field(default=None, repr=False)
+    errors: Optional[List[str]] = field(repr=False, default_factory=list)
+    files: Optional[List[str]] = field(repr=False, default_factory=list)
     directory: Optional[str] = field(default=None, repr=True)

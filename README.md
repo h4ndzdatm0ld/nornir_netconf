@@ -247,7 +247,6 @@ if __name__ == "__main__":
 ## Additional Documentation
 
 - [NCClient](https://ncclient.readthedocs.io/en/latest/)
-- [Sysrepo](https://www.sysrepo.org/)
 
 ## Contributions
 
@@ -289,12 +288,6 @@ export SKIP_INTEGRATION_TESTS=False
 docker-compose up -d
 ```
 
-If you do not want to run integration tests, only bring up the `netconf_sysrepo` docker service and continue
-
-```bash
-docker-compose up netconf_sysrepo -d
-```
-
 ```bash
 poetry install && poetry shell
 ```
@@ -314,22 +307,6 @@ Devices testing against Always-ON Sandboxes (Cisco DevNet)
 
 - Cisco IOS-XE - Cisco IOS XE Software, Version 17.03.01a These tests are run locally.
 
-### Sysrepo: netopeer2
-
-The majority of integration tests are run against a docker instance of [netopeer2](https://hub.docker.com/r/sysrepo/sysrepo-netopeer2)
-
-From the [Sysrepo](https://www.sysrepo.org/) website:
-
-"Netopeer2 and Sysrepo provide a fully open source and standards compliant implementation of a NETCONF server and YANG configuration data stores."
-
 ## Documentation
 
 Documentation is generated with Sphinx and hosted with Github Pages. [Documentation](https://h4ndzdatm0ld.github.io/nornir_netconf/)
-
-To generate the latest documentation locally:
-
-```bash
-sphinx-build -vvv -b html ./docs ./docs/public
-cd docs/public
-python -m http.server
-```

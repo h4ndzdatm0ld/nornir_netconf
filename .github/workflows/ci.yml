@@ -47,15 +47,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: x64
 
-      - name: Start NETCONF Sysrepo container
-        run: docker-compose up -d sysrepo
-
-      - name: "Install Clab"
+      - name: "Install Containerlab"
         run: |
           sudo bash -c "$(curl -sL https://get.containerlab.dev)"
           
-      - name: Start Arista CEOS
-        run: sudo containerlab deploy -t clab-files/clab-arista.yml
+      - name: "Start Arista CEOS"
+        run: "sudo containerlab deploy -t clab-files/clab-arista.yml"
 
       - name: "Wait for Arista CEOS to be ready"
         uses: "jakejarvis/wait-action@master"

@@ -5,6 +5,9 @@ from ncclient.operations.rpc import RPCError, to_ele
 
 from nornir_netconf.plugins.tasks import netconf_get_schemas
 
+HOST = "nokia_rtr"
+
+
 xml_resp = """
 <rpc-reply message-id="urn:uuid:15ceca00-904e-11e4-94ad-5c514f91ab3f">
     <load-configuration-results>
@@ -31,10 +34,10 @@ xml_resp = """
 @patch("ncclient.manager.Manager")
 def test_netconf_get_schema_schema_path(manager, ssh, nornir):
     """Test NETCONF Capabilities + Get Schemas success."""
-    nr = nornir.filter(name="netconf_sysrepo")
+    nr = nornir.filter(name=HOST)
     result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="tests/test_data/schema_path")
-    assert not result["netconf_sysrepo"].failed
-    assert result["netconf_sysrepo"].result["log"][0] == "tests/test_data/schema_path/nokia-conf-aaa.txt created."
+    assert not result[HOST].failed
+    assert result[HOST].result.files[0] == "tests/test_data/schema_path/nokia-conf-aaa.txt"
 
 
 @patch("ncclient.manager.connect_ssh")
@@ -42,10 +45,9 @@ def test_netconf_get_schema_schema_path(manager, ssh, nornir):
 def test_netconf_get_schema(manager, ssh, nornir):
     """Test NETCONF get_schema, missing path"""
     manager.get_schema.return_value = str("SCHEMA")
-    nr = nornir.filter(name="netconf_sysrepo")
+    nr = nornir.filter(name=HOST)
     result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"])
-    assert result["netconf_sysrepo"].failed
-    assert result["netconf_sysrepo"].result["errors"][0] == "Missing 'schema_path' arg to save schema files."
+    assert result[HOST].result.directory == "/tmp"
 
 
 @patch("ncclient.manager.connect_ssh")
@@ -56,8 +58,8 @@ def test_netconf_get_schema_exception(ssh, nornir):
     # Assign the side_effect to trigger on get_schema call and hit exception.
     ssh.side_effect = [response]
 
-    nr = nornir.filter(name="netconf4")
+    nr = nornir.filter(name=HOST)
     result = nr.run(
         netconf_get_schemas, schemas=["nokia-conf-aaa", "some-other"], schema_path="tests/test_data/schema_path"
     )
-    assert len(result["netconf4"].result["errors"]) == 2
+    assert len(result[HOST].result.errors) == 2

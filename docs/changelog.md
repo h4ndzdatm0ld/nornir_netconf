@@ -12,8 +12,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- `sysrepo` tests all got replaced by a containerized instance of Arista CEOS
+
 ### Removed
 
+- `sysrepo` container and dependencies. No tests or reliance on this container anymore.
 - `xmltodict` library has been removed. The user should parse XML as they please.
 - Flake8 (Replaced by Ruff)
 - Pydocstyle (Replaced by Ruff)
