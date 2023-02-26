@@ -11,6 +11,7 @@ topology:
       binds:
         - "mymapping.json:/mnt/flash/EosIntfMapping.json:ro"
   nodes:
+<<<<<<< HEAD
     ceos1:
       kind: "ceos"
       mgmt_ipv4: "172.200.101.11"
@@ -19,3 +20,8 @@ topology:
       mgmt_ipv4: "172.200.101.12"
   links:
     - endpoints: ["ceos1:eth1", "ceos2:eth1"]
+=======
+    ceos:
+      kind: "ceos"
+      mgmt_ipv4: "172.200.101.11"
+>>>>>>> 33b83c5 (Feature/testing fixup (#53))

@@ -23,16 +23,14 @@ COPY . .
 RUN poetry install --no-interaction
 
 # Runs all necessary linting and code checks
-RUN echo 'Running Flake8' && \
-    flake8 . && \
+RUN echo 'Rnning Ruff' && \
+    ruff . && \
     echo 'Running Black' && \
     black --check --diff . && \
     echo 'Running Yamllint' && \
     yamllint . && \
     echo 'Running Pylint' && \
     find . -name '*.py' | xargs pylint  && \
-    echo 'Running pydocstyle' && \
-    pydocstyle . && \
     echo 'Running Bandit' && \
     bandit --recursive ./ --configfile .bandit.yml  && \
     echo 'Running MyPy' && \

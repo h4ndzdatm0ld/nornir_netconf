@@ -24,3 +24,7 @@ invoke*.yml
 tasks.py
 clab-files/
 clab-files
+<<<<<<< HEAD
+=======
+clab-*
+>>>>>>> 33b83c5 (Feature/testing fixup (#53))
