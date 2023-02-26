@@ -37,12 +37,6 @@ pip install nornir_netconf
 
 The goal of the task results is to put the NETCONF RPC-reply back in your hands. An 'rpc' key will be available which can then be used to access 'data_xml' or 'xml' depending on the type of response or any other attributes available, such as 'error', 'errors'. Some of the RPC is unpacked and provided back as part of the Result by default, including the 'error', 'errors' and 'ok' if available. Anything else can be accessed directly from the rpc.
 
-Furthermore, some tasks allow the 'xml_dict' boolean argument. This will take the response RPC XML and convert it into a python dictionary. Keep in mind, this may not be perfect as XML doesn't quite translate 100% into a python dictionary.
-
-For example, an xml response can include a collapsed response with open/close as so: `<ok/>` If parsed into a python dictionary using xml_dict argument, the key of 'ok' will have a value of none. However, if we were to be parsing `<enabled>True</enabled>` this would show a key of 'enabled' and a value of 'True'.
-
-This is a simple built-in solution available, but not the only one. You have the RPC as part of the response and you are able to parse it anyway or method which works better for you.
-
 ## Global Lock
 
 The `netconf_lock` task will always return the Manager object, which is the established (and locked) agent used to send RPC's back and forth. The idea of retrieving the Manager is to carry this established locked session from task to task and only lock and unlock once during a run of tasks. Please review the examples below to see how to extract the manager and store it under the `task.host` dictionary as a variable that can be used across multiple tasks. The Manager is passed into other tasks and re-used to send RPCs to the remote server.
@@ -201,7 +195,7 @@ def example_global_lock(task):
     lock = task.run(netconf_lock, datastore="candidate", operation="lock")
     # Retrieve the Manager(agent) from lock operation and store for further
     # operations.
-    task.host["manager"] = lock.result["manager"]
+    task.host["manager"] = lock.result.manager
 
 
 def example_edit_config(task):
@@ -223,16 +217,13 @@ def example_edit_config(task):
     """
 
     result = task.run(
-        netconf_edit_config, config=config_payload, target="candidate", manager=task.host["manager"], xmldict=True
+        netconf_edit_config, config=config_payload, target="candidate", manager=task.host["manager"]
     )
 
     # Access the RPC response object directly.
     # Or you can check the 'ok' attr from an rpc response as well, if it exists.
     if "ok" in result.result["rpc"].data_xml:
-        task.run(netconf_commit, manager=task.host["manager"], xmldict=True)
-
-    # Check OK key exists, as we passed in 'xmldict=True'
-    print(result.result["xml_dict"].keys())
+        task.run(netconf_commit, manager=task.host["manager"])
 
 def example_unlock(task):
     """Unlock candidate datastore."""
@@ -256,7 +247,6 @@ if __name__ == "__main__":
 ## Additional Documentation
 
 - [NCClient](https://ncclient.readthedocs.io/en/latest/)
-- [Sysrepo](https://www.sysrepo.org/)
 
 ## Contributions
 
@@ -298,12 +288,6 @@ export SKIP_INTEGRATION_TESTS=False
 docker-compose up -d
 ```
 
-If you do not want to run integration tests, only bring up the `netconf_sysrepo` docker service and continue
-
-```bash
-docker-compose up netconf_sysrepo -d
-```
-
 ```bash
 poetry install && poetry shell
 ```
@@ -323,22 +307,6 @@ Devices testing against Always-ON Sandboxes (Cisco DevNet)
 
 - Cisco IOS-XE - Cisco IOS XE Software, Version 17.03.01a These tests are run locally.
 
-### Sysrepo: netopeer2
-
-The majority of integration tests are run against a docker instance of [netopeer2](https://hub.docker.com/r/sysrepo/sysrepo-netopeer2)
-
-From the [Sysrepo](https://www.sysrepo.org/) website:
-
-"Netopeer2 and Sysrepo provide a fully open source and standards compliant implementation of a NETCONF server and YANG configuration data stores."
-
 ## Documentation
 
 Documentation is generated with Sphinx and hosted with Github Pages. [Documentation](https://h4ndzdatm0ld.github.io/nornir_netconf/)
-
-To generate the latest documentation locally:
-
-```bash
-sphinx-build -vvv -b html ./docs ./docs/public
-cd docs/public
-python -m http.server
-```

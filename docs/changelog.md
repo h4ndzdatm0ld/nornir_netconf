@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2022-xx-xx
+
+### Added
+
+- `ruff` linter
+
+### Changed
+
+- `sysrepo` tests all got replaced by a containerized instance of Arista CEOS
+
+### Removed
+
+- Dropped Python3.7 - Only 3.8 and above is supported.
+- `sysrepo` container and dependencies. No tests or reliance on this container anymore.
+- `xmltodict` library has been removed. The user should parse XML as they please.
+- Flake8 (Replaced by Ruff)
+- Pydocstyle (Replaced by Ruff)
+
 ## [1.1.0] - 2022-10-06
 
 ### Added

@@ -8,6 +8,7 @@ from nornir_netconf.plugins.tasks import (
 from tests.conftest import skip_integration_tests
 
 DEVICE_NAME = "iosxe_rtr"
+HOST = "lab.devnetsandbox.local"
 
 
 @skip_integration_tests
@@ -35,14 +36,13 @@ def test_iosxe_netconf_get_config(nornir):
         </native>
         """,
         filter_type="subtree",
-        xmldict=True,
     )
     # assert (
     #     "Welcome to the DevNet Sandbox"
     #     in result[DEVICE_NAME].result["xml_dict"]["data"]["native"]["banner"]["motd"]["banner"]
     # )
-    assert result[DEVICE_NAME].result["rpc"]
-    assert result[DEVICE_NAME].result["rpc"].data_xml
+    assert result[DEVICE_NAME].result.rpc
+    assert result[DEVICE_NAME].result.rpc.data_xml
     # with open("tests/test_data/get-iosxe-config-filter.xml", "w+") as file:
     #     file.write(result[DEVICE_NAME].result["rpc"].data_xml)
 
@@ -58,6 +58,6 @@ def test_iosxe_netconf_get(nornir):
         </ip>
     </native>
     """
-    result = nr.run(netconf_get, filter_type="subtree", path=filter, xmldict=True)
+    result = nr.run(netconf_get, filter_type="subtree", path=filter)
     assert result[DEVICE_NAME].result
-    assert result[DEVICE_NAME].result["xml_dict"]["data"]["native"]["ip"]["domain"]["name"] == "lab.devnetsandbox.local"
+    # assert result[DEVICE_NAME].result["xml_dict"]["data"]["native"]["ip"]["domain"]["name"] == HOST

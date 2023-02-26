@@ -1,8 +1,10 @@
 """Conftest for nornir_netconf UnitTests."""
 import os
 import shutil
+from typing import Any, Dict
 
 import pytest
+import xmltodict
 from nornir import InitNornir
 from nornir.core.state import GlobalState
 
@@ -10,7 +12,7 @@ from nornir.core.state import GlobalState
 # These tests will connect to local lab environment to validate actual responses
 # from locallly hosted network devices.
 skip_integration_tests = pytest.mark.skipif(
-    os.environ.get("SKIP_INTEGRATION_TESTS", True), reason="Do not run integration tests"
+    bool(os.environ.get("SKIP_INTEGRATION_TESTS", True)), reason="Do not run integration tests"
 )
 
 global_data = GlobalState(dry_run=True)
@@ -20,10 +22,10 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 nornir_logfile = os.environ.get("NORNIR_LOG", False)
 
 
-@pytest.fixture(scope="module", autouse=True)
+@pytest.fixture()
 def nornir():
     """Initializes nornir"""
-    nr_nr = InitNornir(
+    nornir = InitNornir(
         inventory={
             "plugin": "SimpleInventory",
             "options": {
@@ -35,8 +37,8 @@ def nornir():
         logging={"log_file": f"{DIR_PATH}/test_data/nornir_test.log", "level": "DEBUG"},
         dry_run=True,
     )
-    nr_nr.data = global_data
-    return nr_nr
+    nornir.data = global_data
+    return nornir
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -73,32 +75,6 @@ def reset_data():
     global_data.reset_failed_hosts()
 
 
-class FakeRpcObject:
-    """Test Class."""
-
-    def __init__(self):
-        self.ok = False
-        self.data_xml = False
-        self.error = ""
-        self.errors = ""
-        self.xml = False
-
-    def set_ok(self, set: bool):
-        """Set ok."""
-        if set:
-            self.ok = True
-
-    def set_data_xml(self, set: bool):
-        """Set data_xml."""
-        if set:
-            self.data_xml = True
-
-    def set_xml(self, set: bool):
-        """Set xml."""
-        if set:
-            self.xml = True
-
-
 # PAYLOADS
 
 
@@ -133,3 +109,15 @@ def iosxr_config_payload():
     </cdp>
 </config>
         """
+
+
+def xml_dict(xml: str) -> Dict[str, Any]:
+    """Convert XML to Dict.
+
+    Args:
+        xml (str): XML string
+
+    Returns:
+        Dict: XML converted to Dict
+    """
+    return xmltodict.parse(str(xml))

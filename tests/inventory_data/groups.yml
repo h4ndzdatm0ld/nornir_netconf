@@ -1,43 +1,16 @@
 ---
-netconf_docker:
-  password: "netconf"
-  username: "netconf"
-  platform: "default"
+empty_ssh_file_group:
+  username: "admin"
+  password: "admin"
   port: 830
   connection_options:
     netconf:
       extras:
-        allow_agent: false
         hostkey_verify: false
-        look_for_keys: false
-
-netconf_docker_ssh:
-  password: "netconf"
-  username: "netconf"
-  port: 830
-  connection_options:
-    netconf:
-      extras:
+        timeout: 300
         allow_agent: false
-        hostkey_verify: false
         look_for_keys: false
         ssh_config: "tests/inventory_data/ssh_config"
-
-netconf_docker_nossh:
-  password: "netconf"
-  username: "netconf"
-  platform: "I won't work!"
-  port: 830
-  connection_options:
-    netconf:
-      extras:
-        allow_agent: false
-        hostkey_verify: false
-        look_for_keys: false
-        ssh_config: null
-        device_params:
-          name: "default"
-
 sros:
   username: "admin"
   password: "admin"
@@ -52,7 +25,6 @@ sros:
         look_for_keys: false
         device_params:
           name: "sros"
-
 iosxr:
   username: "clab"
   password: "clab@123"
@@ -70,6 +42,17 @@ csr:
   password: "C1sco12345"
   port: 830
   platform: "csr"
+  connection_options:
+    netconf:
+      extras:
+        hostkey_verify: false
+        timeout: 300
+        allow_agent: false
+        look_for_keys: false
+ceos:
+  username: "admin"
+  password: "admin"
+  port: 830
   connection_options:
     netconf:
       extras:
