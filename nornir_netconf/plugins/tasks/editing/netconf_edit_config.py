@@ -11,22 +11,23 @@ from nornir_netconf.plugins.helpers import RpcResult, check_capability
 def netconf_edit_config(
     task: Task,
     config: str,
-    target: str = "running",
+    target: Optional[str] = "running",
     manager: Optional[Manager] = None,
     default_operation: Optional[str] = "merge",
 ) -> Result:
-    """Edit configuration of device using Netconf.
+    """Edit configuration of the device using Netconf.
 
     Arguments:
-        config: Configuration snippet to apply
-        target: Target configuration store
-        manager: Manager
+        config (str): Configuration snippet to apply
+        target (str): Target configuration store
+        manager (Manager): NETCONF Manager
         default_operation (str): merge or replace
 
     Examples:
         Simple example::
 
             > nr.run(task=netconf_edit_config, config=desired_config)
+            > nr.run(task=netconf_edit_config, config=desired_config, default_operation="replace")
 
     Returns:
         Result

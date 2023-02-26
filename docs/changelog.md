@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Removed
 
+- Dropped Python3.7 - Only 3.8 and above is supported.
 - `sysrepo` container and dependencies. No tests or reliance on this container anymore.
 - `xmltodict` library has been removed. The user should parse XML as they please.
 - Flake8 (Replaced by Ruff)

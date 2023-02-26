@@ -19,19 +19,19 @@ def netconf_commit(
     """Commit operation.
 
     Arguments:
-        manager: class:: ncclient.manager.Manager
+        manager (Manager): NETCONF Manager
         confirmed (boolean): Commit confirm
         timeout (int): commit confirm timeout
         persist (int): survive a session termination
         persist_id (int): must equal given value of persist in original commit operation
+
     Examples:
         Simple example::
 
             > nr.run(task=netconf_commit, manager=manager)
 
     Returns:
-        Result object with the following attributes set:
-          * result (``str``): The rpc-reply as an XML string
+        Result
     """
     if not manager:
         manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)

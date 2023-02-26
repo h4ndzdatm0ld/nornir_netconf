@@ -1,5 +1,5 @@
 """NETCONF get config."""
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from nornir.core.task import Result, Task
 
@@ -7,7 +7,10 @@ from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import RpcResult
 
 
-def netconf_get_config(task: Task, source: str = "running", path: str = "", filter_type: str = "xpath") -> Result:
+#  - > Prob don't need to add defaults.
+def netconf_get_config(
+    task: Task, source: Optional[str] = "running", path: Optional[str] = "", filter_type: Optional[str] = "xpath"
+) -> Result:
     """Get configuration over Netconf from device.
 
     Arguments:

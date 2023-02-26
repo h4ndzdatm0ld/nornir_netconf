@@ -7,7 +7,6 @@ from unittest.mock import MagicMock, patch
 
 from nornir_netconf.plugins.helpers import RpcResult
 from nornir_netconf.plugins.tasks import netconf_commit
-from tests.conftest import FakeRpcObject
 
 HOST = "ceos"
 

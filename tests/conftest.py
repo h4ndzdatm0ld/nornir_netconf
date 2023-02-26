@@ -75,32 +75,6 @@ def reset_data():
     global_data.reset_failed_hosts()
 
 
-class FakeRpcObject:
-    """Test Class."""
-
-    def __init__(self):
-        self.ok = False
-        self.data_xml = False
-        self.error = ""
-        self.errors = ""
-        self.xml = False
-
-    def set_ok(self, set: bool):
-        """Set ok."""
-        if set:
-            self.ok = True
-
-    def set_data_xml(self, set: bool):
-        """Set data_xml."""
-        if set:
-            self.data_xml = True
-
-    def set_xml(self, set: bool):
-        """Set xml."""
-        if set:
-            self.xml = True
-
-
 # PAYLOADS
 
 

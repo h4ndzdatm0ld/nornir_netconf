@@ -1,10 +1,7 @@
 """Test NETCONF edit-config unit test."""
 from unittest.mock import MagicMock, patch
 
-from nornir_utils.plugins.functions import print_result
-
 from nornir_netconf.plugins.tasks import netconf_edit_config
-from tests.conftest import FakeRpcObject
 
 HOST = "nokia_rtr"
 
@@ -70,11 +67,7 @@ def test_netconf_edit_config_success_running(ssh, nornir, sros_config_payload):
 @patch("ncclient.manager.connect_ssh")
 def test_netconf_edit_config_no_capability(ssh, nornir, sros_config_payload):
     """Test NETCONF edit-config, candidate not supported."""
-    # Create Fake RPC Object class. Set 'ok' attr to True.
-    response_rpc = FakeRpcObject()
-    response_rpc.set_ok(set=False)
-    # Create a Mock Object. Assign 'edit-config' method and response
-    # as the Fake RPC Object.
+    response_rpc = MagicMock()
     response = MagicMock()
     response.server_capabilities = ["netconf:capability:validate:"]
     response.edit_config.return_value = response_rpc
@@ -83,4 +76,3 @@ def test_netconf_edit_config_no_capability(ssh, nornir, sros_config_payload):
     nr = nornir.filter(name=HOST)
     result = nr.run(netconf_edit_config, target="startup", config=sros_config_payload)
     assert result[HOST].failed
-    print_result(result)

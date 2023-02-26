@@ -31,8 +31,6 @@ RUN echo 'Rnning Ruff' && \
     yamllint . && \
     echo 'Running Pylint' && \
     find . -name '*.py' | xargs pylint  && \
-    # echo 'Running pydocstyle' && \
-    # pydocstyle . && \
     echo 'Running Bandit' && \
     bandit --recursive ./ --configfile .bandit.yml  && \
     echo 'Running MyPy' && \
