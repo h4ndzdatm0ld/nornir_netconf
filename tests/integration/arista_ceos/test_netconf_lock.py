@@ -5,7 +5,7 @@ from ncclient.operations.rpc import RPCReply
 from nornir_netconf.plugins.helpers import RpcResult
 from nornir_netconf.plugins.tasks import netconf_lock
 
-HOST = "ceos"
+DEVICE_NAME = "ceos"
 
 
 def test_netconf_lock(nornir):

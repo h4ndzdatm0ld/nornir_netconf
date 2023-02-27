@@ -5,12 +5,12 @@ from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import RpcResult
 
 
-def netconf_get(task: Task, path: str = "", filter_type: str = "xpath") -> Result:
-    """Get information over Netconf from device.
+def netconf_get(task: Task, path: Optional[str] = "", filter_type: Optional[str] = "xpath") -> Result:
+    """Get configuration and state information over Netconf from device.
 
     Arguments:
-        path: Subtree or xpath to filter
-        filter_type: Type of filtering to use, 'xpath' or 'subtree'
+        path (Optional[str]): `Subtree` or `xpath` to filter
+        filter_type (Optional[str]): Type of filtering to use, `xpath or `subtree`
 
     Examples:
         Simple example::
@@ -19,25 +19,26 @@ def netconf_get(task: Task, path: str = "", filter_type: str = "xpath") -> Resul
 
         Passing options using ``xpath``::
 
-            > query = "/devices/device"
+            > xpath = "/devices/device"
             > nr.run(task=netconf_get,
-            >        path=query)
+            >        path=xpath)
 
-       Passing options using ``subtree``::
+        Passing options using ``subtree``::
 
-            > query = "<interfaces></interfaces>"
+            > subtree = "<interfaces></interfaces>"
             > nr.run(task=netconf_get,
             >        filter_type="subtree",
-            >        path=query)
+            >        path=subtree)
 
 
     Returns:
         Result object with the following attributes set:
-          * result (``str``): The collected data as an XML string
+          * result (RpcResult): Rpc and Manager
     """
     params = {}
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     if path:
+        # TODO: Tuple or Dict? Huh? Was this auto formatted?
         params["filter"] = (filter_type, path)
     result = manager.get(**params)
 

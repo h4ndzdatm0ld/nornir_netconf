@@ -2,7 +2,7 @@
 from nornir_netconf.plugins.tasks import netconf_get
 from tests.conftest import xml_dict
 
-HOST = "ceos"
+DEVICE_NAME = "ceos"
 
 
 def test_netconf_get(nornir):

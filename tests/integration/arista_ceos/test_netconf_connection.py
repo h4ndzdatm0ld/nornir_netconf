@@ -4,7 +4,7 @@ import os
 from nornir_netconf.plugins.tasks import netconf_capabilities
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
-HOST = "ceos"
+DEVICE_NAME = "ceos"
 CAP = "http://openconfig.net/yang/policy-forwarding?module=openconfig-policy-forwarding&revision=2021-08-06"
 
 

@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 
 from nornir_netconf.plugins.tasks import netconf_lock
 
-HOST = "ceos"
+DEVICE_NAME = "ceos"
 
 
 def test_netconf_lock(nornir):

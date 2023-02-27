@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 
 from nornir_netconf.plugins.tasks import netconf_edit_config
 
-HOST = "nokia_rtr"
+DEVICE_NAME = "nokia_rtr"
 
 
 @patch("ncclient.manager.connect_ssh")

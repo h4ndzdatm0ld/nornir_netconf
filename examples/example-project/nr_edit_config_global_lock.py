@@ -43,11 +43,9 @@ def example_edit_config(task):
     </config>
     """
 
-    result = task.run(netconf_edit_config, config=config_payload, target="candidate", manager=task.host["manager"])
+    lock = task.run(netconf_edit_config, config=config_payload, target="candidate", manager=task.host["manager"])
 
-    # Access the RPC response object directly.
-    # Or you can check the 'ok' attr from an rpc response as well, if it exists.
-    if "ok" in result.result["rpc"].data_xml:
+    if lock.result.rpc.ok:
         task.run(netconf_commit, manager=task.host["manager"])
 
 

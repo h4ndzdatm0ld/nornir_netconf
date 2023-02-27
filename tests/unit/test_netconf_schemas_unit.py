@@ -5,7 +5,7 @@ from ncclient.operations.rpc import RPCError, to_ele
 
 from nornir_netconf.plugins.tasks import netconf_get_schemas
 
-HOST = "nokia_rtr"
+DEVICE_NAME = "nokia_rtr"
 
 
 xml_resp = """

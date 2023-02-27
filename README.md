@@ -27,15 +27,23 @@ pip install nornir_netconf
 ---
 
 - **netconf_capabilities** - Return server capabilities from target
-- **netconf_get** - Returns state data based on the supplied xpath
-- **netconf_get_config** - Returns configuration from specified configuration store (default="running")
-- **netconf_edit_config** - Edits configuration on specified datastore (default="running")
-- **netconf_lock** - Locks or Unlocks a specified datastore (default="lock")
-- **netconf_commit** - Commits a change
+- **netconf_commit** - Commits a change -> `Result.result -> RpcResult`
+- **netconf_edit_config** - Edits configuration on specified datastore (default="running") -> `Result.result -> RpcResult`
+- **netconf_get** - Returns state data based on the supplied xpath -> `Result.result -> RpcResult`
+- **netconf_get_config** - Returns configuration from specified configuration store (default="running") -> `Result.result -> RpcResult`
+- **netconf_get_schemas** - Retrieves schemas and saves aggregates content into a directory with schema output -> `Result.result -> SchemaResult`
+- **netconf_lock** - Locks or Unlocks a specified datastore (default="lock") -> `Result.result -> RpcResult`
 
 ## Response Result
 
-The goal of the task results is to put the NETCONF RPC-reply back in your hands. An 'rpc' key will be available which can then be used to access 'data_xml' or 'xml' depending on the type of response or any other attributes available, such as 'error', 'errors'. Some of the RPC is unpacked and provided back as part of the Result by default, including the 'error', 'errors' and 'ok' if available. Anything else can be accessed directly from the rpc.
+The goal of the task results is to put the NETCONF RPC-reply back in your hands. In most cases, the Nornir `Result.result` attribute will return back a `dataclass` depending on the task operation. It's important that you understand the object you will be working with. There are exceptions to this. For example, `get_capabilities` will simply return a list of capabilities in the `Result` object.
+
+### Dataclasses
+
+> Defined in `nornir_netconf/plugins/helpers/models.py`
+
+- `RpcResult` -> This will return an attribute of `rpc` and `manager`. You will encounter this object in most Nornir `Results` as the return value to the `result` attribute. NETCONF / XML payloads can be overwhelming, specially with large configurations and it's just not efficient or useful to display thousands of lines of code in any result.
+- `SchemaResult` -> An aggregation of interesting information when grabbing schemas from NETCONF servers.
 
 ## Global Lock
 
@@ -250,17 +258,18 @@ if __name__ == "__main__":
 
 ## Contributions
 
+> Github actions spins up a Containerlab instance to do full integration tests once linting has been satisfied.
+
 ---
 
 No line of code shall go untested! Any contribution will need to be accounted for by the coverage report and satisfy all linting.
 
 Linters:
 
-- Fake8
+- Ruff (Flake8/Pydocstyle)
 - Black
 - Yamllint
 - Pylint
-- Pydocstyle
 - Bandit
 - MyPy
 
@@ -300,8 +309,11 @@ pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
 
 Devices with full integration tests (ContainerLab)
 
+# TODO: Find versions
 - Nokia SROS - TiMOS-B-21.2.R1
 - Cisco IOSxR - Cisco IOS XR Software, Version 6.1.3
+- Cisco IOSXE - Cisco IOS XE
+- Arista CEOS -
 
 Devices testing against Always-ON Sandboxes (Cisco DevNet)
 

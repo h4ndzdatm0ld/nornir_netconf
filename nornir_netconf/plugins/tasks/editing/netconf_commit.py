@@ -28,10 +28,14 @@ def netconf_commit(
     Examples:
         Simple example::
 
+            > nr.run(task=netconf_commit)
+
+        With a carried manager session::
             > nr.run(task=netconf_commit, manager=manager)
 
     Returns:
-        Result
+        Result object with the following attributes set:
+          * result (RpcResult): Rpc and Manager
     """
     if not manager:
         manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)

@@ -1,5 +1,7 @@
 """Integration test against IOSXR device."""
 from nornir_utils.plugins.functions import print_result
+from ncclient.manager import Manager
+from nornir_netconf.plugins.helpers import RpcResult
 
 from nornir_netconf.plugins.tasks import (
     netconf_capabilities,
@@ -83,16 +85,13 @@ def test_sros_netconf_lock_operations(nornir, iosxr_config_payload):
     # Commit Config
     result = nr.run(netconf_commit, manager=manager)
     # print_result(result)
-    assert not result[DEVICE_NAME].result["error"]
-    assert not result[DEVICE_NAME].result["errors"]
-    # assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
     assert result[DEVICE_NAME].result.rpc.ok
 
     # Unlock candidate datastore.
     result = nr.run(netconf_lock, datastore="candidate", operation="unlock", manager=manager)
-    assert result[DEVICE_NAME].result.rpc
-    assert result[DEVICE_NAME].result.manager
-    assert result[DEVICE_NAME].result["data_xml"]
+    assert isinstance(result[DEVICE_NAME].result.rpc, RpcResult)
+    assert isinstance(result[DEVICE_NAME].result.manager, Manager)
+    assert result[DEVICE_NAME].result.rpc.data_xml
     assert result[DEVICE_NAME].result.rpc.ok
     # print_result(result)
 
@@ -102,7 +101,6 @@ def test_iosxr_netconf_edit_config(nornir, iosxr_config_payload):
     """Test NETCONF edit-config - Post Lock / Unlock operations."""
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_edit_config, config=iosxr_config_payload, target="candidate")
-    assert not result[DEVICE_NAME].result["errors"]
     assert result[DEVICE_NAME].result.rpc.ok
 
     # print_result(result)

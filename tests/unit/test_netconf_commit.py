@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 from nornir_netconf.plugins.helpers import RpcResult
 from nornir_netconf.plugins.tasks import netconf_commit
 
-HOST = "ceos"
+DEVICE_NAME = "ceos"
 
 
 @patch("ncclient.manager.connect_ssh")

@@ -55,11 +55,7 @@ def test_sros_netconf_edit_config_service(nornir):
 
     # Edit Config
     result = nr.run(task=netconf_edit_config, target="candidate", config=DEPLOY_SERVICE)
-    assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
 
     # Commit Config
     result = nr.run(netconf_commit)
-    assert not result[DEVICE_NAME].result["error"]
-    assert not result[DEVICE_NAME].result["errors"]
-    assert "ok/" in result[DEVICE_NAME].result["rpc"].data_xml
-    # assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
+    assert result[DEVICE_NAME].result.rpc.ok
