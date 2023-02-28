@@ -2,7 +2,7 @@
 from nornir_netconf.plugins.tasks import netconf_capabilities
 
 CAP = "http://openconfig.net/yang/policy-forwarding?module=openconfig-policy-forwarding&revision=2021-08-06"
-HOST = "ceos"
+DEVICE_NAME = "ceos"
 
 
 def test_netconf_capabilities(nornir):
@@ -11,4 +11,4 @@ def test_netconf_capabilities(nornir):
     result = nr.run(netconf_capabilities)
 
     assert not result.failed
-    assert CAP in result[HOST][0].result
+    assert CAP in result[DEVICE_NAME][0].result

@@ -14,9 +14,9 @@ def netconf_get_config(
     """Get configuration over Netconf from device.
 
     Arguments:
-        source: Configuration store to collect from
-        path: Subtree or xpath to filter
-        filter_type: Type of filtering to use, 'xpath' or 'subtree'
+        source (Optional[str]): Configuration datastore to collect from. Defaults to `running`
+        path (Optional[str]): Subtree or xpath to filter. Defaults to `''`
+        filter_type (Optional[str]): Type of filtering to use, 'xpath' or 'subtree'. Defaults to `xpath`
 
     Examples:
         Simple example::
@@ -44,7 +44,7 @@ def netconf_get_config(
 
     Returns:
         Result object with the following attributes set:
-          * result (``str``): The collected data as an XML string
+          * result (RpcResult): Rpc and Manager
     """
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     params: Dict[str, Any] = {"source": source}

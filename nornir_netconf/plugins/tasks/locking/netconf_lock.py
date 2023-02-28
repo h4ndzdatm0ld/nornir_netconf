@@ -16,15 +16,11 @@ def netconf_lock(
 ) -> Result:
     """NETCONF locking operations for a specified datastore.
 
-    By default, netconf_lock operations will display the 'data_xml'
-    extracted from the RPCReply of the server, as it should be mininal
-    data to display unlike other operations.
-
-    Task name dynamically updated based on operation.
+    Task name dynamically updated based on operation of `lock` or `unlock`.
 
     Arguments:
-        datastore (str): Datastore to lock
-        manager (Manager): Manager to use if operation=='unlock'
+        datastore (str): Target Datastore
+        manager (Manager): Manager to use if operation=='unlock' and the lock is carried.
         operation (str): Unlock or Lock
 
     Examples:
@@ -44,8 +40,16 @@ def netconf_lock(
             >        operation="unlock",
             >        datastore="candidate")
 
+        Unlock candidate datestore with a session::
+
+            > task.run(task=netconf_lock,
+            >    operation="unlock",
+            >    datastore="candidate",
+            >    manager=task.host["manager"])
+
     Returns:
-        Result object
+        Result object with the following attributes set:
+          * result (RpcResult): Rpc and Manager
     """
     operation = operation.strip().lower()
     if operation not in ["lock", "unlock"]:

@@ -38,8 +38,8 @@ iosxr:
         allow_agent: false
         look_for_keys: false
 csr:
-  username: "developer"
-  password: "C1sco12345"
+  username: "admin"
+  password: "admin"
   port: 830
   platform: "csr"
   connection_options:

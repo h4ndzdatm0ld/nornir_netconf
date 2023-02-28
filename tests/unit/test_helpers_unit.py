@@ -3,11 +3,7 @@ import os
 import pathlib
 from unittest.mock import patch
 
-from nornir_netconf.plugins.helpers import (
-    check_capability,
-    create_folder,
-    write_output,
-)
+from nornir_netconf.plugins.helpers import check_capability, create_folder, write_output
 
 TEST_FOLDER = "tests/test_data/test_folder_success"
 

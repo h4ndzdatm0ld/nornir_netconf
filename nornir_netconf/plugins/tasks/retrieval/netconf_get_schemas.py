@@ -18,13 +18,13 @@ def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str) -> Res
         schemas (List[str]): List of schemas to fetch.
         schema_path (str): Directory path to save schemas output.
 
-    Examples::
+    Simple Example ::
 
-        > nr.run(task=netconf_schemas, schemas=["schema1", "schema2"])
         > nr.run(task=netconf_schemas, schemas=["schema1", "schema2"], schema_path="workdir/schemas")
 
     Returns:
-        Result: Result
+        Result object with the following attributes set:
+          * result (SchemaResult): List of files created, errors, if any and base directory path.
     """
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     result = SchemaResult(directory=schema_path)

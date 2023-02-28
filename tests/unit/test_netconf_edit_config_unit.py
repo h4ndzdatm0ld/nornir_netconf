@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 
 from nornir_netconf.plugins.tasks import netconf_edit_config
 
-HOST = "nokia_rtr"
+DEVICE_NAME = "nokia_rtr"
 
 
 @patch("ncclient.manager.connect_ssh")
@@ -15,10 +15,10 @@ def test_netconf_edit_config_success(ssh, nornir, sros_config_payload):
     response.edit_config.return_value = response_rpc
     ssh.return_value = response
 
-    nr = nornir.filter(name=HOST)
+    nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_edit_config, target="running", config=sros_config_payload)
-    assert not result[HOST].failed
-    assert result[HOST].result.rpc.ok
+    assert not result[DEVICE_NAME].failed
+    assert result[DEVICE_NAME].result.rpc.ok
 
 
 @patch("ncclient.manager.connect_ssh")
@@ -30,10 +30,10 @@ def test_netconf_edit_config_manager_set(ssh, nornir, sros_config_payload):
     manager.server_capabilities = ["netconf:capability:candidate"]
     manager.edit_config.return_value = response_rpc
 
-    nr = nornir.filter(name=HOST)
+    nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_edit_config, target="candidate", config=sros_config_payload, manager=manager)
-    assert not result[HOST].failed
-    assert result[HOST].result.rpc.ok
+    assert not result[DEVICE_NAME].failed
+    assert result[DEVICE_NAME].result.rpc.ok
 
 
 @patch("ncclient.manager.connect_ssh")
@@ -44,9 +44,9 @@ def test_netconf_edit_config_bad_operation(ssh, nornir, sros_config_payload):
     response.edit_config.return_value = response_rpc
     ssh.return_value = response
 
-    nr = nornir.filter(name=HOST)
+    nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_edit_config, target="candidate", config=sros_config_payload, default_operation="MARGE")
-    assert result[HOST].failed
+    assert result[DEVICE_NAME].failed
 
 
 @patch("ncclient.manager.connect_ssh")
@@ -58,10 +58,10 @@ def test_netconf_edit_config_success_running(ssh, nornir, sros_config_payload):
     response.edit_config.return_value = response_rpc
     ssh.return_value = response
 
-    nr = nornir.filter(name=HOST)
+    nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_edit_config, target="running", config=sros_config_payload)
-    assert not result[HOST].failed
-    assert result[HOST].result.rpc.ok
+    assert not result[DEVICE_NAME].failed
+    assert result[DEVICE_NAME].result.rpc.ok
 
 
 @patch("ncclient.manager.connect_ssh")
@@ -73,6 +73,6 @@ def test_netconf_edit_config_no_capability(ssh, nornir, sros_config_payload):
     response.edit_config.return_value = response_rpc
     ssh.return_value = response
 
-    nr = nornir.filter(name=HOST)
+    nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_edit_config, target="startup", config=sros_config_payload)
-    assert result[HOST].failed
+    assert result[DEVICE_NAME].failed
