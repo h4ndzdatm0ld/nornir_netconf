@@ -1,6 +1,6 @@
 """Test inventory DEVICE_NAMEs."""
 
 
-def test_netconf_DEVICE_NAMEs(nornir):
+def test_netconf_device_name(nornir):
     nr = nornir.filter(name="ceos")
-    assert "ceos" in nr.inventory.DEVICE_NAMEs
+    assert "ceos" in nr.inventory.hosts
