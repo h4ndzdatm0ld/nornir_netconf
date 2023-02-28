@@ -11,7 +11,7 @@ def test_netconf_get_config_running(nornir):
     result = nr.run(netconf_get_config, source="running")
     assert result[DEVICE_NAME].result.rpc.ok
     parsed = xml_dict(result[DEVICE_NAME].result.rpc.data_xml)
-    assert parsed["data"]["system"]["config"]["name"] == "ceos"
+    assert parsed["data"]["system"]["config"]["hostname"] == "ceos"
 
 
 def test_netconf_get_config_subtree(nornir):
