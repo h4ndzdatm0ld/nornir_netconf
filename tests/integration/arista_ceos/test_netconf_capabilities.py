@@ -11,4 +11,4 @@ def test_netconf_capabilities(nornir):
     result = nr.run(netconf_capabilities)
 
     assert not result.failed
-    assert CAP in result[HOST][0].result
+    assert CAP in result[DEVICE_NAME][0].result

@@ -1,8 +1,8 @@
 """Integration test against IOSXR device."""
-from nornir_utils.plugins.functions import print_result
 from ncclient.manager import Manager
-from nornir_netconf.plugins.helpers import RpcResult
+from nornir_utils.plugins.functions import print_result
 
+from nornir_netconf.plugins.helpers import RpcResult
 from nornir_netconf.plugins.tasks import (
     netconf_capabilities,
     netconf_commit,

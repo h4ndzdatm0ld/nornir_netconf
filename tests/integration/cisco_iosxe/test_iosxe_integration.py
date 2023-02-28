@@ -1,13 +1,11 @@
 """Integration test against IOSXR device."""
 # from nornir_utils.plugins.functions import print_result
-from tests.conftest import xml_dict
-
 from nornir_netconf.plugins.tasks import (
     netconf_capabilities,
     netconf_get,
     netconf_get_config,
 )
-from tests.conftest import skip_integration_tests
+from tests.conftest import skip_integration_tests, xml_dict
 
 DEVICE_NAME = "devnet_iosxe_rtr"
 CLAB_DEVICE_NAME = "iosxe_rtr"
@@ -64,4 +62,4 @@ def test_iosxe_netconf_get(nornir):
     parsed = xml_dict(result[DEVICE_NAME].result.rpc)
 
     assert result[DEVICE_NAME].result
-    assert parsed["data"]["native"]["ip"]["domain"]["name"] == HOST
+    assert parsed["data"]["native"]["ip"]["domain"]["name"] == DEVICE_NAME

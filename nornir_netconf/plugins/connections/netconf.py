@@ -94,7 +94,7 @@ class Netconf:
         port: Optional[int] = 830,
         platform: Optional[str] = "default",
         extras: Optional[Dict[str, Any]] = None,
-        configuration: Optional[Dict] = None,
+        configuration: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Open NETCONF connection."""
         extras = extras if extras is not None else {}

@@ -34,10 +34,10 @@ xml_resp = """
 @patch("ncclient.manager.Manager")
 def test_netconf_get_schema_schema_path(manager, ssh, nornir):
     """Test NETCONF Capabilities + Get Schemas success."""
-    nr = nornir.filter(name=HOST)
+    nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="tests/test_data/schema_path")
-    assert not result[HOST].failed
-    assert result[HOST].result.files[0] == "tests/test_data/schema_path/nokia-conf-aaa.txt"
+    assert not result[DEVICE_NAME].failed
+    assert result[DEVICE_NAME].result.files[0] == "tests/test_data/schema_path/nokia-conf-aaa.txt"
 
 
 @patch("ncclient.manager.connect_ssh")
@@ -45,9 +45,9 @@ def test_netconf_get_schema_schema_path(manager, ssh, nornir):
 def test_netconf_get_schema(manager, ssh, nornir):
     """Test NETCONF get_schema, missing path"""
     manager.get_schema.return_value = str("SCHEMA")
-    nr = nornir.filter(name=HOST)
+    nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="/tmp")
-    assert result[HOST].result.directory == "/tmp"
+    assert result[DEVICE_NAME].result.directory == "/tmp"
 
 
 @patch("ncclient.manager.connect_ssh")
@@ -58,8 +58,8 @@ def test_netconf_get_schema_exception(ssh, nornir):
     # Assign the side_effect to trigger on get_schema call and hit exception.
     ssh.side_effect = [response]
 
-    nr = nornir.filter(name=HOST)
+    nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(
         netconf_get_schemas, schemas=["nokia-conf-aaa", "some-other"], schema_path="tests/test_data/schema_path"
     )
-    assert len(result[HOST].result.errors) == 2
+    assert len(result[DEVICE_NAME].result.errors) == 2

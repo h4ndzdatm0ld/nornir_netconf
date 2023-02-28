@@ -1,5 +1,5 @@
 """NETCONF get."""
-from nornir.core.task import Result, Task
+from nornir.core.task import Optional, Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import RpcResult
@@ -38,7 +38,6 @@ def netconf_get(task: Task, path: Optional[str] = "", filter_type: Optional[str]
     params = {}
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     if path:
-        # TODO: Tuple or Dict? Huh? Was this auto formatted?
         params["filter"] = (filter_type, path)
     result = manager.get(**params)
 
