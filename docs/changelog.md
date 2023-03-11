@@ -9,18 +9,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - `ruff` linter
+- Integration tests for IOSXE with ContainerLab. (Not in CI)
+- Standardized on tests for all platforms part of integration tests. Added a common section for common NETCONF operations.
 
 ### Changed
 
 - `sysrepo` tests all got replaced by a containerized instance of Arista CEOS
+- `mypy` settings were moved into pyproject.toml file
 
 ### Removed
 
 - Dropped Python3.7 - Only 3.8 and above is supported.
 - `sysrepo` container and dependencies. No tests or reliance on this container anymore.
 - `xmltodict` library has been removed. The user should parse XML as they please.
-- Flake8 (Replaced by Ruff)
-- Pydocstyle (Replaced by Ruff)
+- `Flake8` (Replaced by `Ruff` as a plugin)
+- `Pydocstyle` (Replaced by `Ruff` as a plugin)
 
 ## [1.1.0] - 2022-10-06
 

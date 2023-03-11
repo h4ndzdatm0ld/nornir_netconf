@@ -25,9 +25,10 @@ def test_check_file_success():
     assert not check_file(f"{SRC}/tests/test_data/.gitkeep")
 
 
+# Ignore type as this function catches typerrors exceptions
 def test_check_file_type():
     """Test check_file typeerror."""
-    assert not check_file(False)
+    assert not check_file(False)  # type: ignore
 
 
 def test_create_folder(test_folder):

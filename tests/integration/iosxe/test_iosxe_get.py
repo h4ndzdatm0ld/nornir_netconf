@@ -1,5 +1,5 @@
 """Integration test against IOSXE device."""
-from nornir_utils.plugins.functions import print_result
+# from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.tasks import netconf_get
 from tests.conftest import skip_integration_tests, xml_dict
@@ -7,7 +7,7 @@ from tests.conftest import skip_integration_tests, xml_dict
 DEVICE_NAME = "iosxe_rtr"
 
 
-# @skip_integration_tests
+@skip_integration_tests
 def test_iosxe_netconf_get(nornir):
     """Test NETCONF get operation."""
     nr = nornir.filter(name=DEVICE_NAME)

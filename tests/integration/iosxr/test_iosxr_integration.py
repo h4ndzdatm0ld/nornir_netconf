@@ -1,15 +1,12 @@
 """Integration test against IOSXR device."""
-from ncclient.manager import Manager
 from nornir_utils.plugins.functions import print_result
 
-from nornir_netconf.plugins.helpers import RpcResult
 from nornir_netconf.plugins.tasks import (
     netconf_capabilities,
     netconf_commit,
     netconf_edit_config,
     netconf_get,
     netconf_get_config,
-    netconf_lock,
 )
 from tests.conftest import skip_integration_tests
 
@@ -60,40 +57,6 @@ def test_iosxr_netconf_get(nornir):
     assert result[DEVICE_NAME].result
     assert result[DEVICE_NAME].result.rpc.data_xml
     # assert result[DEVICE_NAME].result["xml_dict"]["data"]["interfaces"]["interface"]["config"]["enabled"]
-
-
-@skip_integration_tests
-def test_sros_netconf_lock_operations(nornir, iosxr_config_payload):
-    """Test NETCONF Lock, extract manager and use it to edit-config.
-
-    Afterwards, use netconf_lock with unlock operations to unlock.
-    """
-    nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_lock, datastore="candidate", operation="lock")
-    manager = result[DEVICE_NAME].result.manager
-    assert result[DEVICE_NAME].result.rpc
-    assert result[DEVICE_NAME].result.manager
-    # Extract manager from lock operation.
-    manager = result[DEVICE_NAME].result.manager
-    # print_result(result)
-
-    # Edit Config
-    result = nr.run(netconf_edit_config, config=iosxr_config_payload, target="candidate", manager=manager)
-    # print_result(result)
-    assert result[DEVICE_NAME].result.rpc.ok
-
-    # Commit Config
-    result = nr.run(netconf_commit, manager=manager)
-    # print_result(result)
-    assert result[DEVICE_NAME].result.rpc.ok
-
-    # Unlock candidate datastore.
-    result = nr.run(netconf_lock, datastore="candidate", operation="unlock", manager=manager)
-    assert isinstance(result[DEVICE_NAME].result.rpc, RpcResult)
-    assert isinstance(result[DEVICE_NAME].result.manager, Manager)
-    assert result[DEVICE_NAME].result.rpc.data_xml
-    assert result[DEVICE_NAME].result.rpc.ok
-    # print_result(result)
 
 
 @skip_integration_tests

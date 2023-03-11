@@ -17,6 +17,7 @@ skip_integration_tests = pytest.mark.skipif(
 
 global_data = GlobalState(dry_run=True)
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
+CONFIGS_DIR = f"{DIR_PATH}/test_data/configs"
 
 # If NORNIR_LOG set to True, the log won't be deleted in teardown.
 nornir_logfile = os.environ.get("NORNIR_LOG", False)
