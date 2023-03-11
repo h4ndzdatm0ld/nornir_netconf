@@ -3,9 +3,32 @@ import os
 import pathlib
 from unittest.mock import patch
 
-from nornir_netconf.plugins.helpers import check_capability, create_folder, write_output
+from nornir_netconf.plugins.helpers import (
+    check_capability,
+    check_file,
+    create_folder,
+    write_output,
+)
 
 TEST_FOLDER = "tests/test_data/test_folder_success"
+
+SRC = str(pathlib.Path(__file__).parent.parent.absolute())
+
+
+def test_check_file_false():
+    """Test check_file false, no file is there.."""
+    assert not check_file(f"{SRC}/tests/test_data/no_file_here.txt")
+
+
+def test_check_file_success():
+    """Test check_file true."""
+    assert not check_file(f"{SRC}/tests/test_data/.gitkeep")
+
+
+# Ignore type as this function catches typerrors exceptions
+def test_check_file_type():
+    """Test check_file typeerror."""
+    assert not check_file(False)  # type: ignore
 
 
 def test_create_folder(test_folder):

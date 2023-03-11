@@ -125,3 +125,38 @@ target-version = "py38"
 [tool.ruff.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 10
+
+[tool.pytest.ini_options]
+testpaths = [
+  "tests",
+]
+addopts = "-p no:warnings"
+
+
+[tool.mypy]
+namespace_packages = true
+explicit_package_bases = true
+show_error_codes = true
+enable_error_code = [
+  "ignore-without-code",
+  "truthy-bool",
+]
+check_untyped_defs = true
+ignore_errors = false
+ignore_missing_imports = true
+strict_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+disallow_any_generics = true
+warn_return_any = true
+python_version = 3.8
+disallow_subclassing_any = true
+no_implicit_optional = true
+implicit_reexport = true
+strict_equality = true
+exclude = "tests/"

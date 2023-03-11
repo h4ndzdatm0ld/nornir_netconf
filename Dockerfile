@@ -10,10 +10,8 @@ ENV PATH="/root/.local/bin:$PATH"
 
 RUN poetry config virtualenvs.create false
 
-# Install project manifest
 COPY poetry.lock pyproject.toml ./
 
-# Install production dependencies
 RUN poetry install --no-root
 
 FROM base AS test
@@ -22,7 +20,6 @@ COPY . .
 
 RUN poetry install --no-interaction
 
-# Runs all necessary linting and code checks
 RUN echo 'Rnning Ruff' && \
     ruff . && \
     echo 'Running Black' && \
@@ -36,7 +33,6 @@ RUN echo 'Rnning Ruff' && \
     echo 'Running MyPy' && \
     mypy .
 
-# Run full test suite including integration
 ENTRYPOINT ["pytest"]
 
 CMD ["--cov=nornir_netconf/", "tests/", "-vvv"]

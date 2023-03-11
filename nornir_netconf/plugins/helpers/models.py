@@ -10,7 +10,7 @@ from ncclient.operations.rpc import RPCReply
 class RpcResult:
     """RPC Reply Result Model."""
 
-    rpc: Optional[RPCReply] = field(default=None, repr=False)
+    rpc: Optional[RPCReply] = field(default=None, repr=True)
     manager: Optional[Manager] = field(default=None, repr=False)
 
 

@@ -33,3 +33,14 @@ def test_netconf_with_manager(ssh, manager, nornir):
     result = nr.run(netconf_lock, datastore="candidate", operation=" LOCK ", manager=manager)
     assert not result[DEVICE_NAME].failed
     assert result[DEVICE_NAME].result.rpc
+
+
+@patch("ncclient.manager.Manager")
+@patch("ncclient.manager.connect_ssh")
+def test_netconf_unlock(ssh, manager, nornir):
+    """Test Netconf UnLock."""
+    nr = nornir.filter(name=DEVICE_NAME)
+    result = nr.run(netconf_lock, datastore="candidate", operation="unlock")
+    assert not result[DEVICE_NAME].failed
+    assert result[DEVICE_NAME].result.rpc
+    assert result[DEVICE_NAME][0].name == "netconf_unlock"

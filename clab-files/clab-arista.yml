@@ -9,7 +9,7 @@ topology:
     ceos:
       image: "h4ndzdatm0ld/ceosimage:4.28.0F"
       binds:
-        - "mymapping.json:/mnt/flash/EosIntfMapping.json:ro"
+        - "interfaces.json:/mnt/flash/EosIntfMapping.json:ro"
   nodes:
     ceos:
       kind: "ceos"

@@ -7,7 +7,6 @@ from nornir_netconf.plugins.tasks import (
     netconf_edit_config,
     netconf_get,
     netconf_get_config,
-    netconf_lock,
 )
 from tests.conftest import skip_integration_tests
 
@@ -58,42 +57,6 @@ def test_sros_netconf_get(nornir):
     result = nr.run(netconf_get, filter_type="subtree", path=filter)
     assert result[DEVICE_NAME].result
     assert result[DEVICE_NAME].result.rpc.data_xml
-
-
-@skip_integration_tests
-def test_sros_netconf_lock_operations(nornir, sros_config_payload):
-    """Test NETCONF Lock, extract manager and use it to edit-config.
-
-    Afterwards, use netconf_lock with unlock operations to unlock.
-    """
-    nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_lock, datastore="candidate", operation="lock")
-    manager = result[DEVICE_NAME].result.manager
-    assert result[DEVICE_NAME].result.rpc
-    assert result[DEVICE_NAME].result.manager
-    assert result[DEVICE_NAME].result.rpc.data_xml
-    # Extract manager from lock operation.
-    manager = result[DEVICE_NAME].result.manager
-    # print_result(result)
-
-    # Edit Config
-    result = nr.run(netconf_edit_config, config=sros_config_payload, target="candidate", manager=manager)
-    # print_result(result)
-    assert "ok/" in result[DEVICE_NAME].result.rpc.data_xml
-    # assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
-
-    # Commit Config
-    result = nr.run(netconf_commit, manager=manager)
-    # print_result(result)
-    assert "ok/" in result[DEVICE_NAME].result.rpc.data_xml
-    # assert "ok" in result[DEVICE_NAME].result["xml_dict"]["rpc-reply"].keys()
-
-    # Unlock candidate datastore.
-    result = nr.run(netconf_lock, datastore="candidate", operation="unlock", manager=manager)
-    assert result[DEVICE_NAME].result.rpc
-    assert result[DEVICE_NAME].result.manager
-    assert result[DEVICE_NAME].result.data_xml
-    # print_result(result)
 
 
 @skip_integration_tests

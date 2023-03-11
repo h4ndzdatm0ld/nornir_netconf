@@ -307,17 +307,12 @@ pytest --cov=nornir_netconf --color=yes --disable-pytest-warnings -vvv
 
 ### Integration Tests
 
-Devices with full integration tests (ContainerLab)
+Devices with full integration tests with ContainerLab
 
-# TODO: Find versions
 - Nokia SROS - TiMOS-B-21.2.R1
 - Cisco IOSxR - Cisco IOS XR Software, Version 6.1.3
-- Cisco IOSXE - Cisco IOS XE
-- Arista CEOS -
-
-Devices testing against Always-ON Sandboxes (Cisco DevNet)
-
-- Cisco IOS-XE - Cisco IOS XE Software, Version 17.03.01a These tests are run locally.
+- Cisco IOSXE - Cisco IOS XE Software, Version 17.03.02
+- Arista CEOS - 4.28.0F-26924507.4280F (engineering build)
 
 ## Documentation
 
