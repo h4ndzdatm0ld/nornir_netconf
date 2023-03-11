@@ -61,6 +61,5 @@ def netconf_lock(
     else:
         result = manager.unlock(target=datastore)
         task.name = "netconf_unlock"
-
     result = RpcResult(manager=manager, rpc=result)
     return Result(host=task.host, result=result)

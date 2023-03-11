@@ -9,6 +9,5 @@ def test_netconf_capabilities(nornir):
     """Test NETCONF Capabilities."""
     nr = nornir.filter(vendor="arista")
     result = nr.run(netconf_capabilities)
-
     assert not result.failed
     assert CAP in result[DEVICE_NAME][0].result

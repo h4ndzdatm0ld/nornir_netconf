@@ -2,9 +2,9 @@
 version: "3.8"
 services:
   test:
-    network_mode: "host"
     container_name: "test"
     hostname: "test"
+    network_mode: "host"
     environment:
       SKIP_INTEGRATION_TESTS: "${SKIP_INTEGRATION_TESTS:-False}"
       NORNIR_LOG: "${NORNIR_LOG:-False}"
@@ -15,17 +15,16 @@ services:
       - "./:/usr/src/app"
   clab:
     image: "ghcr.io/srl-labs/clab"
-    network_mode: "host"
     working_dir: "/src"
+    network_mode: "host"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/var/run/netns:/var/run/netns"
       - "/etc/hosts:/etc/hosts"
       - "./:/src"
-      - "./clab-files/clab-topo-netconf.yml:/src/clab-files/clab-topo-netconf.yml"
     pid: "host"
-    # command: "containerlab deploy -t clab-topo-netconf.yml"
-    command: "containerlab deploy -t ./clab-files/clab-arista.yml"
+    # command: "containerlab deploy -t ./clab-files/clab-topo-netconf.yml"
+    command: "containerlab deploy -t ./clab-files/clab-arista.yml --reconfigure"
     # If you want to destroy the lab, ovveride the command while executing docker-compose service
     # docker-compose run clab containerlab destroy -t clab-topo-netconf.yml
     privileged: true
