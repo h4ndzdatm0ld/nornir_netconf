@@ -25,7 +25,6 @@ nornir = {version = "^3.0.0", allow-prereleases = true}
 black = "*"
 pytest-cov = "*"
 bandit = "*"
-pylint = "*"
 coverage = "*"
 yamllint = "*"
 nornir-utils = "*"
@@ -39,7 +38,6 @@ sphinxcontrib-napoleon = "*"
 pytest = "*"
 xmltodict = "*"
 ruff = "*"
-
 
 [build-system]
 requires = ["poetry_core>=1.0.0"]
@@ -81,9 +79,11 @@ select = [
     "E",
     "W",
     # isort
-    "I001"
+    "I001",
+    # Pylint
+    "PL",
 ]
-ignore = []
+ignore = ["PLR0913"]
 
 # Allow autofix for all enabled rules (when `--fix`) is provided.
 fixable = ["A", "B", "D", "E", "F"]
@@ -125,6 +125,12 @@ target-version = "py38"
 [tool.ruff.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 10
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.pylint]
+# disable=
 
 [tool.pytest.ini_options]
 testpaths = [

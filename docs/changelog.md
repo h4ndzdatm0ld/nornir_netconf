@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - `mypy` settings were moved into pyproject.toml file
 - `get_schema` doesn't pull `.data_xml` attribute and just dumps the output.
 - `write_output` internal helper allows for custom file extension (used for yang schema dumps)
+- `pylint` is now driven by `ruff`
 
 ### Removed
 
@@ -26,6 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - `xmltodict` library has been removed. The user should parse XML as they please.
 - `Flake8` (Replaced by `Ruff` as a plugin)
 - `Pydocstyle` (Replaced by `Ruff` as a plugin)
+- `pylint` (Replaced by `Ruff` as a plugin)
 
 ## [1.1.0] - 2022-10-06
 

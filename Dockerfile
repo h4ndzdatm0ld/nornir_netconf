@@ -26,8 +26,6 @@ RUN echo 'Rnning Ruff' && \
     black --check --diff . && \
     echo 'Running Yamllint' && \
     yamllint . && \
-    echo 'Running Pylint' && \
-    find . -name '*.py' | xargs pylint  && \
     echo 'Running Bandit' && \
     bandit --recursive ./ --configfile .bandit.yml  && \
     echo 'Running MyPy' && \
