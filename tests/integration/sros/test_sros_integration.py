@@ -2,7 +2,6 @@
 from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.tasks import (
-    netconf_capabilities,
     netconf_commit,
     netconf_edit_config,
     netconf_get,
@@ -11,15 +10,6 @@ from nornir_netconf.plugins.tasks import (
 from tests.conftest import skip_integration_tests
 
 DEVICE_NAME = "nokia_rtr"
-
-
-@skip_integration_tests
-def test_sros_netconf_capabilities(nornir):
-    """Test NETCONF Capabilities."""
-    nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_capabilities)
-    # print_result(result)
-    assert "urn:ietf:params:netconf:base:1.0" in result[DEVICE_NAME].result
 
 
 @skip_integration_tests

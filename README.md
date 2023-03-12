@@ -26,7 +26,7 @@ pip install nornir_netconf
 
 ---
 
-- **netconf_capabilities** - Return server capabilities from target
+- **netconf_capabilities** - Return server capabilities from target -> `Result.result -> RpcResult`
 - **netconf_commit** - Commits a change -> `Result.result -> RpcResult`
 - **netconf_edit_config** - Edits configuration on specified datastore (default="running") -> `Result.result -> RpcResult`
 - **netconf_get** - Returns state data based on the supplied xpath -> `Result.result -> RpcResult`

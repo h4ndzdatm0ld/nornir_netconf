@@ -2,7 +2,6 @@
 from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.tasks import (
-    netconf_capabilities,
     netconf_commit,
     netconf_edit_config,
     netconf_get,
@@ -11,14 +10,6 @@ from nornir_netconf.plugins.tasks import (
 from tests.conftest import skip_integration_tests
 
 DEVICE_NAME = "iosxr_rtr"
-
-
-@skip_integration_tests
-def test_iosxr_netconf_capabilities(nornir):
-    """Test NETCONF Capabilities."""
-    nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_capabilities)
-    assert any(cap for cap in result[DEVICE_NAME].result if "http://cisco.com/ns/yang/cisco-xr-ietf" in cap)
 
 
 @skip_integration_tests

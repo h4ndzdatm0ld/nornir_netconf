@@ -1,35 +1,15 @@
 """Test NETCONF lock - integration."""
-from typing import List
-
 import pytest
 from ncclient.manager import Manager
-from nornir.core.task import Result
-from nornir_utils.plugins.functions import print_result
 
-# from nornir.core.filter import F
 from nornir_netconf.plugins.tasks import netconf_lock
-from tests.conftest import skip_integration_tests
+from tests.conftest import (
+    eval_multi_result,
+    eval_multi_task_result,
+    skip_integration_tests,
+)
 
 GROUP_NAME = "integration"
-
-
-def eval_multi_result(hosts: List, result: Result) -> None:
-    """Repeatable multi host common test operation."""
-    print_result(result)
-    assert set(hosts) == set(list(result.keys()))
-    for host in hosts:
-        if hasattr(result[host].result.rpc, "ok"):
-            assert result[host].result.rpc.ok
-        assert not result[host].failed
-
-
-def eval_multi_task_result(hosts: List, result: Result) -> None:
-    """Repeatable multi host common test operation when running multi tasks."""
-    print_result(result)
-    assert set(hosts) == set(list(result.keys()))
-    for host in hosts:
-        for task in range(len(result[host])):
-            assert not result[host][task].failed
 
 
 @skip_integration_tests
