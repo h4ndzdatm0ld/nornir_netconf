@@ -37,7 +37,7 @@ def test_netconf_get_schema_schema_path(manager, ssh, nornir):
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="tests/test_data/schema_path")
     assert not result[DEVICE_NAME].failed
-    assert result[DEVICE_NAME].result.files[0] == "tests/test_data/schema_path/nokia-conf-aaa.txt"
+    assert result[DEVICE_NAME].result.files[0] == "tests/test_data/schema_path/nokia-conf-aaa.yang"
 
 
 @patch("ncclient.manager.connect_ssh")

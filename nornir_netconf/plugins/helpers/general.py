@@ -30,7 +30,7 @@ def create_folder(directory: str) -> None:
         logging.info("Error when creating %s, %s", directory, err_ex)
 
 
-def write_output(text: str, path: str, filename: str) -> None:
+def write_output(text: str, path: str, filename: str, ext: str = "txt") -> None:
     """Take input and path and write a file.
 
     Args:
@@ -40,5 +40,5 @@ def write_output(text: str, path: str, filename: str) -> None:
     """
     if not os.path.isdir(path):
         create_folder(path)
-    with open(f"{path}/{filename}.txt", "w+", encoding="utf-8") as file:
+    with open(f"{path}/{filename}.{ext}", "w+", encoding="utf-8") as file:
         file.write(str(text))

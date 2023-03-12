@@ -31,8 +31,8 @@ def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str) -> Res
 
     for schema in schemas:
         try:
-            write_output(manager.get_schema(schema).data_xml, path=schema_path, filename=schema)
-            result.files.append(f"{schema_path}/{schema}.txt")
+            write_output(manager.get_schema(schema), path=schema_path, filename=schema, ext="yang")
+            result.files.append(f"{schema_path}/{schema}.yang")
         except RPCError as err_ex:
             result.errors.append(str(err_ex).strip())
 

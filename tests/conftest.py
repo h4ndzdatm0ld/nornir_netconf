@@ -65,10 +65,10 @@ def teardown_class(schema_path, test_folder):
             os.remove(nornir_log)
 
     # Remove test data folders
-    # folders = [test_folder, schema_path]
-    # for folder in folders:
-    #     if os.path.exists(folder):
-    #         shutil.rmtree(folder)
+    folders = [test_folder, schema_path]
+    for folder in folders:
+        if os.path.exists(folder):
+            shutil.rmtree(folder)
 
 
 @pytest.fixture(scope="function", autouse=True)
