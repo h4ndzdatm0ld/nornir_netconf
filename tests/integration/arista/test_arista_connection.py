@@ -1,6 +1,9 @@
 """Test NETCONF Connection."""
 import os
 
+from ncclient.capabilities import Capabilities
+
+from nornir_netconf.plugins.helpers.models import RpcResult
 from nornir_netconf.plugins.tasks import netconf_capabilities
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -13,7 +16,8 @@ def test_netconf_connection_missing_ssh_keyfile(nornir):
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_capabilities)
 
-    assert isinstance(result[DEVICE_NAME].result, list)
+    assert isinstance(result[DEVICE_NAME].result, RpcResult)
+    assert isinstance(result[DEVICE_NAME].result.rpc, Capabilities)
 
 
 def test_netconf_connection_non_existent_ssh_config(nornir):
@@ -22,8 +26,8 @@ def test_netconf_connection_non_existent_ssh_config(nornir):
     nr.config.ssh.config_file = "i dont exist"
     result = nr.run(netconf_capabilities)
     assert nr.config.ssh.config_file == "i dont exist"
-    assert isinstance(result[DEVICE_NAME].result, list)
-    assert CAP in result[DEVICE_NAME].result
+    assert isinstance(result[DEVICE_NAME].result, RpcResult)
+    assert CAP in result[DEVICE_NAME].result.rpc
 
 
 def test_netconf_connection_ssh_config_exists(nornir):
@@ -31,12 +35,14 @@ def test_netconf_connection_ssh_config_exists(nornir):
     nr.config.ssh.config_file = f"{DIR_PATH}/inventory_data/ssh_config"
     result = nr.run(netconf_capabilities)
 
-    assert isinstance(result[DEVICE_NAME].result, list)
-    assert CAP in result[DEVICE_NAME].result
+    assert isinstance(result[DEVICE_NAME].result, RpcResult)
+    assert CAP in [cap for cap in result[DEVICE_NAME].result.rpc]
 
 
 def test_netconf_connection_ssh_keyfile(nornir):
     """Test netconf connection - with shh config file."""
-    nr = nornir.filter(name="ceos_empty_ssh_file")
+    device_name = "ceos_empty_ssh_file"
+    nr = nornir.filter(name=device_name)
     result = nr.run(netconf_capabilities)
-    assert isinstance(result["ceos_empty_ssh_file"].result, list)
+    assert isinstance(result[device_name].result, RpcResult)
+    assert isinstance(result[device_name].result.rpc, Capabilities)

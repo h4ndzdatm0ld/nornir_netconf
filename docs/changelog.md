@@ -16,6 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - `sysrepo` tests all got replaced by a containerized instance of Arista CEOS
 - `mypy` settings were moved into pyproject.toml file
+- `get_schema` doesn't pull `.data_xml` attribute and just dumps the output.
+- `write_output` internal helper allows for custom file extension (used for yang schema dumps)
 
 ### Removed
 

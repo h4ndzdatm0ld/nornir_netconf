@@ -2,6 +2,7 @@
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
+from nornir_netconf.plugins.helpers import RpcResult
 
 
 def netconf_capabilities(task: Task) -> Result:
@@ -14,8 +15,9 @@ def netconf_capabilities(task: Task) -> Result:
 
     Returns:
         Result object with the following attributes set:
-          * result (list): Host capabilities
+          * result (RpcResult): Rpc and Manager
     """
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
-    capabilities = list(manager.server_capabilities)
-    return Result(host=task.host, result=capabilities)
+    capabilities = manager.server_capabilities
+    rpc_result = RpcResult(rpc=capabilities, manager=manager)
+    return Result(host=task.host, result=rpc_result)

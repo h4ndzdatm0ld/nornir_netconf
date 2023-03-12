@@ -1,12 +1,14 @@
 """Conftest for nornir_netconf UnitTests."""
 import os
 import shutil
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 import pytest
 import xmltodict
 from nornir import InitNornir
 from nornir.core.state import GlobalState
+from nornir.core.task import Result
+from nornir_utils.plugins.functions import print_result
 
 # pytest mark decorator to skip integration tests if INTEGRATION_TESTS=True
 # These tests will connect to local lab environment to validate actual responses
@@ -45,7 +47,7 @@ def nornir():
 @pytest.fixture(scope="session", autouse=True)
 def schema_path():
     """Schema path, test data."""
-    return "tests/test_data/schema_path"
+    return f"{DIR_PATH}/test_data/schemas"
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -122,3 +124,22 @@ def xml_dict(xml: str) -> Dict[str, Any]:
         Dict: XML converted to Dict
     """
     return xmltodict.parse(str(xml))
+
+
+def eval_multi_task_result(hosts: List, result: Result) -> None:
+    """Repeatable multi host common test operation when running multi tasks."""
+    print_result(result)
+    assert set(hosts) == set(list(result.keys()))
+    for host in hosts:
+        for task in range(len(result[host])):
+            assert not result[host][task].failed
+
+
+def eval_multi_result(hosts: List, result: Result) -> None:
+    """Repeatable multi host common test operation."""
+    print_result(result)
+    assert set(hosts) == set(list(result.keys()))
+    for host in hosts:
+        if hasattr(result[host].result.rpc, "ok"):
+            assert result[host].result.rpc.ok
+        assert not result[host].failed
