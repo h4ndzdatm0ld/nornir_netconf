@@ -62,4 +62,5 @@ def test_netconf_get_schema_exception(ssh, nornir):
     result = nr.run(
         netconf_get_schemas, schemas=["nokia-conf-aaa", "some-other"], schema_path="tests/test_data/schema_path"
     )
-    assert len(result[DEVICE_NAME].result.errors) == 2
+    expected_results = 2
+    assert len(result[DEVICE_NAME].result.errors) == expected_results
