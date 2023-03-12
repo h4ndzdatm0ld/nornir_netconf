@@ -28,11 +28,12 @@ CAPABILITIES: Dict = {
 
 
 @skip_integration_tests
-def test_netconf_capabilities(nornir):
+def test_netconf_capabilities(nornir, schema_path):
     """Test NETCONF Capabilities."""
     nr = nornir.filter(F(groups__contains="integration"))
     hosts = list(nr.inventory.hosts.keys())
     result = nr.run(netconf_capabilities)
     eval_multi_task_result(hosts=hosts, result=result)
     for host in hosts:
-        assert CAPABILITIES[host] in [cap for cap in result[host][0].result.rpc]
+        capabilities = [cap for cap in result[host][0].result.rpc]
+        assert CAPABILITIES[host] in capabilities

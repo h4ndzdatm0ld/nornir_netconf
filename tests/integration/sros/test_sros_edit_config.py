@@ -1,6 +1,12 @@
-"""Integration Testing Deploying L3VPN via Netconf."""
-from nornir_netconf.plugins.tasks import netconf_commit, netconf_edit_config
-from tests.conftest import skip_integration_tests
+"""Integration Testing Deploying L3VPN via Netconf to candidate datastore and committing."""
+# from nornir_utils.plugins.functions import print_result
+
+from nornir_netconf.plugins.tasks import (
+    netconf_commit,
+    netconf_edit_config,
+    netconf_get_config,
+)
+from tests.conftest import CONFIGS_DIR, skip_integration_tests, xml_dict
 
 DEVICE_NAME = "nokia_rtr"
 
@@ -52,10 +58,18 @@ DEPLOY_SERVICE = """
 def test_sros_netconf_edit_config_service(nornir):
     """Test NETCONF edit-config."""
     nr = nornir.filter(name=DEVICE_NAME)
-
-    # Edit Config
+    # Edit Candidate Config
     result = nr.run(task=netconf_edit_config, target="candidate", config=DEPLOY_SERVICE)
-
-    # Commit Config
+    assert not result[DEVICE_NAME].failed
+    # Commit Config into `Running` datastore
     result = nr.run(netconf_commit)
-    assert result[DEVICE_NAME].result.rpc.ok
+    assert not result[DEVICE_NAME].failed
+    # Grab Full Config from datastore
+    result = nr.run(
+        netconf_get_config,
+        source="running",
+    )
+    with open(f"{CONFIGS_DIR}/{DEVICE_NAME}-full-config-post.xml", "w+") as file:
+        file.write(result[DEVICE_NAME].result.rpc.data_xml)
+    parsed = xml_dict(result[DEVICE_NAME].result.rpc.data_xml)
+    assert "AVIFI-CO" == parsed["rpc-reply"]["data"]["configure"]["service"]["customer"]["customer-name"]
