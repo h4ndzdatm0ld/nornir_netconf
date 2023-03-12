@@ -25,7 +25,6 @@ nornir = {version = "^3.0.0", allow-prereleases = true}
 black = "*"
 pytest-cov = "*"
 bandit = "*"
-pylint = "*"
 coverage = "*"
 yamllint = "*"
 nornir-utils = "*"
