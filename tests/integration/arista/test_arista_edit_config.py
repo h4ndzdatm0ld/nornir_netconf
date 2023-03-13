@@ -1,42 +1,36 @@
-# from nornir_netconf.plugins.tasks import netconf_edit_config, netconf_get_config
-# from nornir_utils.plugins.functions import print_result
+"""Test Edit Config on Arista."""
+from string import Template
 
-# CONFIG = """
-# <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-#     <netconf-server xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-server">
-#         <listen>
-#             <endpoint>
-#                 <name>default-ssh-updated</name>
-#             </endpoint>
-#         </listen>
-#     </netconf-server>
-# </config>
-# """
+from nornir_utils.plugins.functions import print_result
+
+from nornir_netconf.plugins.tasks import netconf_edit_config, netconf_get_config
+from tests.conftest import xml_dict
+
+DEVICE_NAME = "ceos"
+
+BFD_STATE = "false"
+CONFIG_TEMPLATE = """
+  <config>
+    <bfd xmlns="http://openconfig.net/yang/bfd">
+      <config xmlns="http://arista.com/yang/openconfig/bfd/augments">
+        <enabled>${bfd_state}</enabled>
+      </config>
+    </bfd>
+  </config>
+  """
+CONFIG = Template(CONFIG_TEMPLATE).substitute(bfd_state=BFD_STATE)
 
 
-# def test_netconf_edit_config(nornir):
-#     nr = nornir.filter(name="netconf_sysrepo")
-#     assert nr.inventory.hosts
-
-#     result = nr.run(netconf_get_config)
-
-#     for _, v in result.items():
-#         assert "nornir" not in v.result
-
-#     result = nr.run(netconf_edit_config, config=CONFIG, target="running")
-#     print_result(result)
-#     assert not result.failed
-#     assert "<nc:ok/>" in result["netconf_sysrepo"].result
-
-# result = nr.run(netconf_get_config, source="candidate")
-
-# for _, v in result.items():
-#     assert "nornir" in v.result
-
-# status = nr.run(netconf_edit_config, config=CONFIG.format(operation="delete"), target="candidate",)
-# assert not status.failed
-
-# result = nr.run(netconf_get_config, source="candidate")
-
-# for _, v in result.items():
-#     assert "nornir" not in v.result
+def test_edit_ceos_config(nornir):
+    """Edit Config and then pull config to validate the change."""
+    nr = nornir.filter(name=DEVICE_NAME)
+    result = nr.run(task=netconf_edit_config, config=CONFIG, target="running")
+    print_result(result)
+    # Pull config and assert the default 'enabled' is set to 'false'
+    result = nr.run(
+        netconf_get_config,
+        source="running",
+    )
+    assert result[DEVICE_NAME].result.rpc
+    parsed = xml_dict(result[DEVICE_NAME].result.rpc.data_xml)
+    assert "false" == parsed["data"]["bfd"]["config"]["enabled"]

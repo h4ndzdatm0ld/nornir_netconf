@@ -15,7 +15,7 @@ def netconf_commit(
     timeout: Optional[int] = 60,
     persist: Optional[int] = None,
     persist_id: Optional[int] = None,
-) -> Result:  # pylint-disable=too-many-arguments
+) -> Result:
     """Commit operation.
 
     Arguments:
