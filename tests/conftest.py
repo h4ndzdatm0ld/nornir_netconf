@@ -12,11 +12,18 @@ from nornir.core.state import GlobalState
 from nornir.core.task import Result
 from nornir_utils.plugins.functions import print_result
 
-# pytest mark decorator to skip integration tests if INTEGRATION_TESTS=True
-# These tests will connect to local lab environment to validate actual responses
-# from locallly hosted network devices.
+
+def is_truthy(value: str) -> bool:
+    """Evaluate arg and determine truthy value."""
+    if isinstance(value, bool):
+        return value
+    return bool(strtobool(str(value)))
+
+
+RUN_INTEGRATION_TESTS = is_truthy(os.environ.get("RUN_INTEGRATION_TESTS", True))
+
 skip_integration_tests = pytest.mark.skipif(
-    bool(strtobool(os.environ.get("RUN_INTEGRATION_TESTS", "False"))),
+    RUN_INTEGRATION_TESTS,
     reason="Integration tests require virtual devices running.",
 )
 
