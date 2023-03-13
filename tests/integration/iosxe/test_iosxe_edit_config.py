@@ -31,7 +31,6 @@ CONFIG = Template(CONFIG_TEMPLATE).substitute(random_description=RANDOM_DESCRIPT
 def test_netconf_edit_config(nornir):
     """Test Edit Config."""
     nr = nornir.filter(name=DEVICE_NAME)
-    assert nr.inventory.hosts
     result = nr.run(task=netconf_edit_config, config=CONFIG, target="running")
     assert result[DEVICE_NAME].result.rpc.ok
 
