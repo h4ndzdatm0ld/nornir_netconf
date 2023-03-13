@@ -20,10 +20,10 @@ def is_truthy(value: str) -> bool:
     return bool(strtobool(str(value)))
 
 
-RUN_INTEGRATION_TESTS = is_truthy(os.environ.get("RUN_INTEGRATION_TESTS", True))
+SKIP_INTEGRATION_TESTS = is_truthy(os.environ.get("SKIP_INTEGRATION_TESTS", True))
 
 skip_integration_tests = pytest.mark.skipif(
-    RUN_INTEGRATION_TESTS,
+    SKIP_INTEGRATION_TESTS,
     reason="Integration tests require virtual devices running.",
 )
 
