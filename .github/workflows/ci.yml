@@ -27,7 +27,7 @@ jobs:
           echo 'Running Yamllint' && \
           poetry run yamllint . && \
           echo 'Running Bandit' && \
-          poetry run bandit --recursive ./ --configfile .bandit.yml && \
+          poetry run bandit --recursive ./ --configfile pyproject.toml && \
           echo 'Running MyPy' && \
           poetry run mypy .
 

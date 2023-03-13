@@ -1,6 +1,8 @@
 """Conftest for nornir_netconf UnitTests."""
 import os
 import shutil
+import time
+from distutils.util import strtobool
 from typing import Any, Dict, List
 
 import pytest
@@ -10,11 +12,19 @@ from nornir.core.state import GlobalState
 from nornir.core.task import Result
 from nornir_utils.plugins.functions import print_result
 
-# pytest mark decorator to skip integration tests if INTEGRATION_TESTS=True
-# These tests will connect to local lab environment to validate actual responses
-# from locallly hosted network devices.
+
+def is_truthy(value: str) -> bool:
+    """Evaluate arg and determine truthy value."""
+    if isinstance(value, bool):
+        return value
+    return bool(strtobool(str(value)))
+
+
+SKIP_INTEGRATION_TESTS = is_truthy(os.environ.get("SKIP_INTEGRATION_TESTS", True))
+
 skip_integration_tests = pytest.mark.skipif(
-    bool(os.environ.get("SKIP_INTEGRATION_TESTS", True)), reason="Do not run integration tests"
+    SKIP_INTEGRATION_TESTS,
+    reason="Integration tests require virtual devices running.",
 )
 
 global_data = GlobalState(dry_run=True)
@@ -99,21 +109,6 @@ def sros_config_payload():
         """
 
 
-@pytest.fixture(scope="function", autouse=True)
-def iosxr_config_payload():
-    return """
-<config xmlns:xc="urn:ietf:params:xml:n:netconf:base:1.0">
-    <cdp xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-cdp-cfg">
-        <timer>80</timer>
-        <enable>true</enable>
-        <log-adjacency></log-adjacency>
-        <hold-time>200</hold-time>
-        <advertise-v1-only></advertise-v1-only>
-    </cdp>
-</config>
-        """
-
-
 def xml_dict(xml: str) -> Dict[str, Any]:
     """Convert XML to Dict.
 
@@ -143,3 +138,9 @@ def eval_multi_result(hosts: List, result: Result) -> None:
         if hasattr(result[host].result.rpc, "ok"):
             assert result[host].result.rpc.ok
         assert not result[host].failed
+
+
+@pytest.fixture(autouse=True, scope="module")
+def slow_down_tests():
+    yield
+    time.sleep(3)

@@ -23,3 +23,4 @@ def test_netconf_lock_failed(nornir):
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_lock, datastore="running", operation="lock")
     assert result[DEVICE_NAME].failed
+    result = nr.run(netconf_lock, datastore="running", operation="unlock")

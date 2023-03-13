@@ -19,6 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - `get_schema` doesn't pull `.data_xml` attribute and just dumps the output.
 - `write_output` internal helper allows for custom file extension (used for yang schema dumps)
 - `pylint` is now driven by `ruff`
+- `bandit` is now configured by pyproject.toml | updated docker file for linter + github CI
+- Added `is_truthy` helper and refactored `SKIP_INTEGRATION_TESTS`
 
 ### Removed
 

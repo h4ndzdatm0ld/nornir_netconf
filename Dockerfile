@@ -27,7 +27,7 @@ RUN echo 'Rnning Ruff' && \
     echo 'Running Yamllint' && \
     yamllint . && \
     echo 'Running Bandit' && \
-    bandit --recursive ./ --configfile .bandit.yml  && \
+    bandit --recursive ./ --configfile pyproject.toml  && \
     echo 'Running MyPy' && \
     mypy .
 
