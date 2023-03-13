@@ -19,6 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - `get_schema` doesn't pull `.data_xml` attribute and just dumps the output.
 - `write_output` internal helper allows for custom file extension (used for yang schema dumps)
 - `pylint` is now driven by `ruff`
+- `bandit` is now configured by pyproject.toml | updated docker file for linter + github CI
+- `SKIP` updated to `RUN` on `RUN_INTEGRATION_TESTS` to define the purpose better. Strtobool and read str env variables correctly to represent proper booleans.
 
 ### Removed
 

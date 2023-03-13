@@ -1,6 +1,5 @@
 """Test NETCONF lock - integration."""
 import pytest
-from ncclient.manager import Manager
 
 from nornir_netconf.plugins.tasks import netconf_lock
 from tests.conftest import (
@@ -26,10 +25,13 @@ def test_netconf_lock_and_unlock_datastore(nornir, datastore, expected_hosts):
     eval_multi_result(expected_hosts, result)
 
 
-def global_lock(task, datastore: str, operation: str, manager: Manager = None):
+def global_lock(task, datastore: str, operation: str):
     """Test global lock operation of 'running' datastore."""
     if operation == "unlock":
         manager = task.host["manager"]
+        print(manager)
+    else:
+        manager = None
     result = task.run(netconf_lock, datastore=datastore, operation=operation, manager=manager)
     task.host["manager"] = result.result.manager
     if hasattr(result.result.rpc, "ok"):
@@ -64,3 +66,4 @@ def test_netconf_lock_lock_failed(datastore, expected_hosts, nornir):
     for host in expected_hosts:
         for task in range(len(result[host])):
             assert result[host][task].failed
+    result = nr.run(global_lock, datastore=datastore, operation="unlock")

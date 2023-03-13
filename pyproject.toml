@@ -138,7 +138,6 @@ testpaths = [
 ]
 addopts = "-p no:warnings"
 
-
 [tool.mypy]
 namespace_packages = true
 explicit_package_bases = true
@@ -166,3 +165,6 @@ no_implicit_optional = true
 implicit_reexport = true
 strict_equality = true
 exclude = "tests/"
+
+[tool.bandit]
+exclude_dirs = ["tests"]

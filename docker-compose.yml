@@ -6,7 +6,7 @@ services:
     hostname: "test"
     network_mode: "host"
     environment:
-      SKIP_INTEGRATION_TESTS: "${SKIP_INTEGRATION_TESTS:-False}"
+      RUN_INTEGRATION_TESTS: "${RUN_INTEGRATION_TESTS:-False}"
       NORNIR_LOG: "${NORNIR_LOG:-False}"
     build:
       context: "."
