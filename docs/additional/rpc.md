@@ -1,21 +1,14 @@
 # Key Differences in RPC response objects
 
-Different vendor implementations return back different attributes in the RPC response. This has become somewhat of an issue, but this plugin attempts at normalizing the Nornir `Result` object to include the following keys, always:
+Different vendor implementations return back different attributes in the RPC response.
 
-- error
-- errors
-- ok
-- rpc
+The `ok` response is not always a present attribute, unfortunately. The `data_xml` or `xml` attribute could be parsed to find this XML representation at times
 
-The `Error/Errors` are only present in the Nokia SROS devices (as far as I am concerned).
+The `rpc` attribute that's part of the `Result.RpcResult` response object is the actual RPC response from the server.
 
-The `ok` response is determined based on the result from an RPC response after being evaluated.
+Lets compare the attributes from an `SROS`device and a `Cisco IOSXR` device. The following shows the attributes and the type for the RPC object.
 
-The `rpc` is the literall RPC Object. Sometimes, the __str__ implementation returns back a string output of the XML response. However, in the case of an SROS device response, the `rpc` key is an NCElement, which can be accessed directly. Same goes for other RPC objects, they may display the string output but within the `Result` object in a task, you are able to access the `rpc` attributes.
-
-Lets compare the attributes from an SROS device and a Cisco IOSXR device. The following shows the attributes and the `Result` object.
-
-Nokia SROS 7750
+`Nokia SROS 7750`
 
 ```py
 ['_NCElement__doc', '_NCElement__huge_tree', '_NCElement__result', '_NCElement__transform_reply', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'data_xml', 'find', 'findall', 'findtext', 'remove_namespaces', 'tostring', 'xpath']
@@ -27,7 +20,7 @@ Nokia SROS 7750
 <class 'ncclient.xml_.NCElement'>
 ```
 
-Cisco IOSxR
+`Cisco IOSxR`
 
 ```py
 ['ERROR_CLS', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_errors', '_huge_tree', '_parsed', '_parsing_error_transform', '_parsing_hook', '_raw', '_root', 'error', 'errors', 'ok', 'parse', 'set_parsing_error_transform', 'xml']
