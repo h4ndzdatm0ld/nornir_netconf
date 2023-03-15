@@ -33,16 +33,17 @@ pip install nornir_netconf
 - **netconf_get_config** - Returns configuration from specified configuration store (default="running") -> `Result.result -> RpcResult`
 - **netconf_get_schemas** - Retrieves schemas and saves aggregates content into a directory with schema output -> `Result.result -> SchemaResult`
 - **netconf_lock** - Locks or Unlocks a specified datastore (default="lock") -> `Result.result -> RpcResult`
+- **netconf_validate** - Validates configuration datastore. Requires the `validate` capability. -> `Result.result -> RpcResult`
 
 ## Response Result
 
-The goal of the task results is to put the NETCONF RPC-reply back in your hands. In most cases, the Nornir `Result.result` attribute will return back a `dataclass` depending on the task operation. It's important that you understand the object you will be working with. There are exceptions to this. For example, `get_capabilities` will simply return a list of capabilities in the `Result` object.
+The goal of the task results is to put the NETCONF RPC-reply back in your hands. In most cases, the Nornir `Result.result` attribute will return back a `dataclass` depending on the task operation. It's important that you understand the object you will be working with. Please see the `dataclasses` section below and review the code if you want to see what attributes to expect.
 
 ### Dataclasses
 
 > Defined in `nornir_netconf/plugins/helpers/models.py`
 
-- `RpcResult` -> This will return an attribute of `rpc` and `manager`. You will encounter this object in most Nornir `Results` as the return value to the `result` attribute. NETCONF / XML payloads can be overwhelming, specially with large configurations and it's just not efficient or useful to display thousands of lines of code in any result.
+- `RpcResult` -> This will return an attribute of `rpc` and `manager`. You will encounter this object in most Nornir `Results` as the return value to the `result` attribute. NETCONF / XML payloads can be overwhelming, especially with large configurations and it's just not efficient or useful to display thousands of lines of code in any result.
 - `SchemaResult` -> An aggregation of interesting information when grabbing schemas from NETCONF servers.
 
 ## Global Lock
@@ -72,7 +73,7 @@ Head over to the [Examples directory](https://github.com/h4ndzdatm0ld/nornir_net
 
 <details><summary>Netconf Connection Plugin</summary>
 
-Below is the snippet of a host inside the host-local.yml file and its associated group, 'sros'.
+Below is the snippet of a host inside the host-local.yml file and its associated group, `sros`.
 
 ```yaml
 nokia_rtr:
@@ -102,46 +103,70 @@ sros:
 <details><summary>Task: Get Config</summary>
 
 ```python
-"""Nornir NETCONF Example Task: 'get-config'."""
-from nornir import InitNornir
-from nornir_utils.plugins.functions import print_result
-from nornir_netconf.plugins.tasks import netconf_get_config
+    """Nornir NETCONF Example Task: 'get-config'."""
+    from nornir import InitNornir
+    from nornir.core.task import Task
+    from nornir_utils.plugins.functions import print_result
+
+    from nornir_netconf.plugins.tasks import netconf_get_config
+
+    __author__ = "Hugo Tinoco"
+    __email__ = "hugotinoco@icloud.com"
+
+    nr = InitNornir("config.yml")
+
+    # Filter the hosts by 'west-region' assignment
+    west_region = nr.filter(region="west-region")
 
 
-__author__ = "Hugo Tinoco"
-__email__ = "hugotinoco@icloud.com"
-
-nr = InitNornir("config.yml")
-
-# Filter the hosts by 'west-region' assignment
-west_region = nr.filter(region="west-region")
-
-
-def example_netconf_get_config(task):
-    """Test get config."""
-
-    task.run(
-        netconf_get_config,
-        source="running",
-        path="""
-        <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf">
-            <router>
-                <router-name>Base</router-name>
-            </router>
-        </configure>
-        """,
-        filter_type="subtree",
-    )
+    def example_netconf_get_config(task: Task) -> str:
+        """Test get config."""
+        config = task.run(
+            netconf_get_config,
+            source="running",
+            path="""
+            <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf">
+                <router>
+                    <router-name>Base</router-name>
+                </router>
+            </configure>
+            """,
+            filter_type="subtree",
+        )
+        return config.result.rpc.data_xml
 
 
-def main():
-    """Execute Nornir Script."""
-    print_result(west_region.run(task=example_netconf_get_config))
+    def main():
+        """Execute Nornir Script."""
+        print_result(west_region.run(task=example_netconf_get_config))
 
 
-if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+        main()
+```
 
+This returns the following
+
+```bash
+    vvvv example_netconf_get_config ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO
+    <?xml version="1.0" encoding="UTF-8"?><rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:918bf169-523f-4bb0-b00c-c97c01a48ecd">
+        <data>
+            <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf">
+                <router>
+                    <router-name>Base</router-name>
+                    <interface>
+                        <interface-name>L3-OAM-eNodeB069420-X1</interface-name>
+                        <admin-state>disable</admin-state>
+                        <ingress-stats>false</ingress-stats>
+                    </interface>
+                </router>
+            </configure>
+        </data>
+    </rpc-reply>
+    ---- netconf_get_config ** changed : False ------------------------------------- INFO
+    RpcResult(rpc=<ncclient.xml_.NCElement object at 0x7f4b1e08a440>)
+    ^^^^ END example_netconf_get_config ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    (nornir-netconf-Ky5gYI2O-py3.10) ➜  example-project git:(feature/validate-tasks) ✗ 
 ```
 
 </details>
@@ -149,33 +174,50 @@ if __name__ == "__main__":
 <details><summary>Task: Get Capabilities</summary>
 
 ```python
-"""Nornir NETCONF Example Task: 'get-config'."""
-from nornir import InitNornir
-from nornir_utils.plugins.functions import print_result
-from nornir_netconf.plugins.tasks import netconf_capabilities
+    """Nornir NETCONF Example Task: 'capabilities'."""
+    from nornir import InitNornir
+    from nornir.core.task import Task
+    from nornir_utils.plugins.functions import print_result
+
+    from nornir_netconf.plugins.tasks import netconf_capabilities
+
+    __author__ = "Hugo Tinoco"
+    __email__ = "hugotinoco@icloud.com"
+
+    nr = InitNornir("config.yml")
+
+    # Filter the hosts by 'west-region' assignment
+    west_region = nr.filter(region="west-region")
 
 
-__author__ = "Hugo Tinoco"
-__email__ = "hugotinoco@icloud.com"
-
-nr = InitNornir("config.yml")
-
-# Filter the hosts by 'west-region' assignment
-west_region = nr.filter(region="west-region")
+    def example_netconf_get_capabilities(task: Task) -> str:
+        """Test get capabilities."""
+        capabilities = task.run(netconf_capabilities)
+        # This may be a lot, so for example we'll just print the first one
+        return [cap for cap in capabilities.result.rpc][0]
 
 
-def example_netconf_get_capabilities(task):
-    """Test get capabilities."""
-    task.run(netconf_capabilities)
+    def main():
+        """Execute Nornir Script."""
+        print_result(west_region.run(task=example_netconf_get_capabilities))
 
 
-def main():
-    """Execute Nornir Script."""
-    print_result(west_region.run(task=example_netconf_get_capabilities))
+    if __name__ == "__main__":
+        main()
+```
 
+This returns the following
 
-if __name__ == "__main__":
-    main()
+```bash
+    (nornir-netconf-Ky5gYI2O-py3.10) ➜  example-project git:(feature/validate-tasks) ✗ python3 nr_get_capabilities.py 
+    example_netconf_get_capabilities************************************************
+    * nokia_rtr ** changed : False *************************************************
+    vvvv example_netconf_get_capabilities ** changed : False vvvvvvvvvvvvvvvvvvvvvvv INFO
+    urn:ietf:params:netconf:base:1.0
+    ---- netconf_capabilities ** changed : False ----------------------------------- INFO
+    RpcResult(rpc=<dict_keyiterator object at 0x7f7111328c70>)
+    ^^^^ END example_netconf_get_capabilities ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    (nornir-netconf-Ky5gYI2O-py3.10) ➜  example-project git:(feature/validate-tasks) ✗ 
 ```
 
 </details>
@@ -183,71 +225,135 @@ if __name__ == "__main__":
 <details><summary>Task: Edit-Config with Global Lock</summary>
 
 ```python
-"""Nornir NETCONF Example Task: 'edit-config', 'netconf_lock'."""
-from nornir import InitNornir
-from nornir_utils.plugins.functions import print_result
-from nornir_netconf.plugins.tasks import netconf_edit_config, netconf_lock, netconf_commit
+    """Nornir NETCONF Example Task: 'edit-config', 'netconf_lock'."""
+    from nornir import InitNornir
+    from nornir_utils.plugins.functions import print_result
+    from nornir_netconf.plugins.tasks import netconf_edit_config, netconf_lock, netconf_commit
 
 
-__author__ = "Hugo Tinoco"
-__email__ = "hugotinoco@icloud.com"
+    __author__ = "Hugo Tinoco"
+    __email__ = "hugotinoco@icloud.com"
 
-nr = InitNornir("config.yml")
+    nr = InitNornir("config.yml")
 
-# Filter the hosts by 'west-region' assignment
-west_region = nr.filter(region="west-region")
-
-
-def example_global_lock(task):
-    """Test global lock operation of 'candidate' datastore."""
-    lock = task.run(netconf_lock, datastore="candidate", operation="lock")
-    # Retrieve the Manager(agent) from lock operation and store for further
-    # operations.
-    task.host["manager"] = lock.result.manager
+    # Filter the hosts by 'west-region' assignment
+    west_region = nr.filter(region="west-region")
 
 
-def example_edit_config(task):
-    """Test edit-config with global lock using manager agent."""
+    def example_global_lock(task):
+        """Test global lock operation of 'candidate' datastore."""
+        lock = task.run(netconf_lock, datastore="candidate", operation="lock")
+        # Retrieve the Manager(agent) from lock operation and store for further
+        # operations.
+        task.host["manager"] = lock.result.manager
 
-    config_payload = """
-    <config>
-        <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf">
-            <router>
-                <router-name>Base</router-name>
-                <interface>
-                    <interface-name>L3-OAM-eNodeB069420-X1</interface-name>
-                    <admin-state>disable</admin-state>
-                    <ingress-stats>false</ingress-stats>
-                </interface>
-            </router>
-        </configure>
-    </config>
-    """
 
-    result = task.run(
-        netconf_edit_config, config=config_payload, target="candidate", manager=task.host["manager"]
-    )
+    def example_edit_config(task):
+        """Test edit-config with global lock using manager agent."""
 
-    # Access the RPC response object directly.
-    # Or you can check the 'ok' attr from an rpc response as well, if it exists.
-    if "ok" in result.result["rpc"].data_xml:
+        config_payload = """
+        <config>
+            <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf">
+                <router>
+                    <router-name>Base</router-name>
+                    <interface>
+                        <interface-name>L3-OAM-eNodeB069420-X1</interface-name>
+                        <admin-state>disable</admin-state>
+                        <ingress-stats>false</ingress-stats>
+                    </interface>
+                </router>
+            </configure>
+        </config>
+        """
+
+        result = task.run(
+            netconf_edit_config, config=config_payload, target="candidate", manager=task.host["manager"]
+        )
+        # Validate configuration
+        task.run(netconf_validate)
+        # Commit
         task.run(netconf_commit, manager=task.host["manager"])
 
-def example_unlock(task):
-    """Unlock candidate datastore."""
-    task.run(netconf_lock, datastore="candidate", operation="unlock", manager=task.host["manager"])
+    def example_unlock(task):
+        """Unlock candidate datastore."""
+        task.run(netconf_lock, datastore="candidate", operation="unlock", manager=task.host["manager"])
 
 
-def main():
-    """Execute Nornir Script."""
-    print_result(west_region.run(task=example_global_lock))
-    print_result(west_region.run(task=example_edit_config))
-    print_result(west_region.run(task=example_unlock))
+    def main():
+        """Execute Nornir Script."""
+        print_result(west_region.run(task=example_global_lock))
+        print_result(west_region.run(task=example_edit_config))
+        print_result(west_region.run(task=example_unlock))
 
 
-if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+        main()
 
+```
+
+</details>
+
+<details><summary>Task: Get Schemas</summary>
+
+```python
+    """Get Schemas from NETCONF device."""
+    from nornir import InitNornir
+    from nornir.core import Task
+    from nornir.core.task import Result
+    from nornir_utils.plugins.functions import print_result
+
+    from nornir_netconf.plugins.tasks import netconf_get, netconf_get_schemas
+    from tests.conftest import xml_dict
+
+    __author__ = "Hugo Tinoco"
+    __email__ = "hugotinoco@icloud.com"
+
+    nr = InitNornir("config.yml")
+
+
+    # Filter the hosts by 'west-region' assignment
+    west_region = nr.filter(region="west-region")
+
+    SCHEMA_FILTER = """
+    <netconf-state xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring">
+        <schemas>
+        </schemas>
+    </netconf-state>
+    """
+
+
+    def example_task_get_schemas(task: Task) -> Result:
+        """Get Schemas from NETCONF device."""
+        result = task.run(netconf_get, path=SCHEMA_FILTER, filter_type="subtree")
+        # xml_dict is a custom function to convert XML to Python dictionary. Not part of Nornir Plugin.
+        # See the code example if you want to use it.
+        parsed = xml_dict(result.result.rpc.data_xml)
+        first_schema = parsed["rpc-reply"]["data"]["netconf-state"]["schemas"]["schema"][0]
+        return task.run(netconf_get_schemas, schemas=[first_schema["identifier"]], schema_path="./output/schemas")
+
+
+    def main():
+        """Execute Nornir Script."""
+        print_result(west_region.run(task=example_task_get_schemas))
+
+
+    if __name__ == "__main__":
+        main()
+
+```
+
+This returns the following
+
+```bash
+    (nornir-netconf-Ky5gYI2O-py3.10) ➜  example-project git:(feature/validate-tasks) ✗ python3 nr_get_schemas.py 
+    example_task_get_schemas********************************************************
+    * nokia_rtr ** changed : False *************************************************
+    vvvv example_task_get_schemas ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO
+    ---- netconf_get ** changed : False -------------------------------------------- INFO
+    RpcResult(rpc=<ncclient.xml_.NCElement object at 0x7f36391540d0>)
+    ---- netconf_get_schemas ** changed : False ------------------------------------ INFO
+    SchemaResult(directory='./output/schemas')
+    ^^^^ END example_task_get_schemas ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
 
 </details>

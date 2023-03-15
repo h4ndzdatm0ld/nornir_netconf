@@ -8,9 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- `netconf_validate` task has been implemented. This is tested in integration against SROS devices that support the capability.
 - `ruff` linter
 - Integration tests for IOSXE with ContainerLab. (Not in CI)
 - Standardized on tests for all platforms part of integration tests. Added a common section for common NETCONF operations.
+- Added examples and updated previous ones
 
 ### Changed
 
