@@ -128,9 +128,6 @@ max-complexity = 10
 [tool.ruff.pydocstyle]
 convention = "google"
 
-[tool.ruff.pylint]
-# disable=
-
 [tool.pytest.ini_options]
 testpaths = [
   "tests",

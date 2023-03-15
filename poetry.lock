@@ -195,7 +195,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "exceptiongroup"
-version = "1.1.0"
+version = "1.1.1"
 description = "Backport of PEP 654 (exception groups)"
 category = "dev"
 optional = false
@@ -450,7 +450,7 @@ invoke = ["invoke (>=2.0)"]
 
 [[package]]
 name = "pathspec"
-version = "0.11.0"
+version = "0.11.1"
 description = "Utility library for gitignore style pattern matching of file paths."
 category = "dev"
 optional = false
@@ -643,7 +643,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "ruff"
-version = "0.0.254"
+version = "0.0.256"
 description = "An extremely fast Python linter, written in Rust."
 category = "dev"
 optional = false
