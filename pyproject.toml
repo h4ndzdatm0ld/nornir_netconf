@@ -31,7 +31,6 @@ nornir-utils = "*"
 isort = "*"
 mypy = "*"
 Sphinx = "*"
-# myst-parser = "*"
 sphinx-autoapi = "*"
 sphinx-pdj-theme = "*"
 sphinxcontrib-napoleon = "*"
@@ -49,7 +48,7 @@ multi_line_output = 3
 
 [tool.black]
 line-length = 120
-target-version = ['py37']
+target-version = ['py38']
 include = '\.pyi?$'
 exclude = '''
 (
@@ -128,9 +127,6 @@ max-complexity = 10
 
 [tool.ruff.pydocstyle]
 convention = "google"
-
-[tool.ruff.pylint]
-# disable=
 
 [tool.pytest.ini_options]
 testpaths = [

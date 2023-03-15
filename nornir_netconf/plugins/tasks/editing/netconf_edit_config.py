@@ -37,8 +37,9 @@ def netconf_edit_config(
             > nr.run(task=netconf_edit_config, target="candidate", config=desired_config, default_operation="replace")
 
     Returns:
-        Result object with the following attributes set:
-          * result (RpcResult): Rpc and Manager
+        Result object with the following attributes set::
+
+            * result (RpcResult): Rpc and Manager
     """
     if default_operation not in ["merge", "replace"]:
         raise ValueError(f"{default_operation} not supported.")

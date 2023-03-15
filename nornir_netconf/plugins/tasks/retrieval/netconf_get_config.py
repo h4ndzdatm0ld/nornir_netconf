@@ -43,8 +43,9 @@ def netconf_get_config(
 
 
     Returns:
-        Result object with the following attributes set:
-          * result (RpcResult): Rpc and Manager
+        Result object with the following attributes set::
+
+            * result (RpcResult): Rpc and Manager
     """
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     params: Dict[str, Any] = {"source": source}

@@ -32,8 +32,9 @@ def netconf_get(task: Task, path: Optional[str] = "", filter_type: Optional[str]
 
 
     Returns:
-        Result object with the following attributes set:
-          * result (RpcResult): Rpc and Manager
+        Result object with the following attributes set::
+
+            * result (RpcResult): Rpc and Manager
     """
     params = {}
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
