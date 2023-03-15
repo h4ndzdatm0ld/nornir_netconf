@@ -1,13 +1,10 @@
 ---
 name: "Documentation"
 
-# on:
-#   push:
-#     branches:
-#       - "develop"
-on: # yamllint disable-line rule:truthy rule:comments
-  - "push"
-  - "pull_request"
+on:
+  push:
+    branches:
+      - "develop"
 
 jobs:
   documentation:
