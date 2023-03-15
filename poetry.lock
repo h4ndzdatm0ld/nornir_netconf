@@ -346,6 +346,22 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "mdit-py-plugins"
+version = "0.3.5"
+description = "Collection of plugins for markdown-it-py"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+markdown-it-py = ">=1.0.0,<3.0.0"
+
+[package.extras]
+code_style = ["pre-commit"]
+rtd = ["attrs", "myst-parser (>=0.16.1,<0.17.0)", "sphinx-book-theme (>=0.1.0,<0.2.0)"]
+testing = ["coverage", "pytest", "pytest-cov", "pytest-regressions"]
+
+[[package]]
 name = "mdurl"
 version = "0.1.2"
 description = "Markdown URL utilities"
@@ -379,6 +395,29 @@ description = "Experimental type system extensions for programs checked with the
 category = "main"
 optional = false
 python-versions = ">=2.7"
+
+[[package]]
+name = "myst-parser"
+version = "1.0.0"
+description = "An extended [CommonMark](https://spec.commonmark.org/) compliant parser,"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+docutils = ">=0.15,<0.20"
+jinja2 = "*"
+markdown-it-py = ">=1.0.0,<3.0.0"
+mdit-py-plugins = ">=0.3.4,<0.4.0"
+pyyaml = "*"
+sphinx = ">=5,<7"
+
+[package.extras]
+code_style = ["pre-commit (>=3.0,<4.0)"]
+linkify = ["linkify-it-py (>=1.0,<2.0)"]
+rtd = ["ipython", "sphinx-book-theme (==1.0.0rc2)", "pydata-sphinx-theme (==v0.13.0rc4)", "sphinx-design2", "sphinx-copybutton", "sphinxext-rediraffe (>=0.2.7,<0.3.0)", "sphinxext-opengraph (>=0.7.5,<0.8.0)", "sphinx-pyscript", "sphinx-tippy (>=0.3.1)", "sphinx-autodoc2 (>=0.4.2,<0.5.0)", "sphinx-togglebutton"]
+testing = ["beautifulsoup4", "coverage", "pytest (>=7,<8)", "pytest-cov", "pytest-regressions", "pytest-param-files (>=0.3.4,<0.4.0)", "sphinx-pytest"]
+testing-docutils = ["pygments", "pytest (>=7,<8)", "pytest-param-files (>=0.3.4,<0.4.0)"]
 
 [[package]]
 name = "ncclient"
@@ -517,7 +556,6 @@ python-versions = ">=3.6"
 
 [package.extras]
 plugins = ["importlib-metadata"]
-testutil = ["gitpython (>3)"]
 
 [[package]]
 name = "pynacl"
@@ -722,9 +760,9 @@ sphinx = ">=4.0"
 unidecode = "*"
 
 [package.extras]
-go = ["sphinxcontrib-golangdomain"]
+docs = ["sphinx", "sphinx-rtd-theme"]
 dotnet = ["sphinxcontrib-dotnetdomain"]
-docs = ["sphinx-rtd-theme", "sphinx"]
+go = ["sphinxcontrib-golangdomain"]
 
 [[package]]
 name = "sphinx-pdj-theme"
@@ -908,7 +946,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "flake8 (<5)", "pytest-co
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "c2310cce97e9fd4c1c55c2557116d3684b16634e2614c956036f37b69c864a49"
+content-hash = "1dd03a582d64a1dcd87488f771418eb731a75e3d642cdf74a1fa4fd59a6b62d8"
 
 [metadata.files]
 alabaster = []
@@ -1010,9 +1048,11 @@ lazy-object-proxy = []
 lxml = []
 markdown-it-py = []
 markupsafe = []
+mdit-py-plugins = []
 mdurl = []
 mypy = []
 mypy-extensions = []
+myst-parser = []
 ncclient = []
 nornir = [
     {file = "nornir-3.3.0-py3-none-any.whl", hash = "sha256:4590d96edb5044e6a9e6f84e15625d32932177a10654040f99e145d73b352479"},
