@@ -25,8 +25,9 @@ def netconf_validate(
             > nr.run(task=netconf_validate)
 
     Returns:
-        Result object with the following attributes set:
-          * result (RpcResult): Rpc and Manager
+        Result object with the following attributes set::
+
+            * result (RpcResult): Rpc and Manager
     """
     if not manager:
         manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)

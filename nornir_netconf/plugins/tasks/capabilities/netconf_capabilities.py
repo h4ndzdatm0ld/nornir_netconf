@@ -14,8 +14,9 @@ def netconf_capabilities(task: Task) -> Result:
             > nr.run(task=netconf_capabilities)
 
     Returns:
-        Result object with the following attributes set:
-          * result (RpcResult): Rpc and Manager
+        Result object with the following attributes set::
+
+            * result (RpcResult): Rpc and Manager
     """
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
     capabilities = manager.server_capabilities

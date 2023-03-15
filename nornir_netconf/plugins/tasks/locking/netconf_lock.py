@@ -48,8 +48,9 @@ def netconf_lock(
             >    manager=task.host["manager"])
 
     Returns:
-        Result object with the following attributes set:
-          * result (RpcResult): Rpc and Manager
+        Result object with the following attributes set::
+
+            * result (RpcResult): Rpc and Manager
     """
     operation = operation.strip().lower()
     if operation not in ["lock", "unlock"]:

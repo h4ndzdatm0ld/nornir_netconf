@@ -23,7 +23,8 @@ def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str) -> Res
         > nr.run(task=netconf_schemas, schemas=["schema1", "schema2"], schema_path="workdir/schemas")
 
     Returns:
-        Result object with the following attributes set:
+        Result object with the following attributes set::
+
           * result (SchemaResult): List of files created, errors, if any and base directory path.
     """
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
