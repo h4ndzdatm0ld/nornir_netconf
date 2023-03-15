@@ -1,6 +1,7 @@
 # type: ignore
 """Nornir NETCONF Example Task: 'get-config'."""
 from nornir import InitNornir
+from nornir.core.task import Task
 from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.tasks import netconf_get_config
@@ -14,9 +15,9 @@ nr = InitNornir("config.yml")
 west_region = nr.filter(region="west-region")
 
 
-def example_netconf_get_config(task):
+def example_netconf_get_config(task: Task) -> str:
     """Test get config."""
-    data = task.run(
+    config = task.run(
         netconf_get_config,
         source="running",
         path="""
@@ -28,7 +29,7 @@ def example_netconf_get_config(task):
         """,
         filter_type="subtree",
     )
-    return data.result["rpc"].data_xml
+    return config.result.rpc.data_xml
 
 
 def main():

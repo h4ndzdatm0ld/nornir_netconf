@@ -122,3 +122,6 @@ docs/public/*
 # containerlab
 .clab-topo-netconf.yml.bak
 clab-clab-topo-netconf.yml/
+.clab-arista.yml.bak
+clab-arista-testing.yml
+test/test_data/schemas

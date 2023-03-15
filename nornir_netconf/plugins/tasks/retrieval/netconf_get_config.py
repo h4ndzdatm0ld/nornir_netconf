@@ -1,22 +1,22 @@
 """NETCONF get config."""
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
-from nornir_netconf.plugins.helpers.rpc_helpers import get_result
+from nornir_netconf.plugins.helpers import RpcResult
 
 
+#  - > Prob don't need to add defaults.
 def netconf_get_config(
-    task: Task, source: str = "running", path: str = "", filter_type: str = "xpath", xmldict: bool = False
+    task: Task, source: Optional[str] = "running", path: Optional[str] = "", filter_type: Optional[str] = "xpath"
 ) -> Result:
     """Get configuration over Netconf from device.
 
     Arguments:
-        source: Configuration store to collect from
-        path: Subtree or xpath to filter
-        filter_type: Type of filtering to use, 'xpath' or 'subtree'
-        xmldict (boolean): convert xml to dict
+        source (Optional[str]): Configuration datastore to collect from. Defaults to `running`
+        path (Optional[str]): Subtree or xpath to filter. Defaults to `''`
+        filter_type (Optional[str]): Type of filtering to use, 'xpath' or 'subtree'. Defaults to `xpath`
 
     Examples:
         Simple example::
@@ -43,14 +43,15 @@ def netconf_get_config(
 
 
     Returns:
-        Result object with the following attributes set:
-          * result (``str``): The collected data as an XML string
+        Result object with the following attributes set::
+
+            * result (RpcResult): Rpc and Manager
     """
     manager = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
-    parameters: Dict[str, Any] = {"source": source}
-
+    params: Dict[str, Any] = {"source": source}
     if path:
-        parameters["filter"] = (filter_type, path)
+        params["filter"] = (filter_type, path)
+    result = manager.get_config(**params)
 
-    result = manager.get_config(**parameters)
-    return Result(host=task.host, **get_result(result, xmldict))
+    result = RpcResult(rpc=result, manager=manager)
+    return Result(host=task.host, result=result)

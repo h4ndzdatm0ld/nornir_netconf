@@ -2,7 +2,6 @@
 from typing import Any, Dict, Optional
 
 from ncclient import manager
-from nornir.core.configuration import Config
 
 from nornir_netconf.plugins.helpers import check_file
 
@@ -89,22 +88,21 @@ class Netconf:
 
     def open(
         self,
-        hostname: Optional[str],
-        username: Optional[str],
+        hostname: str,
+        username: str,
         password: Optional[str],
-        port: Optional[int],
+        port: Optional[int] = 830,
         platform: Optional[str] = "default",
         extras: Optional[Dict[str, Any]] = None,
-        configuration: Optional[Config] = None,
+        configuration: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Open NETCONF connection."""
-        extras = extras or {}
-
+        extras = extras if extras is not None else {}
         parameters: Dict[str, Any] = {
             "host": hostname,
             "username": username,
             "password": password,
-            "port": port or 830,
+            "port": port,
             "device_params": {"name": platform if platform else "default"},
         }
         ssh_config_file = extras.get("ssh_config", configuration.ssh.config_file)  # type: ignore[union-attr]

@@ -1,0 +1,16 @@
+# clab/clab@123
+---
+name: "arista-testing.yml"
+mgmt:
+  network: "nornir-netconf-testing-arista"
+  ipv4_subnet: "172.200.101.0/24"
+topology:
+  kinds:
+    ceos:
+      image: "h4ndzdatm0ld/ceosimage:4.28.0F"
+      binds:
+        - "interfaces.json:/mnt/flash/EosIntfMapping.json:ro"
+  nodes:
+    ceos:
+      kind: "ceos"
+      mgmt_ipv4: "172.200.101.11"

@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "nornir_netconf"
-version = "1.1.0"
-description = "Netconf plugin for nornir using ncclient"
+version = "2.0.0"
+description = "NETCONF plugin for Nornir"
 authors = ["Hugo Tinoco <hugotinoco@icloud.com>", "Patrick Ogenstad <patrick@ogenstad.com>"]
 license = "Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/h4ndzdatm0ld/nornir_netconf"
 keywords = ["nornir", "netconf", "ncclient"]
-documentation = "https://nornir-netconf.readthedocs.io"
+documentation = "https://h4ndzdatm0ld.github.io/nornir_netconf/"
 packages = [
     { include = "nornir_netconf" },
 ]
@@ -16,9 +16,8 @@ packages = [
 "netconf" = "nornir_netconf.plugins.connections:Netconf"
 
 [tool.poetry.dependencies]
-python = "^3.7.0"
 ncclient = "^0.6.9"
-xmltodict = "^0.12.0"
+python = "^3.8"
 nornir = {version = "^3.0.0", allow-prereleases = true}
 
 
@@ -26,20 +25,18 @@ nornir = {version = "^3.0.0", allow-prereleases = true}
 black = "*"
 pytest-cov = "*"
 bandit = "*"
-pylint = "*"
-flake8 = "*"
 coverage = "*"
 yamllint = "*"
 nornir-utils = "*"
 isort = "*"
-pydocstyle = "*"
 mypy = "*"
 Sphinx = "*"
-myst-parser = "*"
 sphinx-autoapi = "*"
-sphinx-rtd-theme = "*"
+sphinx-pdj-theme = "*"
+sphinxcontrib-napoleon = "*"
 pytest = "*"
-
+xmltodict = "*"
+ruff = "*"
 
 [build-system]
 requires = ["poetry_core>=1.0.0"]
@@ -51,7 +48,7 @@ multi_line_output = 3
 
 [tool.black]
 line-length = 120
-target-version = ['py37']
+target-version = ['py38']
 include = '\.pyi?$'
 exclude = '''
 (
@@ -66,6 +63,104 @@ exclude = '''
     | buck-out
     | build
     | dist
+    | clab-arista-testing.yml
+    | clab-files
   )/
 )
 '''
+
+[tool.ruff]
+# Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
+select = [
+    # Pyflakes
+    "F",
+    # Pycodestyle
+    "E",
+    "W",
+    # isort
+    "I001",
+    # Pylint
+    "PL",
+]
+ignore = ["PLR0913"]
+
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+fixable = ["A", "B", "D", "E", "F"]
+unfixable = []
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+per-file-ignores = {}
+
+# Same as Black.
+line-length = 120
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+target-version = "py38"
+
+[tool.ruff.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.pytest.ini_options]
+testpaths = [
+  "tests",
+]
+addopts = "-p no:warnings"
+
+[tool.mypy]
+namespace_packages = true
+explicit_package_bases = true
+show_error_codes = true
+enable_error_code = [
+  "ignore-without-code",
+  "truthy-bool",
+]
+check_untyped_defs = true
+ignore_errors = false
+ignore_missing_imports = true
+strict_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+disallow_any_generics = true
+warn_return_any = true
+python_version = 3.8
+disallow_subclassing_any = true
+no_implicit_optional = true
+implicit_reexport = true
+strict_equality = true
+exclude = "tests/"
+
+[tool.bandit]
+exclude_dirs = ["tests"]

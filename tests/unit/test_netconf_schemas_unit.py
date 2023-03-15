@@ -5,6 +5,9 @@ from ncclient.operations.rpc import RPCError, to_ele
 
 from nornir_netconf.plugins.tasks import netconf_get_schemas
 
+DEVICE_NAME = "nokia_rtr"
+
+
 xml_resp = """
 <rpc-reply message-id="urn:uuid:15ceca00-904e-11e4-94ad-5c514f91ab3f">
     <load-configuration-results>
@@ -31,10 +34,10 @@ xml_resp = """
 @patch("ncclient.manager.Manager")
 def test_netconf_get_schema_schema_path(manager, ssh, nornir):
     """Test NETCONF Capabilities + Get Schemas success."""
-    nr = nornir.filter(name="netconf_sysrepo")
+    nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="tests/test_data/schema_path")
-    assert not result["netconf_sysrepo"].failed
-    assert result["netconf_sysrepo"].result["log"][0] == "tests/test_data/schema_path/nokia-conf-aaa.txt created."
+    assert not result[DEVICE_NAME].failed
+    assert result[DEVICE_NAME].result.files[0] == "tests/test_data/schema_path/nokia-conf-aaa.yang"
 
 
 @patch("ncclient.manager.connect_ssh")
@@ -42,10 +45,9 @@ def test_netconf_get_schema_schema_path(manager, ssh, nornir):
 def test_netconf_get_schema(manager, ssh, nornir):
     """Test NETCONF get_schema, missing path"""
     manager.get_schema.return_value = str("SCHEMA")
-    nr = nornir.filter(name="netconf_sysrepo")
-    result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"])
-    assert result["netconf_sysrepo"].failed
-    assert result["netconf_sysrepo"].result["errors"][0] == "Missing 'schema_path' arg to save schema files."
+    nr = nornir.filter(name=DEVICE_NAME)
+    result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="/tmp")
+    assert result[DEVICE_NAME].result.directory == "/tmp"
 
 
 @patch("ncclient.manager.connect_ssh")
@@ -56,8 +58,9 @@ def test_netconf_get_schema_exception(ssh, nornir):
     # Assign the side_effect to trigger on get_schema call and hit exception.
     ssh.side_effect = [response]
 
-    nr = nornir.filter(name="netconf4")
+    nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(
         netconf_get_schemas, schemas=["nokia-conf-aaa", "some-other"], schema_path="tests/test_data/schema_path"
     )
-    assert len(result["netconf4"].result["errors"]) == 2
+    expected_results = 2
+    assert len(result[DEVICE_NAME].result.errors) == expected_results

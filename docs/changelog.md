@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2022-03-14
+
+### Added
+
+- `netconf_validate` task has been implemented. This is tested in integration against SROS devices that support the capability.
+- `ruff` linter
+- Integration tests for IOSXE with ContainerLab. (Not in CI)
+- Standardized on tests for all platforms part of integration tests. Added a common section for common NETCONF operations.
+- Added examples and updated previous ones
+
+### Changed
+
+- `sysrepo` tests all got replaced by a containerized instance of Arista CEOS
+- `mypy` settings were moved into pyproject.toml file
+- `get_schema` doesn't pull `.data_xml` attribute and just dumps the output.
+- `write_output` internal helper allows for custom file extension (used for yang schema dumps)
+- `pylint` is now driven by `ruff`
+- `bandit` is now configured by pyproject.toml | updated docker file for linter + github CI
+- Added `is_truthy` helper and refactored `SKIP_INTEGRATION_TESTS`
+
+### Removed
+
+- Dropped Python3.7 - Only 3.8 and above is supported.
+- `sysrepo` container and dependencies. No tests or reliance on this container anymore.
+- `xmltodict` library has been removed. The user should parse XML as they please.
+- `Flake8` (Replaced by `Ruff` as a plugin)
+- `Pydocstyle` (Replaced by `Ruff` as a plugin)
+- `pylint` (Replaced by `Ruff` as a plugin)
+
 ## [1.1.0] - 2022-10-06
 
 ### Added
