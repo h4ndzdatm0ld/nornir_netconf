@@ -2,9 +2,9 @@
 version: "3.8"
 services:
   test:
+    network_mode: "host"
     container_name: "test"
     hostname: "test"
-    network_mode: "host"
     environment:
       SKIP_INTEGRATION_TESTS: "${SKIP_INTEGRATION_TESTS:-True}"
       NORNIR_LOG: "${NORNIR_LOG:-False}"
