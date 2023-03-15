@@ -1,10 +1,11 @@
 """Integration Testing Deploying L3VPN via Netconf to candidate datastore and committing."""
-# from nornir_utils.plugins.functions import print_result
+from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.tasks import (
     netconf_commit,
     netconf_edit_config,
     netconf_get_config,
+    netconf_validate,
 )
 from tests.conftest import CONFIGS_DIR, skip_integration_tests, xml_dict
 
@@ -61,6 +62,8 @@ def test_sros_netconf_edit_config_service(nornir):
     # Edit Candidate Config
     result = nr.run(task=netconf_edit_config, target="candidate", config=DEPLOY_SERVICE)
     assert not result[DEVICE_NAME].failed
+    validate = nr.run(task=netconf_validate)
+    print_result(validate)
     # Commit Config into `Running` datastore
     result = nr.run(netconf_commit)
     assert not result[DEVICE_NAME].failed

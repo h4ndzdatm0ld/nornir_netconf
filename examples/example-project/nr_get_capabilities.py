@@ -1,6 +1,7 @@
 # type: ignore
 """Nornir NETCONF Example Task: 'capabilities'."""
 from nornir import InitNornir
+from nornir.core.task import Task
 from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.tasks import netconf_capabilities
@@ -14,9 +15,11 @@ nr = InitNornir("config.yml")
 west_region = nr.filter(region="west-region")
 
 
-def example_netconf_get_capabilities(task):
+def example_netconf_get_capabilities(task: Task) -> str:
     """Test get capabilities."""
-    task.run(netconf_capabilities)
+    capabilities = task.run(netconf_capabilities)
+    # This may be a lot, so for example we'll just print the first one
+    return [cap for cap in capabilities.result.rpc][0]
 
 
 def main():

@@ -143,4 +143,7 @@ def eval_multi_result(hosts: List, result: Result) -> None:
 @pytest.fixture(autouse=True, scope="module")
 def slow_down_tests():
     yield
-    time.sleep(3)
+    if SKIP_INTEGRATION_TESTS:
+        return
+    else:
+        time.sleep(3)

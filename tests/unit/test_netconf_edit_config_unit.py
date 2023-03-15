@@ -24,7 +24,6 @@ def test_netconf_edit_config_success(ssh, nornir, sros_config_payload):
 @patch("ncclient.manager.connect_ssh")
 def test_netconf_edit_config_manager_set(ssh, nornir, sros_config_payload):
     """Test NETCONF edit-config, with manager option set."""
-    # Create Fake RPC Object class. Set 'ok' attr to True.
     response_rpc = MagicMock()
     manager = MagicMock()
     manager.server_capabilities = ["netconf:capability:candidate"]
