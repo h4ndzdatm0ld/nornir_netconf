@@ -3,6 +3,9 @@ from unittest.mock import MagicMock, patch
 
 from nornir_netconf.plugins.tasks import netconf_edit_config
 
+# from nornir_utils.plugins.functions import print_result
+
+
 DEVICE_NAME = "nokia_rtr"
 
 

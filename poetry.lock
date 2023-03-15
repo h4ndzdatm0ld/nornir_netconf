@@ -517,6 +517,7 @@ python-versions = ">=3.6"
 
 [package.extras]
 plugins = ["importlib-metadata"]
+testutil = ["gitpython (>3)"]
 
 [[package]]
 name = "pynacl"
@@ -721,9 +722,9 @@ sphinx = ">=4.0"
 unidecode = "*"
 
 [package.extras]
-docs = ["sphinx", "sphinx-rtd-theme"]
-dotnet = ["sphinxcontrib-dotnetdomain"]
 go = ["sphinxcontrib-golangdomain"]
+dotnet = ["sphinxcontrib-dotnetdomain"]
+docs = ["sphinx-rtd-theme", "sphinx"]
 
 [[package]]
 name = "sphinx-pdj-theme"
