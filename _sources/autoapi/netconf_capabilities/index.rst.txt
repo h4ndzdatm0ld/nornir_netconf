@@ -26,13 +26,16 @@ Functions
 
    Gather Netconf capabilities from device.
 
-   Examples:
-       Simple example::
+   .. rubric:: Examples
 
-           > nr.run(task=netconf_capabilities)
+   Simple example::
 
-   Returns:
-       Result object with the following attributes set:
-         * result (``list``): list with the capabilities of the host
+       > nr.run(task=netconf_capabilities)
+
+   :returns:
+
+             Result object with the following attributes set::
+
+                 * result (RpcResult): Rpc and Manager
 
 

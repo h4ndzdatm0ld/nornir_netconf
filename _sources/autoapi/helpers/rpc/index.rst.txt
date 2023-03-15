@@ -1,0 +1,29 @@
+:py:mod:`helpers.rpc`
+=====================
+
+.. py:module:: helpers.rpc
+
+.. autoapi-nested-parse::
+
+   Helper to extract info from RPC reply.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   helpers.rpc.check_capability
+
+
+
+.. py:function:: check_capability(capabilities: List[str], capability: str) -> bool
+
+   Evaluate capabilities and return True if capability is available.
+
+

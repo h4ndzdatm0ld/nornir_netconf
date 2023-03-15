@@ -31,7 +31,7 @@ Attributes
 
 
 .. py:data:: CONNECTION_NAME
-   :annotation: = netconf
+   :value: 'netconf'
 
    
 
@@ -113,7 +113,7 @@ Attributes
        >>>
        >>> nr.run(task=netconf_code)
 
-   .. py:method:: open(hostname: Optional[str], username: Optional[str], password: Optional[str], port: Optional[int], platform: Optional[str] = 'default', extras: Optional[Dict[str, Any]] = None, configuration: Optional[nornir.core.configuration.Config] = None) -> None
+   .. py:method:: open(hostname: str, username: str, password: Optional[str], port: Optional[int] = 830, platform: Optional[str] = 'default', extras: Optional[Dict[str, Any]] = None, configuration: Optional[Dict[str, Any]] = None) -> None
 
       Open NETCONF connection.
 

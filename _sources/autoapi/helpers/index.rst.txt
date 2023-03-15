@@ -16,11 +16,21 @@ Submodules
    :maxdepth: 1
 
    general/index.rst
-   rpc_helpers/index.rst
+   models/index.rst
+   rpc/index.rst
 
 
 Package Contents
 ----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   helpers.RpcResult
+   helpers.SchemaResult
+
 
 
 Functions
@@ -32,9 +42,6 @@ Functions
    helpers.create_folder
    helpers.write_output
    helpers.check_capability
-   helpers.get_result
-   helpers.unpack_rpc
-   helpers.xml_to_dict
 
 
 
@@ -42,65 +49,67 @@ Functions
 
    Check file_name exists based on input.
 
-   Args:
-       file_name (str): file name to check
+   :param file_name: file name to check
+   :type file_name: str
 
 
 .. py:function:: create_folder(directory: str) -> None
 
    Create a directory.
 
-   Args:
-       directory (str): Directory path to create
+   :param directory: Directory path to create
+   :type directory: str
 
 
-.. py:function:: write_output(text: str, path: str, filename: str) -> None
+.. py:function:: write_output(text: str, path: str, filename: str, ext: str = 'txt') -> None
 
    Take input and path and write a file.
 
-   Args:
-       text (str): text to write
-       path (str): directory path
-       filename (str): filename
+   :param text: text to write
+   :type text: str
+   :param path: directory path
+   :type path: str
+   :param filename: filename
+   :type filename: str
+
+
+.. py:class:: RpcResult
+
+   RPC Reply Result Model.
+
+   .. py:attribute:: rpc
+      :type: Optional[ncclient.operations.rpc.RPCReply]
+
+      
+
+   .. py:attribute:: manager
+      :type: Optional[ncclient.manager.Manager]
+
+      
+
+
+.. py:class:: SchemaResult
+
+   Get Schema Result.
+
+   .. py:attribute:: directory
+      :type: str
+
+      
+
+   .. py:attribute:: errors
+      :type: List[str]
+
+      
+
+   .. py:attribute:: files
+      :type: List[str]
+
+      
 
 
 .. py:function:: check_capability(capabilities: List[str], capability: str) -> bool
 
    Evaluate capabilities and return True if capability is available.
-
-
-.. py:function:: get_result(rpc: Union[ncclient.operations.rpc.RPCReply, Dict[str, Any]], xmldict: bool = False) -> Dict[str, Union[ncclient.operations.rpc.RPCReply, str]]
-
-   Check if RPC reply is valid and unpack.
-
-   Args:
-       rpc (Union[RPCReply, Dict]): RPC Reply from Netconf Server or Dict
-       xmldict (boolean): convert xml to dict
-
-   Returns:
-       Dict: Results dict to expand in Result object
-
-
-.. py:function:: unpack_rpc(rpc: ncclient.operations.rpc.RPCReply, xmldict: bool = False) -> Dict[str, Union[ncclient.operations.rpc.RPCReply, str]]
-
-   Extract RPC attrs of interest.
-
-   Args:
-       rpc (RPCReply): RPC Reply from Netconf Server
-       xmldict (boolean): convert xml to dict
-
-   Return:
-       Dict: "RPC Attributes"
-
-
-.. py:function:: xml_to_dict(rpc: ncclient.operations.rpc.RPCReply) -> Union[Any, Dict[str, str]]
-
-   Convert XML from RPC reply to dict.
-
-   Args:
-       rpc (RPCReply): RPC Reply from Netconf Server
-
-   Returns:
-       Dict: xml response -> Dict
 
 

@@ -22,36 +22,38 @@ Functions
 
 
 
-.. py:function:: netconf_get(task: nornir.core.task.Task, path: str = '', filter_type: str = 'xpath', xmldict: bool = False) -> nornir.core.task.Result
+.. py:function:: netconf_get(task: nornir.core.task.Task, path: nornir.core.task.Optional[str] = '', filter_type: nornir.core.task.Optional[str] = 'xpath') -> nornir.core.task.Result
 
-   Get information over Netconf from device.
+   Get configuration and state information over Netconf from device.
 
-   Arguments:
-       path: Subtree or xpath to filter
-       filter_type: Type of filtering to use, 'xpath' or 'subtree'
-       xmldict (boolean): convert xml to dict
+   :param path: `Subtree` or `xpath` to filter
+   :type path: Optional[str]
+   :param filter_type: Type of filtering to use, `xpath or `subtree`
+   :type filter_type: Optional[str]
 
-   Examples:
-       Simple example::
+   .. rubric:: Examples
 
-           > nr.run(task=netconf_get)
+   Simple example::
 
-       Passing options using ``xpath``::
+       > nr.run(task=netconf_get)
 
-           > query = "/devices/device"
-           > nr.run(task=netconf_get,
-           >        path=query)
+   Passing options using ``xpath``::
 
-      Passing options using ``subtree``::
+       > xpath = "/devices/device"
+       > nr.run(task=netconf_get,
+       >        path=xpath)
 
-           > query = "<interfaces></interfaces>"
-           > nr.run(task=netconf_get,
-           >        filter_type="subtree",
-           >        path=query)
+   Passing options using ``subtree``::
 
+       > subtree = "<interfaces></interfaces>"
+       > nr.run(task=netconf_get,
+       >        filter_type="subtree",
+       >        path=subtree)
 
-   Returns:
-       Result object with the following attributes set:
-         * result (``str``): The collected data as an XML string
+   :returns:
+
+             Result object with the following attributes set::
+
+                 * result (RpcResult): Rpc and Manager
 
 

@@ -1,94 +1,163 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>helpers.general &mdash; Nornir NETCONF 0.1.0 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
-</head>
+  <title>helpers.general &mdash; Nornir NETCONF 0.1.0 documentation</title>
+  
 
-<body class="wy-body-for-nav"> 
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="../../../_static/css/pdj.css" type="text/css" />
+
+  
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/pdj.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="Nornir NETCONF 0.1.0 documentation" href="../../../index.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> Nornir NETCONF
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+      <div class="wy-side-nav-search">
+        <a href="../../../index.html" class="fa fa-home"> Nornir NETCONF </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="../../../search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html">Readme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">Readme</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#plugins">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#response-result">Response Result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#global-lock">Global Lock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#additional-documentation">Additional Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#contributions">Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#documentation">Documentation</a></li>
+</ul>
+</li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../additional/dataclasses.html">DataClasses Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../additional/rpc.html">Key Differences in RPC response objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../additional/use-examples.html">How to use the <code class="docutils literal notranslate"><span class="pre">Examples</span></code> directory</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#id1">[2.0.0] - 2022-03-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#id2">[1.1.0] - 2022-10-06</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#id5">[1.0.1] - 2022-02-08</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#id9">[1.0.0] - 2022-01-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#id11">[0.1.0] - 2020-09-10</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../nornir_netconf/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nornir_netconf</span></code></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">helpers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tasks/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tasks</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../netconf_lock/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_lock</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../netconf_get/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../netconf_get_schemas/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_schemas</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../netconf_get_config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../netconf_commit/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_commit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../netconf_edit_config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_edit_config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../netconf_validate/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_validate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../netconf_capabilities/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_capabilities</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../connections/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">connections</span></code></a></li>
+</ul>
+</li>
 </ul>
 
-        </div>
+          
+        
+
       </div>
+      &nbsp;
     </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">Nornir NETCONF</a>
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
       </nav>
 
       <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">helpers.general</span></code></li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/autoapi/helpers/general/index.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
   <section id="module-helpers.general">
-<span id="helpers-general"></span><h1><a class="reference internal" href="#module-helpers.general" title="helpers.general"><code class="xref py py-mod docutils literal notranslate"><span class="pre">helpers.general</span></code></a><a class="headerlink" href="#module-helpers.general" title="Permalink to this heading"></a></h1>
+<span id="helpers-general"></span><h1><a class="reference internal" href="#module-helpers.general" title="helpers.general"><code class="xref py py-mod docutils literal notranslate"><span class="pre">helpers.general</span></code></a><a class="headerlink" href="#module-helpers.general" title="Permalink to this heading">¶</a></h1>
 <p>General Helpers.</p>
 <section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading"></a></h2>
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
 <section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h3>
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#helpers.general.check_file" title="helpers.general.check_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_file</span></code></a>(→ bool)</p></td>
 <td><p>Check file_name exists based on input.</p></td>
@@ -103,32 +172,37 @@
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="helpers.general.check_file">
-<span class="sig-prename descclassname"><span class="pre">helpers.general.</span></span><span class="sig-name descname"><span class="pre">check_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#helpers.general.check_file" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">helpers.general.</span></span><span class="sig-name descname"><span class="pre">check_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#helpers.general.check_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check file_name exists based on input.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>file_name (str): file name to check</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>str</em>) – file name to check</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="helpers.general.create_folder">
-<span class="sig-prename descclassname"><span class="pre">helpers.general.</span></span><span class="sig-name descname"><span class="pre">create_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#helpers.general.create_folder" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">helpers.general.</span></span><span class="sig-name descname"><span class="pre">create_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#helpers.general.create_folder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a directory.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>directory (str): Directory path to create</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>directory</strong> (<em>str</em>) – Directory path to create</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="helpers.general.write_output">
-<span class="sig-prename descclassname"><span class="pre">helpers.general.</span></span><span class="sig-name descname"><span class="pre">write_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#helpers.general.write_output" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">helpers.general.</span></span><span class="sig-name descname"><span class="pre">write_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'txt'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#helpers.general.write_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take input and path and write a file.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>text (str): text to write
-path (str): directory path
-filename (str): filename</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – text to write</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – directory path</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – filename</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -138,31 +212,60 @@ filename (str): filename</p>
 </section>
 
 
-           </div>
-          </div>
-          <footer>
+	    </div>
+            <footer>
+  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Hugo Tinoco.</p>
+    <p>
+        &copy; Copyright 2021, Hugo Tinoco.
+    </p>
   </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+	</div>
+	</div>
+	  
 
-</body>
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js">
+
+    </script>
+    <script type="text/javascript" src="../../../_static/doctools.js">
+
+    </script>
+    <script type="text/javascript" src="../../../_static/sphinx_highlight.js">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="../../../_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="../../../_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
 </html>

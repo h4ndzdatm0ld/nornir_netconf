@@ -1,0 +1,46 @@
+:py:mod:`netconf_validate`
+==========================
+
+.. py:module:: netconf_validate
+
+.. autoapi-nested-parse::
+
+   NETCONF validate config.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   netconf_validate.netconf_validate
+
+
+
+.. py:function:: netconf_validate(task: nornir.core.task.Task, source: Optional[str] = 'candidate', manager: Optional[ncclient.manager.Manager] = None) -> nornir.core.task.Result
+
+   Validate the datastore configuration.
+
+   :param source: Source configuration store
+   :type source: str
+   :param manager: NETCONF Manager
+   :type manager: Manager
+
+   .. rubric:: Examples
+
+   Simple example::
+
+       > nr.run(task=netconf_validate)
+
+   :returns:
+
+             Result object with the following attributes set::
+
+                 * result (RpcResult): Rpc and Manager
+
+

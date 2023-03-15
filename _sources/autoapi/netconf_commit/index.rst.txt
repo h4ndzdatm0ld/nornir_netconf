@@ -22,24 +22,34 @@ Functions
 
 
 
-.. py:function:: netconf_commit(task: nornir.core.task.Task, manager: Optional[ncclient.manager.Manager] = None, xmldict: bool = False, confirmed: bool = False, timeout: int = 60, persist: int = None, persist_id: int = None) -> nornir.core.task.Result
+.. py:function:: netconf_commit(task: nornir.core.task.Task, manager: Optional[ncclient.manager.Manager] = None, confirmed: Optional[bool] = False, timeout: Optional[int] = 60, persist: Optional[int] = None, persist_id: Optional[int] = None) -> nornir.core.task.Result
 
    Commit operation.
 
-   Arguments:
-       manager: class:: ncclient.manager.Manager
-       xmldict (boolean): convert xml to dict
-       confirmed (boolean): Commit confirm
-       timeout (int): commit confirm timeout
-       persist (int): survive a session termination
-       persist_id (int): must equal given value of persist in original commit operation
-   Examples:
-       Simple example::
+   :param manager: NETCONF Manager
+   :type manager: Manager
+   :param confirmed: Commit confirm
+   :type confirmed: boolean
+   :param timeout: commit confirm timeout
+   :type timeout: int
+   :param persist: survive a session termination
+   :type persist: int
+   :param persist_id: must equal given value of persist in original commit operation
+   :type persist_id: int
 
-           > nr.run(task=netconf_commit, manager=manager)
+   .. rubric:: Examples
 
-   Returns:
-       Result object with the following attributes set:
-         * result (``str``): The rpc-reply as an XML string
+   Simple example::
+
+       > nr.run(task=netconf_commit)
+
+   With a carried manager session::
+       > nr.run(task=netconf_commit, manager=manager)
+
+   :returns:
+
+             Result object with the following attributes set::
+
+                 * result (RpcResult): Rpc and Manager
 
 

@@ -28,25 +28,27 @@ Functions
 
    Check file_name exists based on input.
 
-   Args:
-       file_name (str): file name to check
+   :param file_name: file name to check
+   :type file_name: str
 
 
 .. py:function:: create_folder(directory: str) -> None
 
    Create a directory.
 
-   Args:
-       directory (str): Directory path to create
+   :param directory: Directory path to create
+   :type directory: str
 
 
-.. py:function:: write_output(text: str, path: str, filename: str) -> None
+.. py:function:: write_output(text: str, path: str, filename: str, ext: str = 'txt') -> None
 
    Take input and path and write a file.
 
-   Args:
-       text (str): text to write
-       path (str): directory path
-       filename (str): filename
+   :param text: text to write
+   :type text: str
+   :param path: directory path
+   :type path: str
+   :param filename: filename
+   :type filename: str
 
 

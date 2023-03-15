@@ -1,0 +1,255 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>DataClasses Implementation &mdash; Nornir NETCONF 0.1.0 documentation</title>
+  
+
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="../_static/css/pdj.css" type="text/css" />
+
+  
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/pdj.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Nornir NETCONF 0.1.0 documentation" href="../index.html"/>
+        <link rel="next" title="Key Differences in RPC response objects" href="rpc.html"/>
+        <link rel="prev" title="Nornir NETCONF" href="../README.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Nornir NETCONF </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="../search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Readme</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#plugins">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#response-result">Response Result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#global-lock">Global Lock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#additional-documentation">Additional Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#contributions">Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DataClasses Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.html">Key Differences in RPC response objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use-examples.html">How to use the <code class="docutils literal notranslate"><span class="pre">Examples</span></code> directory</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id1">[2.0.0] - 2022-03-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id2">[1.1.0] - 2022-10-06</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id5">[1.0.1] - 2022-02-08</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id9">[1.0.0] - 2022-01-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#id11">[0.1.0] - 2020-09-10</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/nornir_netconf/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nornir_netconf</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">helpers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/tasks/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tasks</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_lock/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_lock</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_get/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_get_schemas/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_schemas</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_get_config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_commit/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_commit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_edit_config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_edit_config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_validate/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_validate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_capabilities/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_capabilities</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/connections/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">connections</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
+      </nav>
+
+      <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
+  <section id="dataclasses-implementation">
+<h1>DataClasses Implementation<a class="headerlink" href="#dataclasses-implementation" title="Permalink to this heading">¶</a></h1>
+<p>As of version 2.0, there will be an introduction of <code class="docutils literal notranslate"><span class="pre">RpcResult</span></code> and <code class="docutils literal notranslate"><span class="pre">SchemaResult</span></code>. Going forward, any task will return a dataclass to ensure a good experience for the developers and users of this project.</p>
+<p>Please view the source code to ensure this is the most update to date information on the implementations.</p>
+<blockquote>
+<div><p>SOURCE: <code class="docutils literal notranslate"><span class="pre">nornir_netconf/plugins/helpers/rpc.py</span></code></p>
+</div></blockquote>
+<section id="rpcresult">
+<h2>RpcResult<a class="headerlink" href="#rpcresult" title="Permalink to this heading">¶</a></h2>
+<p>This will be the object that will mostly be presented back to users as the return value to the <code class="docutils literal notranslate"><span class="pre">Result.result</span></code> attribute.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RpcResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;RPC Reply Result Model.&quot;&quot;&quot;</span>
+
+    <span class="n">rpc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RPCReply</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">manager</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Manager</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="schemaresult">
+<h2>SchemaResult<a class="headerlink" href="#schemaresult" title="Permalink to this heading">¶</a></h2>
+<p>This will provide users with information about valid schemas which were created and in what <code class="docutils literal notranslate"><span class="pre">files</span></code> they were outputted to. Additionally, the <code class="docutils literal notranslate"><span class="pre">directory</span></code> in which the files where aggregated and written to. if any errors were encountered during the writing of the files or retrieval of the schema, they will be aggregated into the <code class="docutils literal notranslate"><span class="pre">errors</span></code> attribute.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">SchemaResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get Schema Result.&quot;&quot;&quot;</span>
+
+    <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+	    </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rpc.html" class="btn btn-neutral float-right" title="Key Differences in RPC response objects">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../README.html" class="btn btn-neutral" title="Nornir NETCONF"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Hugo Tinoco.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+
+</footer>
+	</div>
+	</div>
+	  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="../_static/documentation_options.js">
+
+    </script>
+    <script type="text/javascript" src="../_static/doctools.js">
+
+    </script>
+    <script type="text/javascript" src="../_static/sphinx_highlight.js">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="../_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="../_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
+</html>

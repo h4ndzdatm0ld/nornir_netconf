@@ -1,120 +1,207 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Changelog &mdash; Nornir NETCONF 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="" lang="" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="How to use the Examples directory" href="additional/use-examples.html" /> 
-</head>
+  <title>Changelog &mdash; Nornir NETCONF 0.1.0 documentation</title>
+  
 
-<body class="wy-body-for-nav"> 
+  
+
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
+
+  
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/pdj.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Nornir NETCONF 0.1.0 documentation" href="index.html"/>
+        <link rel="prev" title="How to use the Examples directory" href="additional/use-examples.html"/>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add jQuery library -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+  </head>
+
+  <body class="wy-body-for-nav" role="document">
+
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Nornir NETCONF
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Nornir NETCONF </a>
+        <div role="search">
+	  <form id ="rtd-search-form" class="wy-form"
+		action="search.html" method="get">
+	    <input type="text" name="q" placeholder="Search docs" />
+	    <input type="hidden" name="check_keywords" value="yes" />
+	    <input type="hidden" name="area" value="default" />
+	  </form>
+	</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	
+          
+          
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html">Readme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Readme</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#plugins">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#response-result">Response Result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#global-lock">Global Lock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#additional-documentation">Additional Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#contributions">Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#documentation">Documentation</a></li>
+</ul>
+</li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="additional/dataclasses.html">DataClasses Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="additional/rpc.html">Key Differences in RPC response objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="additional/use-examples.html">How to use the <code class="docutils literal notranslate"><span class="pre">Examples</span></code> directory</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">[1.1.0] - 2022-10-06</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#added">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#changed">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fixed">Fixed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">[1.0.1] - 2022-02-08</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">Fixed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">[1.0.0] - 2022-01-17</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Changed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">[0.1.0] - 2020-09-10</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id9">Added</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">[2.0.0] - 2022-03-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">[1.1.0] - 2022-10-06</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">[1.0.1] - 2022-02-08</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">[1.0.0] - 2022-01-17</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">[0.1.0] - 2020-09-10</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/nornir_netconf/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nornir_netconf</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">helpers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/tasks/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tasks</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/netconf_lock/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_lock</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/netconf_get/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/netconf_get_schemas/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_schemas</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/netconf_get_config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/netconf_commit/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_commit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/netconf_edit_config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_edit_config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/netconf_validate/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_validate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/netconf_capabilities/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_capabilities</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/connections/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">connections</span></code></a></li>
+</ul>
+</li>
 </ul>
 
-        </div>
-      </div>
-    </nav>
+          
+        
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Nornir NETCONF</a>
+      </div>
+      &nbsp;
+    </nav>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Porão do Juca</a>
       </nav>
 
       <div class="wy-nav-content">
+	<div class="fundo-claro">
+	</div>
+	<div class="fundo-escuro">
+	</div>
+
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Changelog</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/changelog.md.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+          <div role="navigation" aria-label="breadcrumbs navigation">
+	    
+	    <!-- <ul class="wy-breadcrumbs"> -->
+	    <!--   <li><a href="#">Docs</a> &raquo;</li> -->
+
+	    <!--   <li>Features</li> -->
+	    <!--   <li class="wy-breadcrumbs-aside"> -->
+
+	    <!-- 	<a href="_sources/index.txt" rel="nofollow"> View page source</a> -->
+
+	    <!--   </li> -->
+	    <!-- </ul> -->
+	    <!-- <hr/> -->
+	  </div>
+
+          <div role="main" class="">
+
+	    <div id="content" class="hfeed entry-container hentry">
   <section id="changelog">
-<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading"></a></h1>
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">¶</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>, and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <section id="id1">
-<h2>[1.1.0] - 2022-10-06<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<h2>[2.0.0] - 2022-03-14<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <section id="added">
-<h3>Added<a class="headerlink" href="#added" title="Permalink to this heading"></a></h3>
+<h3>Added<a class="headerlink" href="#added" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">netconf_validate</span></code> task has been implemented. This is tested in integration against SROS devices that support the capability.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ruff</span></code> linter</p></li>
+<li><p>Integration tests for IOSXE with ContainerLab. (Not in CI)</p></li>
+<li><p>Standardized on tests for all platforms part of integration tests. Added a common section for common NETCONF operations.</p></li>
+<li><p>Added examples and updated previous ones</p></li>
+</ul>
+</section>
+<section id="changed">
+<h3>Changed<a class="headerlink" href="#changed" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sysrepo</span></code> tests all got replaced by a containerized instance of Arista CEOS</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mypy</span></code> settings were moved into pyproject.toml file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_schema</span></code> doesn’t pull <code class="docutils literal notranslate"><span class="pre">.data_xml</span></code> attribute and just dumps the output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">write_output</span></code> internal helper allows for custom file extension (used for yang schema dumps)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pylint</span></code> is now driven by <code class="docutils literal notranslate"><span class="pre">ruff</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bandit</span></code> is now configured by pyproject.toml | updated docker file for linter + github CI</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">is_truthy</span></code> helper and refactored <code class="docutils literal notranslate"><span class="pre">SKIP_INTEGRATION_TESTS</span></code></p></li>
+</ul>
+</section>
+<section id="removed">
+<h3>Removed<a class="headerlink" href="#removed" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Dropped Python3.7 - Only 3.8 and above is supported.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sysrepo</span></code> container and dependencies. No tests or reliance on this container anymore.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xmltodict</span></code> library has been removed. The user should parse XML as they please.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Flake8</span></code> (Replaced by <code class="docutils literal notranslate"><span class="pre">Ruff</span></code> as a plugin)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pydocstyle</span></code> (Replaced by <code class="docutils literal notranslate"><span class="pre">Ruff</span></code> as a plugin)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pylint</span></code> (Replaced by <code class="docutils literal notranslate"><span class="pre">Ruff</span></code> as a plugin)</p></li>
+</ul>
+</section>
+</section>
+<section id="id2">
+<h2>[1.1.0] - 2022-10-06<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h3>Added<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Normalized the result output between vendors to include ‘ok’ key</p></li>
 <li><p>Pipeline to publish to pypi/github</p></li>
 </ul>
 </section>
-<section id="changed">
-<h3>Changed<a class="headerlink" href="#changed" title="Permalink to this heading"></a></h3>
+<section id="id4">
+<h3>Changed<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Containerlab IP addresses for local integration testings changed</p></li>
 <li><p>Added env variable to docker-compose to run integration tests in containers</p></li>
@@ -123,37 +210,37 @@
 </ul>
 </section>
 <section id="fixed">
-<h3>Fixed<a class="headerlink" href="#fixed" title="Permalink to this heading"></a></h3>
+<h3>Fixed<a class="headerlink" href="#fixed" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>GH Actions Badge was pointing to previous fork on the Nornir organization</p></li>
 </ul>
 </section>
 </section>
-<section id="id2">
-<h2>[1.0.1] - 2022-02-08<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
-<section id="id3">
-<h3>Added<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<section id="id5">
+<h2>[1.0.1] - 2022-02-08<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<section id="id6">
+<h3>Added<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Local integration tests with ContainerLab</p></li>
 </ul>
 </section>
-<section id="id4">
-<h3>Changed<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<section id="id7">
+<h3>Changed<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Lowered requirement version for <code class="docutils literal notranslate"><span class="pre">ncclient</span></code></p></li>
 </ul>
 </section>
-<section id="id5">
-<h3>Fixed<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<section id="id8">
+<h3>Fixed<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Several integration tests are OS versions changed from previous eve-ng lab</p></li>
 </ul>
 </section>
 </section>
-<section id="id6">
-<h2>[1.0.0] - 2022-01-17<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
-<section id="id7">
-<h3>Changed<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<section id="id9">
+<h2>[1.0.0] - 2022-01-17<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<section id="id10">
+<h3>Changed<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Removed dependencies locking python version between a range.</p></li>
 <li><p>Removed unused dev env dependencies</p></li>
@@ -162,10 +249,10 @@
 </ul>
 </section>
 </section>
-<section id="id8">
-<h2>[0.1.0] - 2020-09-10<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
-<section id="id9">
-<h3>Added<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<section id="id11">
+<h2>[0.1.0] - 2020-09-10<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+<section id="id12">
+<h3>Added<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>netconf_capabilities - Return server capabilities from target</p></li>
 <li><p>netconf_get - Returns state data based on the supplied xpath</p></li>
@@ -181,33 +268,67 @@
 </section>
 
 
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="additional/use-examples.html" class="btn btn-neutral float-left" title="How to use the Examples directory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+	    </div>
+            <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="additional/use-examples.html" class="btn btn-neutral" title="How to use the Examples directory"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Hugo Tinoco.</p>
+    <p>
+        &copy; Copyright 2021, Hugo Tinoco.
+    </p>
   </div>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
 
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+	</div>
+	</div>
+	  
 
-</body>
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    <script type="text/javascript" src="_static/documentation_options.js">
+
+    </script>
+    <script type="text/javascript" src="_static/doctools.js">
+
+    </script>
+    <script type="text/javascript" src="_static/sphinx_highlight.js">
+
+    </script>
+
+  
+
+   <script type="text/javascript"
+           src="_static/js/theme.js"></script>
+
+   <script type="text/javascript"
+           src="_static/js/pdj.js"></script>
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  </body>
 </html>

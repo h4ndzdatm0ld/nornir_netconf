@@ -1,0 +1,60 @@
+:py:mod:`helpers.models`
+========================
+
+.. py:module:: helpers.models
+
+.. autoapi-nested-parse::
+
+   Data Models.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   helpers.models.RpcResult
+   helpers.models.SchemaResult
+
+
+
+
+.. py:class:: RpcResult
+
+   RPC Reply Result Model.
+
+   .. py:attribute:: rpc
+      :type: Optional[ncclient.operations.rpc.RPCReply]
+
+      
+
+   .. py:attribute:: manager
+      :type: Optional[ncclient.manager.Manager]
+
+      
+
+
+.. py:class:: SchemaResult
+
+   Get Schema Result.
+
+   .. py:attribute:: directory
+      :type: str
+
+      
+
+   .. py:attribute:: errors
+      :type: List[str]
+
+      
+
+   .. py:attribute:: files
+      :type: List[str]
+
+      
+
+
