@@ -1,12 +1,12 @@
 """NETCONF rpc generic call."""
 from typing import Optional
 
-from ncclient.manager import Manager
 from ncclient import xml_
+from ncclient.manager import Manager
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
-from nornir_netconf.plugins.helpers import RpcResult, check_capability
+from nornir_netconf.plugins.helpers import RpcResult
 
 
 def netconf_rpc(
@@ -14,7 +14,8 @@ def netconf_rpc(
     payload: str,
     manager: Optional[Manager] = None,
 ) -> Result:
-    """This method is a "bare-bones" rpc call which does not apply any formatting/standardization beyond the outer most rpc tag.
+    """This method is a "bare-bones" rpc call which does not apply any
+    formatting/standardization beyond the outer most rpc tag.
 
     Arguments:
         payload (str): Payload snippet to apply
