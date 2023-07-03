@@ -25,7 +25,7 @@ RPC_TEMPLATE = """
         </config>
       </bfd>
     </config>
-  </rpc>
+  </edit-config>
   """
 RPC = Template(RPC_TEMPLATE).substitute(bfd_state=BFD_STATE)
 
