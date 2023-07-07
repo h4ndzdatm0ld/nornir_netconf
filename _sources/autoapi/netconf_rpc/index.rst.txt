@@ -1,0 +1,47 @@
+:py:mod:`netconf_rpc`
+=====================
+
+.. py:module:: netconf_rpc
+
+.. autoapi-nested-parse::
+
+   NETCONF rpc generic call.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   netconf_rpc.netconf_rpc
+
+
+
+.. py:function:: netconf_rpc(task: nornir.core.task.Task, payload: str, manager: Optional[ncclient.manager.Manager] = None) -> nornir.core.task.Result
+
+   This method is a "bare-bones" rpc call which does not apply any
+   formatting/standardization beyond the outer most rpc tag.
+
+   :param payload: Payload snippet to apply
+   :type payload: str
+   :param manager: NETCONF Manager
+   :type manager: Manager
+
+   .. rubric:: Examples
+
+   Simple example::
+       > desired_payload='<save-config xmlns="http://cisco.com/yang/cisco-ia"/>'
+       > nr.run(task= netconf_rpc, payload=desired_payload)
+
+   :returns:
+
+             Result object with the following attributes set::
+
+                 * result (RpcResult): Rpc and Manager
+
+

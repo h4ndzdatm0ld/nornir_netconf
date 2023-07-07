@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   
-  <title>netconf_get_config &mdash; Nornir NETCONF 0.1.0 documentation</title>
+  <title>netconf_rpc &mdash; Nornir NETCONF 0.1.0 documentation</title>
   
 
   
@@ -100,13 +100,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../connections/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">connections</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">helpers</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tasks/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tasks</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../netconf_rpc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_rpc</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_rpc</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../netconf_validate/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_validate</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../netconf_edit_config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_edit_config</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../netconf_commit/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_commit</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../netconf_lock/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_lock</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../netconf_get/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../netconf_get_config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_config</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../netconf_get_schemas/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_schemas</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../netconf_capabilities/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_capabilities</span></code></a></li>
 </ul>
@@ -151,55 +151,39 @@
           <div role="main" class="">
 
 	    <div id="content" class="hfeed entry-container hentry">
-  <section id="module-netconf_get_config">
-<span id="netconf-get-config"></span><h1><a class="reference internal" href="#module-netconf_get_config" title="netconf_get_config"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_config</span></code></a><a class="headerlink" href="#module-netconf_get_config" title="Permalink to this heading">¶</a></h1>
-<p>NETCONF get config.</p>
+  <section id="module-netconf_rpc">
+<span id="netconf-rpc"></span><h1><a class="reference internal" href="#module-netconf_rpc" title="netconf_rpc"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_rpc</span></code></a><a class="headerlink" href="#module-netconf_rpc" title="Permalink to this heading">¶</a></h1>
+<p>NETCONF rpc generic call.</p>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
 <section id="functions">
 <h3>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">¶</a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#netconf_get_config.netconf_get_config" title="netconf_get_config.netconf_get_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">netconf_get_config</span></code></a>(→ nornir.core.task.Result)</p></td>
-<td><p>Get configuration over Netconf from device.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#netconf_rpc.netconf_rpc" title="netconf_rpc.netconf_rpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">netconf_rpc</span></code></a>(→ nornir.core.task.Result)</p></td>
+<td><p>This method is a &quot;bare-bones&quot; rpc call which does not apply any</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
-<dt class="sig sig-object py" id="netconf_get_config.netconf_get_config">
-<span class="sig-prename descclassname"><span class="pre">netconf_get_config.</span></span><span class="sig-name descname"><span class="pre">netconf_get_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">nornir.core.task.Task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'running'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'xpath'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nornir.core.task.Result</span></span></span><a class="headerlink" href="#netconf_get_config.netconf_get_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get configuration over Netconf from device.</p>
+<dt class="sig sig-object py" id="netconf_rpc.netconf_rpc">
+<span class="sig-prename descclassname"><span class="pre">netconf_rpc.</span></span><span class="sig-name descname"><span class="pre">netconf_rpc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">nornir.core.task.Task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ncclient.manager.Manager</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">nornir.core.task.Result</span></span></span><a class="headerlink" href="#netconf_rpc.netconf_rpc" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is a “bare-bones” rpc call which does not apply any
+formatting/standardization beyond the outer most rpc tag.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Configuration datastore to collect from. Defaults to <cite>running</cite></p></li>
-<li><p><strong>path</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Subtree or xpath to filter. Defaults to <cite>‘’</cite></p></li>
-<li><p><strong>filter_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Type of filtering to use, ‘xpath’ or ‘subtree’. Defaults to <cite>xpath</cite></p></li>
+<li><p><strong>payload</strong> (<em>str</em>) – Payload snippet to apply</p></li>
+<li><p><strong>manager</strong> (<em>Manager</em>) – NETCONF Manager</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<p>Simple example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">nr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">netconf_get_config</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Collect startup config:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">nr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">netconf_get_config</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;startup&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Passing options using <code class="docutils literal notranslate"><span class="pre">xpath</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">xpath</span> <span class="o">=</span> <span class="s2">&quot;/devices/device&quot;</span>
-<span class="o">&gt;</span> <span class="n">nr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">netconf_get_config</span><span class="p">,</span>
-<span class="o">&gt;</span>        <span class="n">path</span><span class="o">=</span><span class="n">xpath</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Passing options using <code class="docutils literal notranslate"><span class="pre">subtree</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">subtree</span> <span class="o">=</span> <span class="s2">&quot;&lt;interfaces&gt;&lt;/interface&gt;&quot;</span>
-<span class="o">&gt;</span> <span class="n">nr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">netconf_get_config</span><span class="p">,</span>
-<span class="o">&gt;</span>        <span class="n">filter_type</span><span class="o">=</span><span class="s2">&quot;subtree&quot;</span><span class="p">,</span>
-<span class="o">&gt;</span>        <span class="n">path</span><span class="o">=</span><span class="n">subtree</span><span class="p">)</span>
-</pre></div>
-</div>
+<dl class="simple">
+<dt>Simple example::</dt><dd><p>&gt; desired_payload=’&lt;save-config xmlns=”<a class="reference external" href="http://cisco.com/yang/cisco-ia">http://cisco.com/yang/cisco-ia</a>”/&gt;’
+&gt; nr.run(task= netconf_rpc, payload=desired_payload)</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><p>Result object with the following attributes set:</p>

@@ -10,6 +10,7 @@ This page contains auto-generated API reference documentation [#f1]_.
    /autoapi/connections/index
    /autoapi/helpers/index
    /autoapi/tasks/index
+   /autoapi/netconf_rpc/index
    /autoapi/netconf_validate/index
    /autoapi/netconf_edit_config/index
    /autoapi/netconf_commit/index
