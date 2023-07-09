@@ -132,6 +132,23 @@ def sros_rpc_payload():
         """
 
 
+@pytest.fixture(scope="function", autouse=True)
+def sros_rpc_payload_action():
+    return """
+<action xmlns="urn:ietf:params:xml:ns:yang:1">
+    <admin xmlns="urn:nokia.com:sros:ns:yang:sr:oper-admin">
+        <clear>
+            <security>
+                <password-history>
+                    <all/>
+                </password-history>
+            </security>
+        </clear>
+    </admin>
+</action>
+        """
+
+
 def xml_dict(xml: str) -> Dict[str, Any]:
     """Convert XML to Dict.
 
