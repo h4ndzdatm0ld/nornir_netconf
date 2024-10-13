@@ -1,4 +1,5 @@
 """Conftest for nornir_netconf UnitTests."""
+
 import os
 import shutil
 import time

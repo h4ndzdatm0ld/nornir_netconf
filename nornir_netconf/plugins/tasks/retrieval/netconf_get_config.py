@@ -1,4 +1,5 @@
 """NETCONF get config."""
+
 from typing import Any, Dict, Optional
 
 from nornir.core.task import Result, Task

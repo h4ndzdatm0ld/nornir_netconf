@@ -1,4 +1,5 @@
 """NETCONF rpc generic call."""
+
 import re
 from typing import Optional
 

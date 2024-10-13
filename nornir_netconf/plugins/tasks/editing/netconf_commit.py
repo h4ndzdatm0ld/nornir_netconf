@@ -1,4 +1,5 @@
 """NETCONF commit."""
+
 from typing import Optional
 
 from ncclient.manager import Manager

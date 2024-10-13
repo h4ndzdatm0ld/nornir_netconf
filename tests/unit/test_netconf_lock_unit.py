@@ -1,4 +1,5 @@
 """Test NETCONF Lock - unit-tests."""
+
 from unittest.mock import MagicMock, patch
 
 from nornir_netconf.plugins.tasks import netconf_lock

@@ -2,6 +2,7 @@
 
 Operations are separated into their own categorized folder.
 """
+
 from .capabilities.netconf_capabilities import netconf_capabilities
 from .editing.netconf_commit import netconf_commit
 from .editing.netconf_edit_config import netconf_edit_config

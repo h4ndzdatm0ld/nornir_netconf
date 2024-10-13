@@ -1,4 +1,5 @@
 """Test NETCONF lock - integration."""
+
 from ncclient.manager import Manager
 from ncclient.operations.rpc import RPCReply
 

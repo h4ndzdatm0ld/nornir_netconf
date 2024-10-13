@@ -1,4 +1,5 @@
 """Netconf Connection Plugin."""
+
 from typing import Any, Dict, Optional
 
 from ncclient import manager

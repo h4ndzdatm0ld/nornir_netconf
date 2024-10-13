@@ -1,4 +1,5 @@
 """NETCONF Schemas."""
+
 from ncclient.operations.rpc import RPCError
 from nornir.core.task import List, Result, Task
 

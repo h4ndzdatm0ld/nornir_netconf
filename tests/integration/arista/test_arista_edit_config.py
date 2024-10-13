@@ -1,4 +1,5 @@
 """Test Edit Config on Arista."""
+
 from random import randint
 from string import Template
 
