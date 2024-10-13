@@ -1,5 +1,5 @@
-:py:mod:`helpers.rpc`
-=====================
+helpers.rpc
+===========
 
 .. py:module:: helpers.rpc
 
@@ -9,18 +9,16 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    helpers.rpc.check_capability
 
 
+Module Contents
+---------------
 
 .. py:function:: check_capability(capabilities: List[str], capability: str) -> bool
 

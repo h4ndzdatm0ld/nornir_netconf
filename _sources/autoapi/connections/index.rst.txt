@@ -1,5 +1,5 @@
-:py:mod:`connections`
-=====================
+connections
+===========
 
 .. py:module:: connections
 
@@ -11,10 +11,10 @@
 
 Submodules
 ----------
+
 .. toctree::
-   :titlesonly:
    :maxdepth: 1
 
-   netconf/index.rst
+   /autoapi/connections/netconf/index
 
 

@@ -1,5 +1,5 @@
-:py:mod:`netconf_capabilities`
-==============================
+netconf_capabilities
+====================
 
 .. py:module:: netconf_capabilities
 
@@ -9,18 +9,16 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    netconf_capabilities.netconf_capabilities
 
 
+Module Contents
+---------------
 
 .. py:function:: netconf_capabilities(task: nornir.core.task.Task) -> nornir.core.task.Result
 

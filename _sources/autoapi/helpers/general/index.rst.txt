@@ -1,5 +1,5 @@
-:py:mod:`helpers.general`
-=========================
+helpers.general
+===============
 
 .. py:module:: helpers.general
 
@@ -9,12 +9,8 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -23,6 +19,8 @@ Functions
    helpers.general.write_output
 
 
+Module Contents
+---------------
 
 .. py:function:: check_file(file_name: str) -> bool
 

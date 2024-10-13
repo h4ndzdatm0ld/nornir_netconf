@@ -1,5 +1,5 @@
-:py:mod:`netconf_edit_config`
-=============================
+netconf_edit_config
+===================
 
 .. py:module:: netconf_edit_config
 
@@ -9,18 +9,16 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    netconf_edit_config.netconf_edit_config
 
 
+Module Contents
+---------------
 
 .. py:function:: netconf_edit_config(task: nornir.core.task.Task, config: str, target: Optional[str] = 'running', manager: Optional[ncclient.manager.Manager] = None, default_operation: Optional[str] = 'merge') -> nornir.core.task.Result
 

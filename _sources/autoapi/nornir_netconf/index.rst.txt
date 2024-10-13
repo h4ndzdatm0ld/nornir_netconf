@@ -1,5 +1,5 @@
-:py:mod:`nornir_netconf`
-========================
+nornir_netconf
+==============
 
 .. py:module:: nornir_netconf
 
@@ -9,10 +9,16 @@
 
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   nornir_netconf.__version__
+
+
 Package Contents
 ----------------
 
 .. py:data:: __version__
-
-   
 

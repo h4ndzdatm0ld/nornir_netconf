@@ -1,5 +1,5 @@
-:py:mod:`tasks`
-===============
+tasks
+=====
 
 .. py:module:: tasks
 

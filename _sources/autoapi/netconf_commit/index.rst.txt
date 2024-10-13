@@ -1,5 +1,5 @@
-:py:mod:`netconf_commit`
-========================
+netconf_commit
+==============
 
 .. py:module:: netconf_commit
 
@@ -9,18 +9,16 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    netconf_commit.netconf_commit
 
 
+Module Contents
+---------------
 
 .. py:function:: netconf_commit(task: nornir.core.task.Task, manager: Optional[ncclient.manager.Manager] = None, confirmed: Optional[bool] = False, timeout: Optional[int] = 60, persist: Optional[int] = None, persist_id: Optional[int] = None) -> nornir.core.task.Result
 

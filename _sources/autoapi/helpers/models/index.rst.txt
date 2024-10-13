@@ -1,5 +1,5 @@
-:py:mod:`helpers.models`
-========================
+helpers.models
+==============
 
 .. py:module:: helpers.models
 
@@ -9,11 +9,8 @@
 
 
 
-Module Contents
----------------
-
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
@@ -21,40 +18,36 @@ Classes
    helpers.models.SchemaResult
 
 
-
+Module Contents
+---------------
 
 .. py:class:: RpcResult
 
    RPC Reply Result Model.
 
-   .. py:attribute:: rpc
-      :type: Optional[ncclient.operations.rpc.RPCReply]
 
-      
+   .. py:attribute:: rpc
+      :type:  Optional[ncclient.operations.rpc.RPCReply]
+
 
    .. py:attribute:: manager
-      :type: Optional[ncclient.manager.Manager]
-
-      
+      :type:  Optional[ncclient.manager.Manager]
 
 
 .. py:class:: SchemaResult
 
    Get Schema Result.
 
-   .. py:attribute:: directory
-      :type: str
 
-      
+   .. py:attribute:: directory
+      :type:  str
+
 
    .. py:attribute:: errors
-      :type: List[str]
+      :type:  List[str]
 
-      
 
    .. py:attribute:: files
-      :type: List[str]
-
-      
+      :type:  List[str]
 
 

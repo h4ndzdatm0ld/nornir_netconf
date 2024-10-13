@@ -1,5 +1,5 @@
-:py:mod:`netconf_validate`
-==========================
+netconf_validate
+================
 
 .. py:module:: netconf_validate
 
@@ -9,18 +9,16 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    netconf_validate.netconf_validate
 
 
+Module Contents
+---------------
 
 .. py:function:: netconf_validate(task: nornir.core.task.Task, source: Optional[str] = 'candidate', manager: Optional[ncclient.manager.Manager] = None) -> nornir.core.task.Result
 

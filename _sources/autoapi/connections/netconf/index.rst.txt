@@ -1,5 +1,5 @@
-:py:mod:`connections.netconf`
-=============================
+connections.netconf
+===================
 
 .. py:module:: connections.netconf
 
@@ -9,31 +9,28 @@
 
 
 
-Module Contents
----------------
-
-Classes
-~~~~~~~
-
-.. autoapisummary::
-
-   connections.netconf.Netconf
-
-
-
-
 Attributes
-~~~~~~~~~~
+----------
 
 .. autoapisummary::
 
    connections.netconf.CONNECTION_NAME
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   connections.netconf.Netconf
+
+
+Module Contents
+---------------
+
 .. py:data:: CONNECTION_NAME
    :value: 'netconf'
 
-   
 
 .. py:class:: Netconf
 
@@ -113,9 +110,11 @@ Attributes
        >>>
        >>> nr.run(task=netconf_code)
 
+
    .. py:method:: open(hostname: str, username: str, password: Optional[str], port: Optional[int] = 830, platform: Optional[str] = 'default', extras: Optional[Dict[str, Any]] = None, configuration: Optional[Dict[str, Any]] = None) -> None
 
       Open NETCONF connection.
+
 
 
    .. py:method:: close() -> None

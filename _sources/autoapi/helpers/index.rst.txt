@@ -1,5 +1,5 @@
-:py:mod:`helpers`
-=================
+helpers
+=======
 
 .. py:module:: helpers
 
@@ -11,20 +11,17 @@
 
 Submodules
 ----------
+
 .. toctree::
-   :titlesonly:
    :maxdepth: 1
 
-   general/index.rst
-   models/index.rst
-   rpc/index.rst
+   /autoapi/helpers/general/index
+   /autoapi/helpers/models/index
+   /autoapi/helpers/rpc/index
 
-
-Package Contents
-----------------
 
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
@@ -32,9 +29,8 @@ Classes
    helpers.SchemaResult
 
 
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -44,6 +40,8 @@ Functions
    helpers.check_capability
 
 
+Package Contents
+----------------
 
 .. py:function:: check_file(file_name: str) -> bool
 
@@ -77,35 +75,30 @@ Functions
 
    RPC Reply Result Model.
 
-   .. py:attribute:: rpc
-      :type: Optional[ncclient.operations.rpc.RPCReply]
 
-      
+   .. py:attribute:: rpc
+      :type:  Optional[ncclient.operations.rpc.RPCReply]
+
 
    .. py:attribute:: manager
-      :type: Optional[ncclient.manager.Manager]
-
-      
+      :type:  Optional[ncclient.manager.Manager]
 
 
 .. py:class:: SchemaResult
 
    Get Schema Result.
 
-   .. py:attribute:: directory
-      :type: str
 
-      
+   .. py:attribute:: directory
+      :type:  str
+
 
    .. py:attribute:: errors
-      :type: List[str]
+      :type:  List[str]
 
-      
 
    .. py:attribute:: files
-      :type: List[str]
-
-      
+      :type:  List[str]
 
 
 .. py:function:: check_capability(capabilities: List[str], capability: str) -> bool

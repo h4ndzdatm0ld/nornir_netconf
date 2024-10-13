@@ -6,6 +6,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="">
+    <link rel="icon" type="image/x-icon" href="">
 
   
   <title>DataClasses Implementation &mdash; Nornir NETCONF 0.1.0 documentation</title>
@@ -16,8 +18,9 @@
   
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="../_static/css/pdj.css" type="text/css" />
 
+
+  <link rel="stylesheet" href="../_static/css/img.css" type="text/css"/>
   
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   
@@ -28,7 +31,7 @@
 
   
 
-  
+  <link rel="stylesheet" href="../_static/css/darker.css" type="text/css" media="(prefers-color-scheme: dark)"/>
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
@@ -41,8 +44,9 @@
     <meta name="robots" content="follow, all" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Add jQuery library -->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+    <script type="module" src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs"></script>
 
   </head>
 
@@ -51,14 +55,19 @@
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-nav-search">
+	
         <a href="../index.html" class="fa fa-home"> Nornir NETCONF </a>
+	
+	
         <div role="search">
+	  
 	  <form id ="rtd-search-form" class="wy-form"
 		action="../search.html" method="get">
 	    <input type="text" name="q" placeholder="Search docs" />
 	    <input type="hidden" name="check_keywords" value="yes" />
 	    <input type="hidden" name="area" value="default" />
 	  </form>
+	  
 	</div>
       </div>
 
@@ -98,19 +107,19 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/nornir_netconf/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nornir_netconf</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/connections/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">connections</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">helpers</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/tasks/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tasks</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_rpc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_rpc</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_validate/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_validate</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_edit_config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_edit_config</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_commit/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_commit</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_lock/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_lock</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_get/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_get_config/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_config</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_get_schemas/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_get_schemas</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_capabilities/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netconf_capabilities</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/tasks/index.html">tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/helpers/index.html">helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/connections/index.html">connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_get/index.html">netconf_get</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_rpc/index.html">netconf_rpc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_lock/index.html">netconf_lock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/nornir_netconf/index.html">nornir_netconf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_commit/index.html">netconf_commit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_validate/index.html">netconf_validate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_get_config/index.html">netconf_get_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_get_schemas/index.html">netconf_get_schemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_edit_config/index.html">netconf_edit_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/netconf_capabilities/index.html">netconf_capabilities</a></li>
 </ul>
 </li>
 </ul>
@@ -125,7 +134,7 @@
 
       <nav class="wy-nav-top" id="barra-mobile" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">Porão do Juca</a>
+        <a href="#">Nornir NETCONF </a>
       </nav>
 
       <div class="wy-nav-content">
@@ -149,10 +158,13 @@
 	    <!-- </ul> -->
 	    <!-- <hr/> -->
 	  </div>
-
           <div role="main" class="">
 
 	    <div id="content" class="hfeed entry-container hentry">
+      	<div id="dark-mode-toggle-container">
+	  <dark-mode-toggle appearance="toggle" dark="switch to light mode" light="switch to dark mode">
+	  </dark-mode-toggle>
+	</div>
   <section id="dataclasses-implementation">
 <h1>DataClasses Implementation<a class="headerlink" href="#dataclasses-implementation" title="Permalink to this heading">¶</a></h1>
 <p>As of version 2.0, there will be an introduction of <code class="docutils literal notranslate"><span class="pre">RpcResult</span></code> and <code class="docutils literal notranslate"><span class="pre">SchemaResult</span></code>. Going forward, any task will return a dataclass to ensure a good experience for the developers and users of this project.</p>
@@ -209,7 +221,7 @@
     </p>
   </div>
 
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="http://poraodojuca.net">Porão do Juca</a>.
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/jucacrispim/sphinx_pdj_theme">theme</a> provided by <a href="https://poraodojuca.dev">Porão do Juca</a>.
 
 </footer>
 	</div>

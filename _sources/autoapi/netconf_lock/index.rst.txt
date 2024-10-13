@@ -1,5 +1,5 @@
-:py:mod:`netconf_lock`
-======================
+netconf_lock
+============
 
 .. py:module:: netconf_lock
 
@@ -9,18 +9,16 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    netconf_lock.netconf_lock
 
 
+Module Contents
+---------------
 
 .. py:function:: netconf_lock(task: nornir.core.task.Task, datastore: Optional[str] = 'candidate', manager: Optional[ncclient.manager.Manager] = None, operation: str = 'lock') -> nornir.core.task.Result
 

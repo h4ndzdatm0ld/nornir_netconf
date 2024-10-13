@@ -1,5 +1,5 @@
-:py:mod:`netconf_rpc`
-=====================
+netconf_rpc
+===========
 
 .. py:module:: netconf_rpc
 
@@ -9,18 +9,16 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    netconf_rpc.netconf_rpc
 
 
+Module Contents
+---------------
 
 .. py:function:: netconf_rpc(task: nornir.core.task.Task, payload: str, manager: Optional[ncclient.manager.Manager] = None) -> nornir.core.task.Result
 

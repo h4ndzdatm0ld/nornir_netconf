@@ -1,5 +1,5 @@
-:py:mod:`netconf_get_config`
-============================
+netconf_get_config
+==================
 
 .. py:module:: netconf_get_config
 
@@ -9,18 +9,16 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    netconf_get_config.netconf_get_config
 
 
+Module Contents
+---------------
 
 .. py:function:: netconf_get_config(task: nornir.core.task.Task, source: Optional[str] = 'running', path: Optional[str] = '', filter_type: Optional[str] = 'xpath') -> nornir.core.task.Result
 
