@@ -3,6 +3,7 @@
 that conflicts with patching SSH on the next set of tests for edit_config.
 Context manager doesn't help, but using a different DEVICE_NAME does.
 """
+
 from unittest.mock import MagicMock, patch
 
 from nornir_netconf.plugins.helpers import RpcResult

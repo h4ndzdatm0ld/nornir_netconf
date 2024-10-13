@@ -1,4 +1,5 @@
 """Test NETCONF lock - integration."""
+
 import pytest
 
 from nornir_netconf.plugins.tasks import netconf_lock

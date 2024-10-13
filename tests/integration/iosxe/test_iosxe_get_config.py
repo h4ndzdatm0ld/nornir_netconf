@@ -1,4 +1,5 @@
 """Integration test against IOSXE device."""
+
 # from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.tasks import netconf_get_config

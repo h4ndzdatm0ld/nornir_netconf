@@ -1,4 +1,5 @@
 """Test NETCONF get schemas unit test."""
+
 from unittest.mock import MagicMock, patch
 
 from ncclient.operations.rpc import RPCError, to_ele

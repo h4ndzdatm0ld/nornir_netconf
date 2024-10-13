@@ -1,4 +1,5 @@
 """NETCONF validate config."""
+
 from typing import Optional
 
 from ncclient.manager import Manager

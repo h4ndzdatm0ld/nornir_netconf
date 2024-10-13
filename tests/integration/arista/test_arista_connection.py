@@ -1,4 +1,5 @@
 """Test NETCONF Connection."""
+
 import os
 
 from ncclient.capabilities import Capabilities

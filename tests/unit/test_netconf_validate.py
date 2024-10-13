@@ -1,4 +1,5 @@
 """Test NETCONF validate unit test."""
+
 from unittest.mock import MagicMock, patch
 
 from nornir_netconf.plugins.tasks import netconf_validate
