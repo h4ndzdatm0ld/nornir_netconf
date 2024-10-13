@@ -1,4 +1,5 @@
 """Conftest for nornir_netconf UnitTests."""
+
 import os
 import shutil
 import time
@@ -106,6 +107,46 @@ def sros_config_payload():
         </router>
     </configure>
 </config>
+        """
+
+
+@pytest.fixture(scope="function", autouse=True)
+def sros_rpc_payload():
+    return """
+<edit-config>
+    <target>
+        <running/>
+    </target>
+    <config>
+        <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf">
+            <router>
+                <router-name>Base</router-name>
+                <interface>
+                    <interface-name>L3-OAM-eNodeB069420-W1</interface-name>
+                    <admin-state>disable</admin-state>
+                    <ingress-stats>false</ingress-stats>
+                </interface>
+            </router>
+        </configure>
+    </config>
+</edit-config>
+        """
+
+
+@pytest.fixture(scope="function", autouse=True)
+def sros_rpc_payload_action():
+    return """
+<action xmlns="urn:ietf:params:xml:ns:yang:1">
+    <admin xmlns="urn:nokia.com:sros:ns:yang:sr:oper-admin">
+        <clear>
+            <security>
+                <password-history>
+                    <all/>
+                </password-history>
+            </security>
+        </clear>
+    </admin>
+</action>
         """
 
 

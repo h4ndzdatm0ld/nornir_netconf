@@ -1,4 +1,5 @@
 """Integration test against IOSXR device."""
+
 from nornir_netconf.plugins.tasks import netconf_get_config
 from tests.conftest import CONFIGS_DIR, skip_integration_tests, xml_dict
 

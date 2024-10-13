@@ -125,3 +125,4 @@ clab-clab-topo-netconf.yml/
 .clab-arista.yml.bak
 clab-arista-testing.yml
 test/test_data/schemas
+tests/test_data/schema_path/nokia-conf-aaa.yang

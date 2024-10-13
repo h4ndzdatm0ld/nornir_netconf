@@ -1,4 +1,5 @@
 """Test Get Schemas from all vendors."""
+
 from typing import Dict
 
 from nornir.core.filter import F

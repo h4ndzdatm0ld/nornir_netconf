@@ -1,4 +1,5 @@
 """Integration test configuration edits against IOSXE device."""
+
 from random import randint
 from string import Template
 

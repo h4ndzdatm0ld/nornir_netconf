@@ -1,4 +1,5 @@
 """NETCONF capabilities."""
+
 from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME

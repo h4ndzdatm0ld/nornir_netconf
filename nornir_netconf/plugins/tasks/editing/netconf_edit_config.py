@@ -1,4 +1,5 @@
 """NETCONF edit config."""
+
 from typing import Optional
 
 from ncclient.manager import Manager

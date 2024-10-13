@@ -1,4 +1,5 @@
 """Integration test against IOSXR device."""
+
 from random import randint
 from string import Template
 

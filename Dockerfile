@@ -1,4 +1,4 @@
-ARG PYTHON_VER=3.8
+ARG PYTHON_VER=3.9
 
 FROM python:${PYTHON_VER} AS base
 
@@ -21,7 +21,7 @@ COPY . .
 RUN poetry install --no-interaction
 
 RUN echo 'Rnning Ruff' && \
-    ruff . && \
+    ruff check . && \
     echo 'Running Black' && \
     black --check --diff . && \
     echo 'Running Yamllint' && \

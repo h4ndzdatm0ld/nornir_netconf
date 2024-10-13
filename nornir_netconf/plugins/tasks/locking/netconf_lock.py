@@ -1,4 +1,5 @@
 """NETCONF lock."""
+
 from typing import Optional
 
 from ncclient.manager import Manager

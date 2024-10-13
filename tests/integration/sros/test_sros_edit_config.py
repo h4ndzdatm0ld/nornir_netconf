@@ -1,4 +1,5 @@
 """Integration Testing Deploying L3VPN via Netconf to candidate datastore and committing."""
+
 from nornir_utils.plugins.functions import print_result
 
 from nornir_netconf.plugins.tasks import (

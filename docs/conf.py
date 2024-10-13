@@ -1,4 +1,5 @@
 """Configuration for Documentation."""
+
 # pylint: disable-all
 # Configuration file for the Sphinx documentation builder.
 #
