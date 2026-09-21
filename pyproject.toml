@@ -19,6 +19,7 @@ packages = [
 ncclient = "^0.7.1"
 python = "^3.9"
 nornir = {version = "^3.0.0", allow-prereleases = true}
+setuptools = "<81"
 
 
 [tool.poetry.dev-dependencies]
