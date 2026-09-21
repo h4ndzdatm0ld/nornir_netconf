@@ -16,10 +16,9 @@ packages = [
 "netconf" = "nornir_netconf.plugins.connections:Netconf"
 
 [tool.poetry.dependencies]
-ncclient = "^0.7.1"
+ncclient = "^0.6.9"
 python = "^3.9"
 nornir = {version = "^3.0.0", allow-prereleases = true}
-setuptools = "<81"
 
 
 [tool.poetry.dev-dependencies]
@@ -39,6 +38,7 @@ pytest = "*"
 xmltodict = "*"
 ruff = "*"
 myst-parser = "^1.0.0"
+setuptools = "<81"
 
 [build-system]
 requires = ["poetry_core>=1.0.0"]
