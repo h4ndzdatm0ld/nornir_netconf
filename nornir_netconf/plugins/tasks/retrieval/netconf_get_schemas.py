@@ -7,6 +7,14 @@ from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import SchemaResult, write_output
 
 
+def _schema_content(schema_reply: object) -> str:
+    """Return the raw YANG content parsed by ncclient."""
+    data = getattr(schema_reply, "data", None)
+    if isinstance(data, str):
+        return data
+    return str(schema_reply)
+
+
 def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str) -> Result:  # nosec
     """Fetch provided schemas and write to a file inside of a given directory path, `schema_path`.
 
@@ -33,7 +41,8 @@ def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str) -> Res
 
     for schema in schemas:
         try:
-            write_output(manager.get_schema(schema), path=schema_path, filename=schema, ext="yang")
+            schema_reply = manager.get_schema(schema)
+            write_output(_schema_content(schema_reply), path=schema_path, filename=schema, ext="yang")
             result.files.append(f"{schema_path}/{schema}.yang")
         except RPCError as err_ex:
             result.errors.append(str(err_ex).strip())

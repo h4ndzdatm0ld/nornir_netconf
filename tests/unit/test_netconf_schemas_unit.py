@@ -1,12 +1,26 @@
 """Test NETCONF get schemas unit test."""
 
+from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from ncclient.operations.rpc import RPCError, to_ele
 
 from nornir_netconf.plugins.tasks import netconf_get_schemas
+from nornir_netconf.plugins.tasks.retrieval.netconf_get_schemas import _schema_content
 
 DEVICE_NAME = "nokia_rtr"
+
+YANG_SCHEMA = """module example {
+  namespace "urn:example";
+  prefix example;
+}
+"""
+
+WRAPPED_SCHEMA = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring"><![CDATA[{YANG_SCHEMA}]]></data>
+</rpc-reply>
+"""
 
 
 xml_resp = """
@@ -31,6 +45,25 @@ xml_resp = """
 """
 
 
+class SchemaReply:
+    """Minimal ncclient GetSchemaReply test double."""
+
+    data = YANG_SCHEMA
+
+    def __str__(self) -> str:
+        return WRAPPED_SCHEMA
+
+
+def test_schema_content_uses_parsed_data():
+    """Use ncclient's parsed data even when the XML reply has a declaration."""
+    assert _schema_content(SchemaReply()) == YANG_SCHEMA
+
+
+def test_schema_content_supports_string_test_doubles():
+    """Keep compatibility with callers returning a plain string."""
+    assert _schema_content(YANG_SCHEMA) == YANG_SCHEMA
+
+
 @patch("ncclient.manager.connect_ssh")
 @patch("ncclient.manager.Manager")
 def test_netconf_get_schema_schema_path(manager, ssh, nornir):
@@ -42,13 +75,16 @@ def test_netconf_get_schema_schema_path(manager, ssh, nornir):
 
 
 @patch("ncclient.manager.connect_ssh")
-@patch("ncclient.manager.Manager")
-def test_netconf_get_schema(manager, ssh, nornir):
-    """Test NETCONF get_schema, missing path"""
-    manager.get_schema.return_value = str("SCHEMA")
+def test_netconf_get_schema_writes_raw_yang(ssh, nornir, tmp_path):
+    """Write schema data without the NETCONF RPC wrapper."""
+    ssh.return_value.get_schema.return_value = SchemaReply()
     nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="/tmp")
-    assert result[DEVICE_NAME].result.directory == "/tmp"
+    result = nr.run(netconf_get_schemas, schemas=["example"], schema_path=str(tmp_path))
+
+    schema_file = Path(result[DEVICE_NAME].result.files[0])
+    assert result[DEVICE_NAME].result.directory == str(tmp_path)
+    assert schema_file.read_text(encoding="utf-8") == YANG_SCHEMA
+    assert "<rpc-reply" not in schema_file.read_text(encoding="utf-8")
 
 
 @patch("ncclient.manager.connect_ssh")
