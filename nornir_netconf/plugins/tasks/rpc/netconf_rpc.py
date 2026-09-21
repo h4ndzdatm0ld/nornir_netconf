@@ -42,7 +42,7 @@ def netconf_rpc(
     if not re.match(r"{.*}.*", xml_.parse_root(payload)[0]):
         data.set("xmlns", xml_.BASE_NS_1_0)
 
-    result = manager.rpc(data)
+    result = manager.dispatch(data)
 
     result = RpcResult(rpc=result, manager=manager)
     return Result(host=task.host, result=result)

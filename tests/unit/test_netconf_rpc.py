@@ -15,7 +15,7 @@ def test_netconf_rpc_success(ssh, nornir, sros_rpc_payload):
     """Test NETCONF rpc, no defined manager."""
     response_rpc = MagicMock()
     response = MagicMock()
-    response.rpc.return_value = response_rpc
+    response.dispatch.return_value = response_rpc
     ssh.return_value = response
 
     nr = nornir.filter(name=DEVICE_NAME)
@@ -29,7 +29,7 @@ def test_netconf_rpc_success_action(ssh, nornir, sros_rpc_payload_action):
     """Test NETCONF rpc action (namespace set), no defined manager."""
     response_rpc = MagicMock()
     response = MagicMock()
-    response.rpc.return_value = response_rpc
+    response.dispatch.return_value = response_rpc
     ssh.return_value = response
 
     nr = nornir.filter(name=DEVICE_NAME)
@@ -43,7 +43,7 @@ def test_netconf_rpc_manager_set(ssh, nornir, sros_rpc_payload):
     """Test NETCONF rpc, with manager option set."""
     response_rpc = MagicMock()
     manager = MagicMock()
-    manager.rpc.return_value = response_rpc
+    manager.dispatch.return_value = response_rpc
 
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_rpc, payload=sros_rpc_payload, manager=manager)
@@ -56,7 +56,7 @@ def test_netconf_rpc_bad_operation(ssh, nornir, sros_rpc_payload):
     """Test NETCONF rpc, unsupported default operation."""
     response_rpc = MagicMock(0)
     response = MagicMock()
-    response.rpc.return_value = response_rpc
+    response.dispatch.return_value = response_rpc
     ssh.return_value = response
 
     nr = nornir.filter(name=DEVICE_NAME)

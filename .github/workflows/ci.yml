@@ -1,26 +1,61 @@
 ---
 name: "CI"
 on: # yamllint disable-line rule:truthy rule:comments
-  - "push"
-  - "pull_request"
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  POETRY_VERSION: "1.8.5"
+  CONTAINERLAB_VERSION: "0.79.0"
 
 jobs:
+  pr-title:
+    name: "PR title is a Conventional Commit"
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            perf
+            deps
+            docs
+            refactor
+            test
+            ci
+            chore
+            build
+            revert
+          requireScope: false
+          subjectPattern: ^(?![A-Z]).+$
+          subjectPatternError: |
+            The subject "{subject}" must start with a lowercase letter.
+
   linters:
     name: "Code Quality - Linting"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
-          pip install poetry
-          poetry install
+          pip install "poetry==$POETRY_VERSION"
+          poetry install --no-interaction
 
       - name: Lint & Code Format
         run: |
-          echo 'Rnning Ruff' && \
+          echo 'Running Ruff' && \
           poetry run ruff check . && \
           echo 'Running Black' && \
           poetry run black --check --diff . && \
@@ -32,101 +67,156 @@ jobs:
           poetry run mypy .
 
   test:
-    name: Testing on Python ${{ matrix.python-version }}
+    name: Unit tests on Python ${{ matrix.python-version }} with ncclient ${{ matrix.ncclient }}
     runs-on: ubuntu-latest
     needs:
       - "linters"
     strategy:
+      fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11"]
+        include:
+          - python-version: "3.9"
+            ncclient: "minimum"
+          - python-version: "3.9"
+            ncclient: "latest"
+          - python-version: "3.10"
+            ncclient: "minimum"
+          - python-version: "3.10"
+            ncclient: "latest"
+          - python-version: "3.11"
+            ncclient: "minimum"
+          - python-version: "3.11"
+            ncclient: "latest"
+          - python-version: "3.12"
+            ncclient: "latest"
+          - python-version: "3.13"
+            ncclient: "latest"
+          - python-version: "3.14"
+            ncclient: "latest"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - name: Setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
 
-      - name: "Install Containerlab"
-        run: |
-          sudo bash -c "$(curl -sL https://get.containerlab.dev)"
-          
-      - name: "Start Arista CEOS"
-        run: "sudo containerlab deploy -t clab-files/clab-arista.yml"
-
-      - name: "Wait for Arista CEOS to be ready"
-        uses: "jakejarvis/wait-action@master"
-        with:
-          time: "10"
-
-      - name: "Change ownership of Containerlab files"
-        run: "sudo chown -R $USER clab-arista-testing.yml"
-
       - name: Install dependencies
         run: |
-          pip install poetry
+          pip install "poetry==$POETRY_VERSION"
           poetry install --no-interaction
+
+      - name: Install tested ncclient version
+        run: |
+          if [ "${{ matrix.ncclient }}" = "minimum" ]; then
+            poetry run pip install "ncclient==0.6.9"
+          else
+            poetry run pip install --upgrade "ncclient>=0.6.9"
+          fi
+          poetry run pip check
 
       - name: Pytest
         run: |
-          poetry run pytest --cov=nornir_netconf --cov-report=xml -vv
+          poetry run pytest tests/unit --cov=nornir_netconf --cov-report=xml -vv
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+        if: matrix.python-version == '3.14' && matrix.ncclient == 'latest'
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-  publish_gh:
+
+  build:
+    name: "Build package"
+    runs-on: ubuntu-latest
     needs:
       - "test"
-    name: "Publish to GitHub"
-    runs-on: "ubuntu-20.04"
-    if: "startsWith(github.ref, 'refs/tags/v')"
     steps:
-      - name: "Check out repository code"
-        uses: "actions/checkout@v2"
-      - name: "Set up Python"
-        uses: "actions/setup-python@v2"
+      - uses: actions/checkout@v7
+      - name: Setup Python
+        uses: actions/setup-python@v7
         with:
-          python-version: "3.9"
-      - name: "Install Python Packages"
-        run: "pip install poetry"
-      - name: "Set env"
-        run: "echo RELEASE_VERSION=${GITHUB_REF:10} >> $GITHUB_ENV"
-      - name: "Run Poetry Version"
-        run: "poetry version $RELEASE_VERSION"
-      - name: "Run Poetry Build"
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: 'pip install "poetry==$POETRY_VERSION"'
+
+      - name: Build package
         run: "poetry build"
-      - name: "Upload binaries to release"
-        uses: "svenstaro/upload-release-action@v2"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          file: "dist/*"
-          tag: "${{ github.ref }}"
-          overwrite: true
-          file_glob: true
-  publish_pypi:
+
+  integration:
+    name: Arista CEOS integration tests with ncclient ${{ matrix.ncclient }}
+    runs-on: ubuntu-latest
     needs:
-      - "test"
-    name: "Push Package to PyPI"
-    runs-on: "ubuntu-20.04"
-    if: "startsWith(github.ref, 'refs/tags/v')"
+      - "linters"
+    strategy:
+      fail-fast: false
+      matrix:
+        ncclient: ["minimum", "latest"]
     steps:
-      - name: "Check out repository code"
-        uses: "actions/checkout@v2"
-      - name: "Set up Python"
-        uses: "actions/setup-python@v2"
+      - uses: actions/checkout@v7
+      - name: Setup Python
+        uses: actions/setup-python@v7
         with:
-          python-version: "3.9"
-      - name: "Install Python Packages"
-        run: "pip install poetry"
-      - name: "Set env"
-        run: "echo RELEASE_VERSION=${GITHUB_REF:10} >> $GITHUB_ENV"
-      - name: "Run Poetry Version"
-        run: "poetry version $RELEASE_VERSION"
-      - name: "Run Poetry Build"
-        run: "poetry build"
-      - name: "Push to PyPI"
-        uses: "pypa/gh-action-pypi-publish@release/v1"
+          python-version: "3.11"
+
+      - name: "Install Containerlab"
+        run: |
+          sudo bash -c "$(curl -sL https://get.containerlab.dev)" -- -v "$CONTAINERLAB_VERSION"
+
+      - name: "Start Arista CEOS"
+        run: "sudo containerlab deploy -t clab-files/clab-arista.yml"
+
+      - name: "Apply Arista CEOS configuration"
+        run: |
+          for _ in $(seq 1 36); do
+            if sudo docker exec clab-arista-testing-ceos \
+              Cli -p 15 -c "configure replace flash:ceos-startup-template.cfg"; then
+              exit 0
+            fi
+            sleep 5
+          done
+          sudo docker logs clab-arista-testing-ceos
+          exit 1
+
+      - name: "Wait for Arista CEOS to be ready"
+        run: |
+          for _ in $(seq 1 36); do
+            if nc -z -w 2 172.200.101.11 830; then
+              exit 0
+            fi
+            sleep 5
+          done
+          sudo docker logs clab-arista-testing-ceos
+          exit 1
+
+      - name: Install dependencies
+        run: |
+          pip install "poetry==$POETRY_VERSION"
+          poetry install --no-interaction
+
+      - name: Install tested ncclient version
+        run: |
+          if [ "${{ matrix.ncclient }}" = "minimum" ]; then
+            poetry run pip install "ncclient==0.6.9"
+          else
+            poetry run pip install --upgrade "ncclient>=0.6.9"
+          fi
+          poetry run pip check
+
+      - name: Pytest
+        env:
+          SKIP_INTEGRATION_TESTS: "False"
+        run: |
+          poetry run pytest tests/unit tests/integration/arista \
+            --cov=nornir_netconf --cov-report=xml -vv
+
+      - name: Upload coverage to Codecov
+        if: matrix.ncclient == 'latest'
+        uses: codecov/codecov-action@v7
         with:
-          user: "__token__"
-          password: "${{ secrets.PYPI_API_TOKEN }}"
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: integration
+
+      - name: "Destroy Arista CEOS"
+        if: always()
+        run: "sudo containerlab destroy -t clab-files/clab-arista.yml --cleanup"

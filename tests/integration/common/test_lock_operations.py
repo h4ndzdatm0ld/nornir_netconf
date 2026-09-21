@@ -19,11 +19,14 @@ GROUP_NAME = "integration"
 def test_netconf_lock_and_unlock_datastore(nornir, datastore, expected_hosts):
     """Test Netconf Lock and Unlock with manager carrying."""
     nr = nornir.filter(lock_datastore=datastore)
-    result = nr.run(netconf_lock, datastore=datastore, operation="lock")
-    eval_multi_result(expected_hosts, result)
-    result = nr.run(netconf_lock, datastore=datastore, operation="unlock")
-    assert set(expected_hosts) == set(list(result.keys()))
-    eval_multi_result(expected_hosts, result)
+    try:
+        result = nr.run(netconf_lock, datastore=datastore, operation="lock")
+        eval_multi_result(expected_hosts, result)
+        result = nr.run(netconf_lock, datastore=datastore, operation="unlock")
+        assert set(expected_hosts) == set(list(result.keys()))
+        eval_multi_result(expected_hosts, result)
+    finally:
+        nr.close_connections()
 
 
 def global_lock(task, datastore: str, operation: str):
@@ -31,10 +34,15 @@ def global_lock(task, datastore: str, operation: str):
     if operation == "unlock":
         manager = task.host["manager"]
         print(manager)
+        try:
+            result = task.run(netconf_lock, datastore=datastore, operation=operation, manager=manager)
+        finally:
+            manager.close_session()
+            task.host.data.pop("manager", None)
     else:
         manager = None
-    result = task.run(netconf_lock, datastore=datastore, operation=operation, manager=manager)
-    task.host["manager"] = result.result.manager
+        result = task.run(netconf_lock, datastore=datastore, operation=operation, manager=manager)
+        task.host["manager"] = result.result.manager
     if hasattr(result.result.rpc, "ok"):
         assert result.result.rpc.ok
     assert not result.failed
@@ -47,10 +55,13 @@ def global_lock(task, datastore: str, operation: str):
 def test_netconf_global_lock(datastore, expected_hosts, nornir):
     """Test Netconf Lock and Unlock with carried manager session."""
     nr = nornir.filter(lock_datastore=datastore)
-    result = nr.run(global_lock, datastore=datastore, operation="lock")
-    eval_multi_task_result(expected_hosts, result)
-    result = nr.run(global_lock, datastore=datastore, operation="unlock")
-    eval_multi_task_result(expected_hosts, result)
+    try:
+        result = nr.run(global_lock, datastore=datastore, operation="lock")
+        eval_multi_task_result(expected_hosts, result)
+        result = nr.run(global_lock, datastore=datastore, operation="unlock")
+        eval_multi_task_result(expected_hosts, result)
+    finally:
+        nr.close_connections()
 
 
 @skip_integration_tests
@@ -60,11 +71,16 @@ def test_netconf_global_lock(datastore, expected_hosts, nornir):
 def test_netconf_lock_lock_failed(datastore, expected_hosts, nornir):
     """Test Netconf Lock and attempting second lock - failed."""
     nr = nornir.filter(lock_datastore=datastore)
-    result = nr.run(global_lock, datastore=datastore, operation="lock")
-    eval_multi_task_result(expected_hosts, result)
-    result = nr.run(global_lock, datastore=datastore, operation="lock")
-    assert set(expected_hosts) == set(list(result.keys()))
-    for host in expected_hosts:
-        for task in range(len(result[host])):
-            assert result[host][task].failed
-    result = nr.run(global_lock, datastore=datastore, operation="unlock")
+    try:
+        result = nr.run(global_lock, datastore=datastore, operation="lock")
+        eval_multi_task_result(expected_hosts, result)
+        result = nr.run(global_lock, datastore=datastore, operation="lock")
+        assert set(expected_hosts) == set(list(result.keys()))
+        for host in expected_hosts:
+            for task in range(len(result[host])):
+                assert result[host][task].failed
+        nr.data.reset_failed_hosts()
+        result = nr.run(global_lock, datastore=datastore, operation="unlock")
+        eval_multi_task_result(expected_hosts, result)
+    finally:
+        nr.close_connections()

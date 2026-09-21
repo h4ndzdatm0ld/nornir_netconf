@@ -5,11 +5,13 @@ from ncclient.operations.rpc import RPCReply
 
 from nornir_netconf.plugins.helpers import RpcResult
 from nornir_netconf.plugins.tasks import netconf_lock
+from tests.conftest import skip_integration_tests
 
 # from nornir_utils.plugins.functions import print_result
 
 
 DEVICE_NAME = "ceos"
+pytestmark = skip_integration_tests
 
 
 def test_netconf_lock(nornir):

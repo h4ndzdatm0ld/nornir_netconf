@@ -10,9 +10,10 @@ from nornir_netconf.plugins.tasks import (
     netconf_get_config,
     netconf_rpc,
 )
-from tests.conftest import xml_dict
+from tests.conftest import skip_integration_tests, xml_dict
 
 DEVICE_NAME = "ceos"
+pytestmark = skip_integration_tests
 
 BFD_STATE = str(bool(randint(0, 1))).lower()
 RPC_TEMPLATE = """

@@ -52,7 +52,8 @@ def nornir():
         dry_run=True,
     )
     nornir.data = global_data
-    return nornir
+    yield nornir
+    nornir.close_connections()
 
 
 @pytest.fixture(scope="session", autouse=True)
