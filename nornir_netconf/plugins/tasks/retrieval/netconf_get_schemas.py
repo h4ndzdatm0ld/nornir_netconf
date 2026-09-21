@@ -12,9 +12,16 @@ from nornir_netconf.plugins.helpers import SchemaResult, write_output
 def _schema_content(schema_reply: object) -> str:
     """Return the raw YANG content parsed by ncclient."""
     data = getattr(schema_reply, "data", None)
-    if not isinstance(data, str) or not data.strip():
-        raise ValueError("NETCONF get-schema reply did not contain schema text.")
-    return data
+    if isinstance(data, str) and data.strip():
+        return data
+
+    xpath = getattr(schema_reply, "xpath", None)
+    if callable(xpath):
+        for element in xpath("//*[local-name()='data']"):
+            if isinstance(element.text, str) and element.text.strip():
+                return element.text
+
+    raise ValueError("NETCONF get-schema reply did not contain schema text.")
 
 
 def _schema_filename(schema: str) -> str:

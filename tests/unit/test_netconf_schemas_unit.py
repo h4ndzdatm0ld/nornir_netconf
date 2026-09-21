@@ -52,6 +52,24 @@ def test_schema_content_uses_parsed_data():
     assert _schema_content(GetSchemaReply(WRAPPED_SCHEMA)) == YANG_SCHEMA
 
 
+def test_schema_content_uses_parsed_xml_element():
+    """Use ncclient's parsed XML API when a device handler returns NCElement."""
+    element = MagicMock(text=YANG_SCHEMA)
+    schema_reply = MagicMock(data=None)
+    schema_reply.xpath.return_value = [element]
+
+    assert _schema_content(schema_reply) == YANG_SCHEMA
+    schema_reply.xpath.assert_called_once_with("//*[local-name()='data']")
+
+
+def test_schema_content_skips_empty_parsed_xml_elements():
+    """Ignore empty data elements before accepting schema text."""
+    schema_reply = MagicMock(data=None)
+    schema_reply.xpath.return_value = [MagicMock(text=None), MagicMock(text=YANG_SCHEMA)]
+
+    assert _schema_content(schema_reply) == YANG_SCHEMA
+
+
 @pytest.mark.parametrize("schema", ["", ".", "..", "../example", "/tmp/example", r"..\example"])
 def test_schema_filename_rejects_unsafe_identifiers(schema):
     """Schema identifiers cannot write outside the requested directory."""
@@ -61,8 +79,17 @@ def test_schema_filename_rejects_unsafe_identifiers(schema):
 
 def test_schema_content_rejects_missing_data():
     """A malformed reply cannot be mistaken for a successfully downloaded schema."""
+    schema_reply = MagicMock(data=None)
+    schema_reply.xpath.return_value = []
+
     with pytest.raises(ValueError):
-        _schema_content(MagicMock(data=None))
+        _schema_content(schema_reply)
+
+
+def test_schema_content_rejects_reply_without_parsed_data_api():
+    """A reply without parsed schema data is rejected."""
+    with pytest.raises(ValueError):
+        _schema_content(object())
 
 
 @patch("ncclient.manager.connect_ssh")
