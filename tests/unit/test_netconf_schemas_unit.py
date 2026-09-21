@@ -3,10 +3,12 @@
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import pytest
+from ncclient.operations.retrieve import GetSchemaReply
 from ncclient.operations.rpc import RPCError, to_ele
 
 from nornir_netconf.plugins.tasks import netconf_get_schemas
-from nornir_netconf.plugins.tasks.retrieval.netconf_get_schemas import _schema_content
+from nornir_netconf.plugins.tasks.retrieval.netconf_get_schemas import _schema_content, _schema_filename
 
 DEVICE_NAME = "nokia_rtr"
 
@@ -45,46 +47,71 @@ xml_resp = """
 """
 
 
-class SchemaReply:
-    """Minimal ncclient GetSchemaReply test double."""
-
-    data = YANG_SCHEMA
-
-    def __str__(self) -> str:
-        return WRAPPED_SCHEMA
-
-
 def test_schema_content_uses_parsed_data():
-    """Use ncclient's parsed data even when the XML reply has a declaration."""
-    assert _schema_content(SchemaReply()) == YANG_SCHEMA
+    """Use ncclient's parser with an XML declaration and CDATA wrapper."""
+    assert _schema_content(GetSchemaReply(WRAPPED_SCHEMA)) == YANG_SCHEMA
 
 
-def test_schema_content_supports_string_test_doubles():
-    """Keep compatibility with callers returning a plain string."""
-    assert _schema_content(YANG_SCHEMA) == YANG_SCHEMA
+@pytest.mark.parametrize("schema", ["", ".", "..", "../example", "/tmp/example", r"..\example"])
+def test_schema_filename_rejects_unsafe_identifiers(schema):
+    """Schema identifiers cannot write outside the requested directory."""
+    with pytest.raises(ValueError):
+        _schema_filename(schema)
+
+
+def test_schema_content_rejects_missing_data():
+    """A malformed reply cannot be mistaken for a successfully downloaded schema."""
+    with pytest.raises(ValueError):
+        _schema_content(MagicMock(data=None))
 
 
 @patch("ncclient.manager.connect_ssh")
-@patch("ncclient.manager.Manager")
-def test_netconf_get_schema_schema_path(manager, ssh, nornir):
+def test_netconf_get_schema_schema_path(ssh, nornir, tmp_path):
     """Test NETCONF Capabilities + Get Schemas success."""
+    ssh.return_value.get_schema.return_value = GetSchemaReply(WRAPPED_SCHEMA)
     nr = nornir.filter(name=DEVICE_NAME)
-    result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path="tests/test_data/schema_path")
+    result = nr.run(netconf_get_schemas, schemas=["nokia-conf-aaa"], schema_path=str(tmp_path))
     assert not result[DEVICE_NAME].failed
-    assert result[DEVICE_NAME].result.files[0] == "tests/test_data/schema_path/nokia-conf-aaa.yang"
+    assert result[DEVICE_NAME].result.files[0] == f"{tmp_path}/nokia-conf-aaa.yang"
 
 
 @patch("ncclient.manager.connect_ssh")
 def test_netconf_get_schema_writes_raw_yang(ssh, nornir, tmp_path):
     """Write schema data without the NETCONF RPC wrapper."""
-    ssh.return_value.get_schema.return_value = SchemaReply()
+    ssh.return_value.get_schema.return_value = GetSchemaReply(WRAPPED_SCHEMA)
     nr = nornir.filter(name=DEVICE_NAME)
     result = nr.run(netconf_get_schemas, schemas=["example"], schema_path=str(tmp_path))
 
     schema_file = Path(result[DEVICE_NAME].result.files[0])
+    content = schema_file.read_text(encoding="utf-8")
     assert result[DEVICE_NAME].result.directory == str(tmp_path)
-    assert schema_file.read_text(encoding="utf-8") == YANG_SCHEMA
-    assert "<rpc-reply" not in schema_file.read_text(encoding="utf-8")
+    assert content == YANG_SCHEMA
+    assert "<rpc-reply" not in content
+
+
+@patch("ncclient.manager.connect_ssh")
+def test_netconf_get_schema_rejects_path_traversal(ssh, nornir, tmp_path):
+    """A schema identifier cannot write outside schema_path."""
+    ssh.return_value.get_schema.return_value = GetSchemaReply(WRAPPED_SCHEMA)
+    nr = nornir.filter(name=DEVICE_NAME)
+    result = nr.run(netconf_get_schemas, schemas=["../example"], schema_path=str(tmp_path))
+
+    assert result[DEVICE_NAME].result.files == []
+    assert result[DEVICE_NAME].result.errors == ["Invalid schema identifier: '../example'"]
+    assert not (tmp_path.parent / "example.yang").exists()
+    ssh.return_value.get_schema.assert_not_called()
+
+
+@patch("ncclient.manager.connect_ssh")
+def test_netconf_get_schema_rejects_missing_data(ssh, nornir, tmp_path):
+    """A malformed reply is reported instead of being written as XML."""
+    ssh.return_value.get_schema.return_value = MagicMock(data=None)
+    nr = nornir.filter(name=DEVICE_NAME)
+    result = nr.run(netconf_get_schemas, schemas=["example"], schema_path=str(tmp_path))
+
+    assert result[DEVICE_NAME].result.files == []
+    assert result[DEVICE_NAME].result.errors == ["NETCONF get-schema reply did not contain schema text."]
+    assert not (tmp_path / "example.yang").exists()
 
 
 @patch("ncclient.manager.connect_ssh")
