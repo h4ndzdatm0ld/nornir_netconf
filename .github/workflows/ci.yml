@@ -207,7 +207,8 @@ jobs:
         env:
           SKIP_INTEGRATION_TESTS: "False"
         run: |
-          poetry run pytest tests/integration/arista --cov=nornir_netconf --cov-report=xml -vv
+          poetry run pytest tests/unit tests/integration/arista \
+            --cov=nornir_netconf --cov-report=xml -vv
 
       - name: Upload coverage to Codecov
         if: matrix.ncclient == 'latest'
