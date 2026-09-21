@@ -1,12 +1,13 @@
 ARG PYTHON_VER=3.9
+ARG POETRY_VERSION=1.8.5
 
 FROM python:${PYTHON_VER} AS base
 
+ARG POETRY_VERSION
+
 WORKDIR /usr/src/app
 
-RUN pip install -U pip  && \
-    curl -sSL https://install.python-poetry.org  | python3 -
-ENV PATH="/root/.local/bin:$PATH"
+RUN pip install --upgrade pip "poetry==${POETRY_VERSION}"
 
 RUN poetry config virtualenvs.create false
 
@@ -20,7 +21,7 @@ COPY . .
 
 RUN poetry install --no-interaction
 
-RUN echo 'Rnning Ruff' && \
+RUN echo 'Running Ruff' && \
     ruff check . && \
     echo 'Running Black' && \
     black --check --diff . && \

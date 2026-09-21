@@ -6,10 +6,12 @@ from ncclient.capabilities import Capabilities
 
 from nornir_netconf.plugins.helpers.models import RpcResult
 from nornir_netconf.plugins.tasks import netconf_capabilities
+from tests.conftest import skip_integration_tests
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 DEVICE_NAME = "ceos"
 CAP = "http://openconfig.net/yang/policy-forwarding?module=openconfig-policy-forwarding&revision=2021-08-06"
+pytestmark = skip_integration_tests
 
 
 def test_netconf_connection_missing_ssh_keyfile(nornir):

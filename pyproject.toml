@@ -16,7 +16,7 @@ packages = [
 "netconf" = "nornir_netconf.plugins.connections:Netconf"
 
 [tool.poetry.dependencies]
-ncclient = "^0.6.9"
+ncclient = "^0.7.1"
 python = "^3.9"
 nornir = {version = "^3.0.0", allow-prereleases = true}
 

@@ -4,23 +4,29 @@ on: # yamllint disable-line rule:truthy rule:comments
   - "push"
   - "pull_request"
 
+env:
+  POETRY_VERSION: "1.8.5"
+  CONTAINERLAB_VERSION: "0.79.0"
+
 jobs:
   linters:
     name: "Code Quality - Linting"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
-          pip install poetry
-          poetry install
+          pip install "poetry==$POETRY_VERSION"
+          poetry install --no-interaction
 
       - name: Lint & Code Format
         run: |
-          echo 'Rnning Ruff' && \
+          echo 'Running Ruff' && \
           poetry run ruff check . && \
           echo 'Running Black' && \
           poetry run black --check --diff . && \
@@ -32,7 +38,7 @@ jobs:
           poetry run mypy .
 
   test:
-    name: Testing on Python ${{ matrix.python-version }}
+    name: Unit tests on Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
     needs:
       - "linters"
@@ -40,56 +46,107 @@ jobs:
       matrix:
         python-version: ["3.9", "3.10", "3.11"]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
 
-      - name: "Install Containerlab"
-        run: |
-          sudo bash -c "$(curl -sL https://get.containerlab.dev)"
-          
-      - name: "Start Arista CEOS"
-        run: "sudo containerlab deploy -t clab-files/clab-arista.yml"
-
-      - name: "Wait for Arista CEOS to be ready"
-        uses: "jakejarvis/wait-action@master"
-        with:
-          time: "10"
-
-      - name: "Change ownership of Containerlab files"
-        run: "sudo chown -R $USER clab-arista-testing.yml"
-
       - name: Install dependencies
         run: |
-          pip install poetry
+          pip install "poetry==$POETRY_VERSION"
           poetry install --no-interaction
 
       - name: Pytest
         run: |
-          poetry run pytest --cov=nornir_netconf --cov-report=xml -vv
+          poetry run pytest tests/unit --cov=nornir_netconf --cov-report=xml -vv
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+        if: matrix.python-version == '3.11'
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  integration:
+    name: Arista CEOS integration tests
+    runs-on: ubuntu-latest
+    needs:
+      - "linters"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Install Containerlab"
+        run: |
+          sudo bash -c "$(curl -sL https://get.containerlab.dev)" -- -v "$CONTAINERLAB_VERSION"
+
+      - name: "Start Arista CEOS"
+        run: "sudo containerlab deploy -t clab-files/clab-arista.yml"
+
+      - name: "Apply Arista CEOS configuration"
+        run: |
+          for attempt in $(seq 1 36); do
+            if sudo docker exec clab-arista-testing-ceos \
+              Cli -p 15 -c "configure replace flash:ceos-startup-template.cfg"; then
+              exit 0
+            fi
+            sleep 5
+          done
+          sudo docker logs clab-arista-testing-ceos
+          exit 1
+
+      - name: "Wait for Arista CEOS to be ready"
+        run: |
+          for attempt in $(seq 1 36); do
+            if nc -z -w 2 172.200.101.11 830; then
+              exit 0
+            fi
+            sleep 5
+          done
+          sudo docker logs clab-arista-testing-ceos
+          exit 1
+
+      - name: Install dependencies
+        run: |
+          pip install "poetry==$POETRY_VERSION"
+          poetry install --no-interaction
+
+      - name: Pytest
+        env:
+          SKIP_INTEGRATION_TESTS: "False"
+        run: |
+          poetry run pytest tests/integration/arista --cov=nornir_netconf --cov-report=xml -vv
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: integration
+
+      - name: "Destroy Arista CEOS"
+        if: always()
+        run: "sudo containerlab destroy -t clab-files/clab-arista.yml --cleanup"
+
   publish_gh:
     needs:
       - "test"
+      - "integration"
     name: "Publish to GitHub"
     runs-on: "ubuntu-20.04"
     if: "startsWith(github.ref, 'refs/tags/v')"
     steps:
       - name: "Check out repository code"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
       - name: "Set up Python"
-        uses: "actions/setup-python@v2"
+        uses: "actions/setup-python@v5"
         with:
           python-version: "3.9"
       - name: "Install Python Packages"
-        run: "pip install poetry"
+        run: 'pip install "poetry==$POETRY_VERSION"'
       - name: "Set env"
         run: "echo RELEASE_VERSION=${GITHUB_REF:10} >> $GITHUB_ENV"
       - name: "Run Poetry Version"
@@ -107,18 +164,19 @@ jobs:
   publish_pypi:
     needs:
       - "test"
+      - "integration"
     name: "Push Package to PyPI"
     runs-on: "ubuntu-20.04"
     if: "startsWith(github.ref, 'refs/tags/v')"
     steps:
       - name: "Check out repository code"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
       - name: "Set up Python"
-        uses: "actions/setup-python@v2"
+        uses: "actions/setup-python@v5"
         with:
           python-version: "3.9"
       - name: "Install Python Packages"
-        run: "pip install poetry"
+        run: 'pip install "poetry==$POETRY_VERSION"'
       - name: "Set env"
         run: "echo RELEASE_VERSION=${GITHUB_REF:10} >> $GITHUB_ENV"
       - name: "Run Poetry Version"

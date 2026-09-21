@@ -1,5 +1,4 @@
 ---
-version: "3.8"
 services:
   test:
     network_mode: "host"
@@ -14,14 +13,14 @@ services:
     volumes:
       - "./:/usr/src/app"
   clab:
-    image: "ghcr.io/srl-labs/clab"
-    working_dir: "/src"
+    image: "ghcr.io/srl-labs/clab:0.79.0"
+    working_dir: "${PWD}"
     network_mode: "host"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/var/run/netns:/var/run/netns"
       - "/etc/hosts:/etc/hosts"
-      - "./:/src"
+      - "${PWD}:${PWD}"
     pid: "host"
     # command: "containerlab deploy -t ./clab-files/clab-topo-netconf.yml"
     command: "containerlab deploy -t ./clab-files/clab-arista.yml --reconfigure"
