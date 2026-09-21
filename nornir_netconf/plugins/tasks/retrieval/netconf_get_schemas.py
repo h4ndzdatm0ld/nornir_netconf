@@ -1,5 +1,7 @@
 """NETCONF Schemas."""
 
+from pathlib import Path
+
 from ncclient.operations.rpc import RPCError
 from nornir.core.task import List, Result, Task
 
@@ -7,11 +9,33 @@ from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import SchemaResult, write_output
 
 
+def _schema_content(schema_reply: object) -> str:
+    """Return the raw YANG content parsed by ncclient."""
+    data = getattr(schema_reply, "data", None)
+    if isinstance(data, str) and data.strip():
+        return data
+
+    xpath = getattr(schema_reply, "xpath", None)
+    if callable(xpath):
+        for element in xpath("//*[local-name()='data']"):
+            if isinstance(element.text, str) and element.text.strip():
+                return element.text
+
+    raise ValueError("NETCONF get-schema reply did not contain schema text.")
+
+
+def _schema_filename(schema: str) -> str:
+    """Reject schema identifiers that could escape the output directory."""
+    if not schema or schema in {".", ".."} or Path(schema).name != schema or "\\" in schema:
+        raise ValueError(f"Invalid schema identifier: {schema!r}")
+    return schema
+
+
 def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str) -> Result:  # nosec
     """Fetch provided schemas and write to a file inside of a given directory path, `schema_path`.
 
-    All schemas will be written to a file in the `schema_path` directory provided and
-    named by the schema name.
+    Each schema's raw YANG text will be written to the `schema_path` directory and
+    named by the schema identifier.
 
     Any errors on extracting the schema will be logged in the result object.
 
@@ -33,9 +57,11 @@ def netconf_get_schemas(task: Task, schemas: List[str], schema_path: str) -> Res
 
     for schema in schemas:
         try:
-            write_output(manager.get_schema(schema), path=schema_path, filename=schema, ext="yang")
-            result.files.append(f"{schema_path}/{schema}.yang")
-        except RPCError as err_ex:
+            filename = _schema_filename(schema)
+            schema_reply = manager.get_schema(schema)
+            write_output(_schema_content(schema_reply), path=schema_path, filename=filename, ext="yang")
+            result.files.append(f"{schema_path}/{filename}.yang")
+        except (RPCError, ValueError) as err_ex:
             result.errors.append(str(err_ex).strip())
 
     return Result(host=task.host, result=result)

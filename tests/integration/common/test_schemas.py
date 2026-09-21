@@ -1,5 +1,6 @@
 """Test Get Schemas from all vendors."""
 
+from pathlib import Path
 from typing import Dict
 
 from nornir.core.filter import F
@@ -46,3 +47,7 @@ def test_netconf_capabilities_get_schema(nornir, schema_path):
         assert schema[host].result.files
         assert not schema[host].result.errors
         assert schema[host].result.directory
+        content = Path(schema[host].result.files[0]).read_text(encoding="utf-8")
+        schema_text = content.lstrip()
+        assert "module " in schema_text or "submodule " in schema_text
+        assert not schema_text.startswith("<rpc-reply")
