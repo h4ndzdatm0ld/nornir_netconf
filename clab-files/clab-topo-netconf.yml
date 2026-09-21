@@ -1,6 +1,6 @@
 # clab/clab@123
 ---
-name: "clab-topo-netconf.yml"
+name: "netconf-testing"
 
 mgmt:
   network: "nornir-netconf-testing"

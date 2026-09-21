@@ -1,0 +1,76 @@
+---
+name: "Release"
+
+on: # yamllint disable-line rule:truthy rule:comments
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [develop]
+  workflow_dispatch:
+
+concurrency:
+  group: "release-develop"
+  cancel-in-progress: false
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    name: "Prepare release"
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    outputs:
+      released: ${{ steps.release.outputs.release_created }}
+      tag: ${{ steps.release.outputs.tag_name }}
+      pr_branch: ${{ fromJSON(steps.release.outputs.pr || '{}').headBranchName }}
+    steps:
+      - id: release
+        uses: googleapis/release-please-action@v5
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+          target-branch: develop
+
+      - name: Run CI on the release pull request
+        if: steps.release.outputs.pr != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_PR_BRANCH: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
+        run: 'gh workflow run ci.yml --ref "$RELEASE_PR_BRANCH"'
+
+  publish:
+    name: "Publish release artifacts"
+    runs-on: ubuntu-latest
+    needs: release-please
+    if: needs.release-please.outputs.released == 'true'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.release-please.outputs.tag }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: 'pip install "poetry==1.8.5"'
+
+      - name: Build package
+        run: "poetry build"
+
+      - name: Upload artifacts to GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: 'gh release upload "${{ needs.release-please.outputs.tag }}" dist/* --clobber'
+
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: "__token__"
+          password: ${{ secrets.PYPI_API_TOKEN }}
