@@ -38,13 +38,15 @@ jobs:
           poetry run mypy .
 
   test:
-    name: Unit tests on Python ${{ matrix.python-version }}
+    name: Unit tests on Python ${{ matrix.python-version }} with ncclient ${{ matrix.ncclient }}
     runs-on: ubuntu-latest
     needs:
       - "linters"
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.9", "3.10", "3.11"]
+        ncclient: ["minimum", "latest"]
     steps:
       - uses: actions/checkout@v4
       - name: Setup python
@@ -58,21 +60,34 @@ jobs:
           pip install "poetry==$POETRY_VERSION"
           poetry install --no-interaction
 
+      - name: Install tested ncclient version
+        run: |
+          if [ "${{ matrix.ncclient }}" = "minimum" ]; then
+            poetry run pip install "ncclient==0.6.9"
+          else
+            poetry run pip install --upgrade "ncclient>=0.6.9"
+          fi
+          poetry run pip check
+
       - name: Pytest
         run: |
           poetry run pytest tests/unit --cov=nornir_netconf --cov-report=xml -vv
 
       - name: Upload coverage to Codecov
-        if: matrix.python-version == '3.11'
+        if: matrix.python-version == '3.11' && matrix.ncclient == 'latest'
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   integration:
-    name: Arista CEOS integration tests
+    name: Arista CEOS integration tests with ncclient ${{ matrix.ncclient }}
     runs-on: ubuntu-latest
     needs:
       - "linters"
+    strategy:
+      fail-fast: false
+      matrix:
+        ncclient: ["minimum", "latest"]
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
@@ -115,6 +130,15 @@ jobs:
           pip install "poetry==$POETRY_VERSION"
           poetry install --no-interaction
 
+      - name: Install tested ncclient version
+        run: |
+          if [ "${{ matrix.ncclient }}" = "minimum" ]; then
+            poetry run pip install "ncclient==0.6.9"
+          else
+            poetry run pip install --upgrade "ncclient>=0.6.9"
+          fi
+          poetry run pip check
+
       - name: Pytest
         env:
           SKIP_INTEGRATION_TESTS: "False"
@@ -122,6 +146,7 @@ jobs:
           poetry run pytest tests/integration/arista --cov=nornir_netconf --cov-report=xml -vv
 
       - name: Upload coverage to Codecov
+        if: matrix.ncclient == 'latest'
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
