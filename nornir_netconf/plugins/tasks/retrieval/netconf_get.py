@@ -1,6 +1,8 @@
 """NETCONF get."""
 
-from nornir.core.task import Optional, Result, Task
+from typing import Optional
+
+from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import RpcResult

@@ -1,7 +1,9 @@
 """NETCONF Schemas."""
 
+from typing import List
+
 from ncclient.operations.rpc import RPCError
-from nornir.core.task import List, Result, Task
+from nornir.core.task import Result, Task
 
 from nornir_netconf.plugins.connections import CONNECTION_NAME
 from nornir_netconf.plugins.helpers import SchemaResult, write_output
